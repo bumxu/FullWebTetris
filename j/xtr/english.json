@@ -1,0 +1,28 @@
+﻿{
+	"resumegame-mnu": "Resume game",
+	"quickgame-mnu": "New quick game",
+	"customgame-mnu": "New custom game",
+	"settings-mnu": "Settings",
+	"ranking-mnu": "Ranking",
+	"helpabout-mnu": "Help & about",
+
+	"pausegame-btt": "Pause",
+	"newgame-btt": "Restart",
+	"settings-btt": "Customize",
+	"goback-btt": "Go back",
+
+	"level-lab": "Level",
+
+	"well": "Well",
+	"candobetter": "Can do better",
+	"slow": "Slow",
+	"onemore": "One more",
+	"point": "Point",
+
+
+	"help-ttl": "Help",
+	"changelog-ttl": "Changelog",
+	"license-ttl": "License",
+	"privacy-ttl": "Privacy",
+	"about-ttl": "About"
+}

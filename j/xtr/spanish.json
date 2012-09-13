@@ -1,0 +1,21 @@
+﻿{
+	"resumegame-mnu": "Continuar juego",
+	"quickgame-mnu": "Nuevo juego rápido",
+	"customgame-mnu": "Nuevo juego personalizado",
+	"settings-mnu": "Ajustes",
+	"ranking-mnu": "Clasificación",
+	"helpabout-mnu": "Ayuda y créditos",
+
+	"pausegame-btt": "Pausar",
+	"newgame-btt": "Reiniciar",
+	"settings-btt": "Personalizar",
+	"goback-btt": "Regresar",
+
+	"level-lab": "Nivel",
+
+	"help-ttl": "Ayuda",
+	"changelog-ttl": "Versiones",
+	"license-ttl": "Licencia",
+	"privacy-ttl": "Privacidad",
+	"about-ttl": "Acerca de"
+}
