@@ -29,12 +29,12 @@
 	</script>
 </head>
 <body>
-	<div id="foot">
-		Full Web Tetris - 2.1.9
-		<div id="right">&copy; 2012 - bumxu.com</div>
-	</div>
-
 	<div id="layout">
+		<div id="foot">
+			Full Web Tetris - 2.1.9
+			<div id="right">&copy; 2012 - bumxu.com</div>
+		</div>
+
 		<div class="activity" id="main">
 			<div id="title"></div>
 			<div id="line"></div>
@@ -47,6 +47,8 @@
 				<span class="xtr-4" onclick="$ui.changeLanguage(4)">Deutsch</span> - 
 			</div>
 
+			<div id="sight"></div>
+			
 			<div id="selector">
 				<div id="tiles">
 					<div onclick="$ui.action(1)" id="t1" class="tile xtr" data-xtr="quickgame-mnu">Start new quick game</div>
@@ -57,8 +59,6 @@
 					<div class="clear"></div>
 				</div>
 			</div>
-
-			<div id="sight"></div>
 		</div>
 
 		<div class="activity" id="game">
@@ -194,7 +194,7 @@
 	<script type="text/javascript" src="j/jQ-i18n.js"></script>
 
 	<script type="text/javascript" src="j/ui.js"></script>
-	<script type="text/javascript" src="j/tetris.js"></script>
+	<!--script type="text/javascript" src="j/tetris.js"></script-->
 	
 	<script type="text/javascript">
 		$.backstretch("g/wall.jpg", { 'speed': 100 });
