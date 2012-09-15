@@ -1,202 +1,203 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Full Web Tetris</title>
-    <meta charset="utf-8">
-    <meta name="author" content="Juande Martos">
+	<title>Full Web Tetris</title>
 
-    <link rel="stylesheet" type="text/css" href="http://bumxu.com/s/base.css">
-    <link rel="stylesheet" type="text/css" href="s/main.css">
-    <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
-    <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+	<meta charset="utf-8">
+	<meta name="author" content="Juande Martos">
 
-    <script src="http://bumxu.com/j/jquery.js" type="text/javascript"></script>
-    <!--script src="j/jquery-ui-drag.js" type="text/javascript"></!--script-->
-    <script src="j/jquery-backstretch.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="s/main.css">
 
-    <script type="text/javascript">
+	<link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+	<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-27625873-1']);
-        _gaq.push(['_trackPageview']);
+	<script type="text/javascript" src="j/jQuery.js" ></script>
+	<script type="text/javascript" src="j/jQ-backstretch.js" ></script>
 
-        (function () {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
+	<script type="text/javascript">
 
-    </script>
+	   /* var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-27625873-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function () {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();*/
+
+	</script>
 </head>
 <body>
-    <div id="layout" class="screener fwt">
-        <div id="foot">Full Web Tetris - 2.1.9 <div class="right">&copy; 2012 - bumxu.com</div></div>
+	<div id="foot">
+		Full Web Tetris - 2.1.9
+		<div id="right">&copy; 2012 - bumxu.com</div>
+	</div>
 
-        <div id="game-title" class="board">
-            <div id="bigttl"></div>
-            <div id="sep"></div>
-            <div id="lang">
-                - 
-                <span class="xtr-0" onclick="$ui.changeLanguage(0)">English</span> - 
-                <span class="xtr-1" onclick="$ui.changeLanguage(1)">Español</span> - 
-                <span class="xtr-2" onclick="$ui.changeLanguage(2)">Français</span> - 
-                <span class="xtr-3" onclick="$ui.changeLanguage(3)">Italiano</span> - 
-                <span class="xtr-4" onclick="$ui.changeLanguage(4)">Deutsch</span> - 
-            </div>
+	<div id="layout">
+		<div class="activity" id="main">
+			<div id="title"></div>
+			<div id="line"></div>
+			<div id="languages">
+				- 
+				<span class="xtr-0" onclick="$ui.changeLanguage(0)">English</span> - 
+				<span class="xtr-1" onclick="$ui.changeLanguage(1)">Español</span> - 
+				<span class="xtr-2" onclick="$ui.changeLanguage(2)">Français</span> - 
+				<span class="xtr-3" onclick="$ui.changeLanguage(3)">Italiano</span> - 
+				<span class="xtr-4" onclick="$ui.changeLanguage(4)">Deutsch</span> - 
+			</div>
 
-            <div id="target"></div>
-            <div id="selector">
-                <div id="ui-tiles">
-                    <div onclick="$ui.action(1)" id="t1" class="ui-tile xtr" data-xtr="quickgame-mnu">Start new quick game</div>
-                    <div onclick="$ui.action(2)" id="t2" class="ui-tile xtr" data-xtr="customgame-mnu">New custom game</div>
-                    <div onclick="$ui.action(3)" id="t3" class="ui-tile xtr" data-xtr="settings-mnu">Settings</div>
-                    <div onclick="$ui.action(4)" id="t4" class="ui-tile xtr" data-xtr="ranking-mnu">Ranking</div>
-                    <div onclick="$ui.action(5)" id="t5" class="ui-tile xtr" data-xtr="helpabout-mnu">Help & About</div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-        </div>
+			<div id="selector">
+				<div id="tiles">
+					<div onclick="$ui.action(1)" id="t1" class="tile xtr" data-xtr="quickgame-mnu">Start new quick game</div>
+					<div onclick="$ui.action(2)" id="t2" class="tile xtr" data-xtr="customgame-mnu">New custom game</div>
+					<div onclick="$ui.action(3)" id="t3" class="tile xtr" data-xtr="settings-mnu">Settings</div>
+					<div onclick="$ui.action(4)" id="t4" class="tile xtr" data-xtr="ranking-mnu">Ranking</div>
+					<div onclick="$ui.action(5)" id="t5" class="tile xtr" data-xtr="helpabout-mnu">Help & About</div>
+					<div class="clear"></div>
+				</div>
+			</div>
 
-        <div id="game-board" class="board">
-            <!--a class="xtr goback" href="javascript:$ui.goBack()" data-xtr="goback-ttl">Go back</!--a-->
+			<div id="sight"></div>
+		</div>
 
-            <div id="next">
-                 <div id="l1"></div>
-                <div id="score"></div>
-                <div id="l2"></div>
-                <div id="level"></div>
-            </div>
-            <div id="paus" onclick="$fwt.pause(1)" class="gbtt xtr" data-xtr="pausegame-btt"></div>
-            <div id="newg" onclick="$fwt.newGame()" class="gbtt xtr" data-xtr="newgame-btt"></div>
-            <div id="sett" class="gbtt xtrf" data-xtrf="settings-btt"></div>
-            <div id="back" onclick="$ui.goBack()" class="gbtt xtr" data-xtr="goback-btt"></div>
-            <div id="adGame">
-                <script type="text/javascript"><!--
-                    google_ad_client = "ca-pub-6611676208266769";
-                    /* Full Web Tetris 2.2+ */
-                    google_ad_slot = "6868645547";
-                    google_ad_width = 120;
-                    google_ad_height = 240;
-                    //-->
-                    </script>
-                    <script type="text/javascript"
-                    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-                </script>
-            </div>
-            <canvas id="canvas" width="800" height="600"></canvas>
-            <div id="ingame-options"></div>
-            <div id="osd">
+		<div class="activity" id="game">
+			<div id="next">
+				<div id="l1"></div>
+				<div id="score"></div>
+				<div id="l2"></div>
+				<div id="level"></div>
+			</div>
 
-            </div>
-        </div>
+			<div id="paus" onclick="$fwt.pause(1)" class="gbtt xtr" data-xtr="pausegame-btt"></div>
+			<div id="newg" onclick="$fwt.newGame()" class="gbtt xtr" data-xtr="newgame-btt"></div>
+			<div id="sett" class="gbtt xtrf" data-xtrf="settings-btt"></div>
+			<div id="back" onclick="$ui.goBack()" class="gbtt xtr" data-xtr="goback-btt"></div>
+			
+			<div id="adGame">
+				<script type="text/javascript"><!--
+					google_ad_client = "ca-pub-6611676208266769";
+					/* Full Web Tetris 2.2+ */
+					google_ad_slot = "6868645547";
+					google_ad_width = 120;
+					google_ad_height = 240;
+					//-->
+					</script>
+					<script type="text/javascript"
+					src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				</script>
+			</div>
 
-        <div id="game-help" class="board">
-            <a class="goback xtr" href="javascript:$ui.goBack()" data-xtr="goback-btt">Go back</a>
-            <div id="helpscroller">
+			<canvas id="canvas" width="800" height="600"></canvas>
+			<div id="osd"></div>
+		</div>
 
-                <div class="bigtitle xtr" data-xtr="help-ttl">Help</div>
-                <p>
-                    <strong>Translating and updating!!</strong><br /><br />
-                    <strong>Controls</strong><br />
-                    <span class="line">Move piece to the right <span class="tab"><strong>Right arrow | 6 num key</strong></span></span><br />
-                    <span class="line">Move piece to the left <span class="tab"><strong>Left arrow | 4 num key</strong></span></span><br />
-                    <span class="line">Rotate piece counterclockwise (default) <span class="tab"><strong>Z key | Up arrow* | 8 num key*</strong></span></span><br />
-                    <span class="line">Rotate piece clockwise <span class="tab"><strong>X key | Up arrow* | 8 num key*</strong></span></span><br />
-                    <span class="line">Speedup piece drop <span class="tab"><strong>Down key | 2 num key</strong></span></span><br />
-                    <span class="line">Direct fall <span class="tab"><strong>Spacebar | 0 num key</strong></span></span><br />
-                    <span class="line">Pause the game <span class="tab"><strong>P key | 7 num key</strong></span></span><br />
-                    <span class="line">Restart game o start a new quick game <span class="tab"><strong>N key | 9 num key</strong></span></span><br />
-                    <br />
-                    * <em>According to settings</em>
-                </p>
+		<div class="activity" id="help">
+			<div id="helpscroller">
 
-                <div class="bigtitle xtr" data-xtr="changelog-ttl">Changelog</div>
-                <p>
-                    <strong>Version 2.2.0</strong><br />
-                    Updating...<br />
-                    <br />
-                    <strong>Version 2.1.0</strong><br />
-                    Game box size variable.<br />
-                    Skill statistics.<br />
-                    Sound.<br />
-                    <br />
-                    <strong>Version 2.0.8</strong><br />
-                    Released English documentation.<br />
-                    Images perloader added.<br />
-                    "New game" without reload the application & keyboard shourcut.<br />
-                    Conversion to OOP.<br />
-                    Autoresize improved.<br />
-                    Direct fall of pieces with the spacebar key.<br />
-                    OSD.<br />
-                    <br />
-                    <strong>Version 2.0.6</strong><br />
-                    Next piece box enabled.<br />
-                    <br />
-                    <strong>Version 2.0.5</strong><br />
-                    New score system enabled.<br />
-                    Fixed minor bugs with the keyboard control.<br />
-                    Released Spanish documentation.<br />
-                    <br />
-                    <strong>Version 2</strong><br />
-                    Programmed from scratch.<br />
-                    Highly optimized.<br />
-                    Completely integrated with site interface.<br />
-                    Core separated from rendering, optimized for HTML5 but with classic mode available.<br />
-                    In studing failures of the previous version.<br />
-                    Interface an game board dinamicaly adaptable whit resolution up to 1000 x 600 (netbooks, tablets).
-                <br />
-                    <br />
-                    <strong>Future updates</strong><br />
-                    Updating...
-                    <!--Skill statistics.<br />
-                    Offline disponibility.<br />
-                    Personalised game modes.<br />
-                    Adjustable levels.<br />
-                    More pieces (increased difficulty).<br />
-                    Touch / mouse controls.<br />
-                    Special pieces (soon new).--><br />
-                    <br />
-                    <strong>Fails & faults</strong><br />
-                    Updating...
-                    <!--Animaciones no disponibles.<br />
-                    Se ha detectado que pausar el juego no funciona adecuadamente en Internet Explorer.<br />
-                    Con el juego acabado la tecla de acelerar sigue funcionando XD<br /-->
-                </p>
+				<div class="bigtitle xtr" data-xtr="help-ttl">Help</div>
+				<p>
+					<strong>Translating and updating!!</strong><br /><br />
+					<strong>Controls</strong><br />
+					<span class="line">Move piece to the right <span class="tab"><strong>Right arrow | 6 num key</strong></span></span><br />
+					<span class="line">Move piece to the left <span class="tab"><strong>Left arrow | 4 num key</strong></span></span><br />
+					<span class="line">Rotate piece counterclockwise (default) <span class="tab"><strong>Z key | Up arrow* | 8 num key*</strong></span></span><br />
+					<span class="line">Rotate piece clockwise <span class="tab"><strong>X key | Up arrow* | 8 num key*</strong></span></span><br />
+					<span class="line">Speedup piece drop <span class="tab"><strong>Down key | 2 num key</strong></span></span><br />
+					<span class="line">Direct fall <span class="tab"><strong>Spacebar | 0 num key</strong></span></span><br />
+					<span class="line">Pause the game <span class="tab"><strong>P key | 7 num key</strong></span></span><br />
+					<span class="line">Restart game o start a new quick game <span class="tab"><strong>N key | 9 num key</strong></span></span><br />
+					<br />
+					* <em>According to settings</em>
+				</p>
 
-                <div class="bigtitle xtr" data-xtr="license-ttl">License</div>
-                <p>Updating...</p>
+				<div class="bigtitle xtr" data-xtr="changelog-ttl">Changelog</div>
+				<p>
+					<strong>Version 2.2.0</strong><br />
+					Updating...<br />
+					<br />
+					<strong>Version 2.1.0</strong><br />
+					Game box size variable.<br />
+					Skill statistics.<br />
+					Sound.<br />
+					<br />
+					<strong>Version 2.0.8</strong><br />
+					Released English documentation.<br />
+					Images perloader added.<br />
+					"New game" without reload the application & keyboard shourcut.<br />
+					Conversion to OOP.<br />
+					Autoresize improved.<br />
+					Direct fall of pieces with the spacebar key.<br />
+					OSD.<br />
+					<br />
+					<strong>Version 2.0.6</strong><br />
+					Next piece box enabled.<br />
+					<br />
+					<strong>Version 2.0.5</strong><br />
+					New score system enabled.<br />
+					Fixed minor bugs with the keyboard control.<br />
+					Released Spanish documentation.<br />
+					<br />
+					<strong>Version 2</strong><br />
+					Programmed from scratch.<br />
+					Highly optimized.<br />
+					Completely integrated with site interface.<br />
+					Core separated from rendering, optimized for HTML5 but with classic mode available.<br />
+					In studing failures of the previous version.<br />
+					Interface an game board dinamicaly adaptable whit resolution up to 1000 x 600 (netbooks, tablets).
+				<br />
+					<br />
+					<strong>Future updates</strong><br />
+					Updating...
+					<!--Skill statistics.<br />
+					Offline disponibility.<br />
+					Personalised game modes.<br />
+					Adjustable levels.<br />
+					More pieces (increased difficulty).<br />
+					Touch / mouse controls.<br />
+					Special pieces (soon new).--><br />
+					<br />
+					<strong>Fails & faults</strong><br />
+					Updating...
+					<!--Animaciones no disponibles.<br />
+					Se ha detectado que pausar el juego no funciona adecuadamente en Internet Explorer.<br />
+					Con el juego acabado la tecla de acelerar sigue funcionando XD<br /-->
+				</p>
 
-                <div class="bigtitle xtr" data-xtr="privacy-ttl">Privacy</div>
-                <p>Updating...</p>
+				<div class="bigtitle xtr" data-xtr="license-ttl">License</div>
+				<p>Updating...</p>
 
-                <div class="bigtitle xtr" data-xtr="about-ttl">About</div>
-                <p>
-                    <strong>Credits</strong><br />
-                    <span class="line">Progamming, design and documentation <span class="tab"><strong>Juande Martos</strong></span></span><br />
-                    <span class="line">Performance testing and extreme ideas <span class="tab"><strong>Juanjo Riado</strong></span></span><br />
-                    <span class="line">Head music <span class="tab"><strong>Mic, Tetris</strong></span></span><br />
-                    <span class="line">Other music <span class="tab"><strong>Jamendo.com</strong></span></span><br />
-                    <br />
-                    <strong>With the help of...</strong><br />
-                    <span class="line">Speeding up user interface <span class="tab"><strong>jQuery</strong></span></span><br />
-                    <span class="line">Scores reference<span class="tab"><strong>http://goo.gl/sJAff</strong></span></span><br />
-                </p>
-            </div>
-        </div>
+				<div class="bigtitle xtr" data-xtr="privacy-ttl">Privacy</div>
+				<p>Updating...</p>
 
-    </div>
+				<div class="bigtitle xtr" data-xtr="about-ttl">About</div>
+				<p>
+					<strong>Credits</strong><br />
+					<span class="line">Progamming, design and documentation <span class="tab"><strong>Juande Martos</strong></span></span><br />
+					<span class="line">Performance testing and extreme ideas <span class="tab"><strong>Juanjo Riado</strong></span></span><br />
+					<span class="line">Head music <span class="tab"><strong>Mic, Tetris</strong></span></span><br />
+					<span class="line">Other music <span class="tab"><strong>Jamendo.com</strong></span></span><br />
+					<br />
+					<strong>With the help of...</strong><br />
+					<span class="line">Speeding up user interface <span class="tab"><strong>jQuery</strong></span></span><br />
+					<span class="line">Scores reference<span class="tab"><strong>http://goo.gl/sJAff</strong></span></span><br />
+				</p>
+			</div>
+		</div>
+	</div>
 
-    <!--audio id="audio" autoplay="autoplay">
-        <source src="m/mic.mp3">
-    </audio-->
+	<!--audio id="audio" autoplay="autoplay">
+		<source src="m/mic.mp3">
+	</audio-->
 
-    <script src="j/jquery-json.js" type="text/javascript"></script>
-    <script src="j/jquery-i18n.js" type="text/javascript"></script>
-    <script src="j/ui.js?x=5" type="text/javascript"></script>
-    <script src="j/tetris.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $.backstretch("g/wall.jpg", { 'speed': 100 });
-    </script>
+	<script type="text/javascript" src="j/jQ-json.js"></script>
+	<script type="text/javascript" src="j/jQ-i18n.js"></script>
+
+	<script type="text/javascript" src="j/ui.js"></script>
+	<script type="text/javascript" src="j/tetris.js"></script>
+	
+	<script type="text/javascript">
+		$.backstretch("g/wall.jpg", { 'speed': 100 });
+	</script>
 </body>
 </html>

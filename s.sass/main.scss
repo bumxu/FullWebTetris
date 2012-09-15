@@ -1,0 +1,382 @@
+@import "compass";
+
+* {
+	position: relative;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+#layout {
+	bottom: 0;
+	font-family: Calibri, Helvetica, Arial, sans-serif;
+	left: 0;
+	min-height: 600px;
+	min-width: 900px;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	top: 0;
+	
+	.activity {
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-webkit-user-select: none;
+		display: none;
+		left: 6px;
+		margin-left: 110%;
+		overflow: hidden;
+		position: absolute;
+		top: 6px;
+
+		&#main {
+			display: block;
+			margin-left: 0;
+
+			#title {
+				background: url(../g/title.png) center no-repeat;
+				height: 80px;
+				left: 50%;
+				margin-left: -250px;
+				margin-top: -40px;
+				position: absolute;
+				top: 20%;
+				width: 500px;
+			}
+
+			#line {
+				background: rgba(255,255,255,0.2);
+				height: 1px;
+				left: 50%;
+				margin-left: -325px;
+				margin-top: 45px;
+				position: absolute;
+				top: 20%;
+				width: 650px;
+			}
+
+			#languages {
+				color: rgba(255,255,255,0.3);
+				font-size: 13px;
+				font-weight: bold;
+				left: 50%;
+				letter-spacing: 1px;
+				margin-left: -325px;
+				margin-top: 55px;
+				position: absolute;
+				text-align: center;
+				top: 20%;
+				width: 650px;
+				word-spacing: 2px;
+
+				span {
+					-moz-transition: all 0.15s linear 0s;
+					-o-transition: all 0.15s linear 0s;
+					-webkit-transition: all 0.15s linear 0s;
+					color: rgba(255,255,255,0.25);
+					cursor: pointer;
+					transition: all 0.15s linear 0s;
+
+					&:hover {
+						color: rgba(255,255,255,0.5);
+					}
+
+					&:selected {
+						color: rgba(255,255,255,0.6);
+					}
+				}
+			}
+
+			#sight {
+				border-radius: 2px;
+				border: 5px solid rgba(255, 255, 255, 0.2);
+				box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+				height: 220px;
+				left: 50%;
+				margin-left: -115px;
+				margin-top: -115px;
+				position: absolute;
+				top: 62%;
+				width: 220px;
+				z-index: 2;
+			}
+
+			#selector {
+				height: 220px;
+				margin-top: -110px;
+				position: absolute;
+				top: 62%;
+				width: 100%;
+
+				#tiles {
+					height: 220px;
+					left: 0;
+					overflow: visible;
+					position: absolute;
+					right: 0;
+
+					.tile {
+						-moz-transition: all 0.3s linear 0s;
+						-o-transition: all 0.3s linear 0s;
+						-webkit-transition: all 0.3s linear 0s;
+						background-color: rgba(255, 255, 255, 0.1);
+						background-position: center;
+						background-repeat: no-repeat;
+						border-radius: 1px;
+						color: rgba(255, 255, 255, 0.2);
+						cursor: pointer;
+						display: none;
+						font-size: 16px;
+						height: 200px;
+						left: 50%;
+						line-height: 346px;
+						position: absolute;
+						text-align: center;
+						top: 10px;
+						transition: all 0.3s linear 0s;
+						width: 200px;
+
+						&#t0 {
+							background-image: url(../g/sv.png);
+						}
+						&#t1 {
+							background-image: url(../g/ng.png);
+						}
+						&#t2 {
+							background-image: url(../g/ncg.png);
+						}
+						&#t3 {
+							background-image: url(../g/set.png);
+						}
+						&#t4 {
+							background-image: url(../g/rank.png);
+						}
+						&#t5 {
+							background-image: url(../g/help.png);
+						}
+					}
+				}
+			}
+		}
+
+		&#game{
+
+			#next {
+				background: -moz-linear-gradient(top, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.2) 1%, rgba(255,255,255,0.2) 57%, rgba(255,255,255,0.35) 100%);
+				background: -ms-linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.2) 1%,rgba(255,255,255,0.2) 57%,rgba(255,255,255,0.35) 100%);
+				background: -o-linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.2) 1%,rgba(255,255,255,0.2) 57%,rgba(255,255,255,0.35) 100%);
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.2)), color-stop(1%,rgba(255,255,255,0.2)), color-stop(57%,rgba(255,255,255,0.2)), color-stop(100%,rgba(255,255,255,0.35)));
+				background: -webkit-linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.2) 1%,rgba(255,255,255,0.2) 57%,rgba(255,255,255,0.35) 100%);
+				background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.2) 1%,rgba(255,255,255,0.2) 57%,rgba(255,255,255,0.35) 100%);
+				border-radius: 1px;
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#59ffffff',GradientType=0 );
+				height: 180px;
+				left: 0;
+				overflow: hidden;
+				position: absolute;
+				top: 0;
+				width: 120px;
+					
+				.newNext {
+					left: -120px;
+					opacity: 0;
+					position: absolute;
+					top: 0;
+				}
+
+				#score {
+					color: rgba(255,255,255,0.6);
+					font-size: 15px;
+					height: 20px;
+					left: 5px;
+					line-height: 20px;
+					position: absolute;
+					text-align: center;
+					text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+					top: 153px;
+					width: 110px;
+				}
+
+				#level {
+					position: absolute;
+					top: 128px;
+					width: 110px;
+					line-height: 20px;
+					font-size: 13px;
+					text-align: center;
+					color: rgba(255,255,255,0.6);
+					height: 20px;
+					overflow: visible;
+					left: 5px;
+					text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+				}
+
+				#l1 {
+					position: absolute;
+					top: 124px;
+					width: 110px;
+					background: rgba(255, 255, 255, 0.2);
+					height: 1px;
+					box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+					left: 5px;
+				}
+
+				#l2 {
+					position: absolute;
+					top: 150px;
+					width: 110px;
+					background: rgba(255, 255, 255, 0.2);
+					height: 1px;
+					box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+					left: 5px;
+				}
+			}
+
+			.button {
+				-moz-transition: all 0.15s linear 0s;
+				-o-transition: all 0.15s linear 0s;
+				-webkit-transition: all 0.15s linear 0s;
+				background: rgba(255, 255, 255, 0.3);
+				border-radius: 1px;
+				color: rgba(255,255,255,0.5);
+				font-size: 14px;
+				height: 22px;
+				left: 0;
+				line-height: 22px;
+				position: absolute;
+				text-align: center;
+				transition: all 0.15s linear 0s;
+				width: 120px;
+
+				&:hover {
+					background: rgba(255, 255, 255, 0.5);
+					color: rgba(255,255,255,0.6);
+					cursor: pointer;
+					text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+				}
+
+				#paus {
+					top: 184px;
+				}
+
+				#newg {
+					top: 208px;
+				}
+
+				#sett {
+					background: rgba(255, 255, 255, 0.15);
+					top: 232px;
+
+					&:hover {
+						background: rgba(255, 255, 255, 0.15);
+						cursor: default;
+					}
+				}
+
+				#back {
+					top: 258px;
+				}
+			}
+
+			#adGame {
+				position: absolute;
+				width: 120px;
+				height: 240px;
+				bottom: 0;
+				left: 0;
+			}
+
+			#canvas {
+				/*box-shadow: 0 0 1px rgba(0, 0, 0, 0.6);*/
+				background: rgba(255, 255, 255, 0.2);
+				border-radius: 1px;
+				position: absolute;
+			}
+
+			#osd {
+				color: rgba(255, 255, 255, 0.8);
+				font-size: 17px;
+				position: absolute;
+				text-align: center;
+				text-shadow: 0 0 3px rgba(0,0,0,1);
+				
+				div {
+					opacity: 0;
+					position: absolute;
+					text-align: center;
+					width: 500px;
+				}
+
+				.line {
+					font-size: 22px;
+				}
+			}
+		}
+
+		&#help{
+
+			#helpscroller {
+				bottom: 0;
+				left: 20px;
+				max-width: 850px;
+				overflow: auto;
+				padding: 0 0 50px 0;
+				position: absolute;
+				right: 140px;
+				top: 0;
+			}
+
+			.bigtitle {
+				margin: 20px 0 5px 10px;
+				font-size: 38px;
+				color: rgba(255,255,255,0.7);
+			}
+
+			p {
+				margin: 0 0 5px 30px;
+				font-size: 15px;
+				color: rgba(255,255,255,0.5);
+
+				strong {
+					margin-left: -7px;
+					font-size: 16px;
+				}
+
+				.line {
+					width: 94%;
+					display: inline-block;
+				}
+
+				.tab {
+					position: absolute;
+					left: 360px;
+				}
+			}
+		}
+	}
+}
+
+#foot {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 20px;
+	line-height: 20px;
+	font-size: 12px;
+	padding: 0 6px;
+	color: rgba(255,255,255,0.4);
+	background: rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+
+	#right {
+		position: absolute;
+		right: 6px;
+		top: 0;
+		line-height: 20px;
+	}
+}
