@@ -5,6 +5,9 @@
 	var _languages = ["english", "spanish", "french", "italian", "german"];
 
 	var run = function() {
+		// Wall
+		$.backstretch("g/wall.jpg", { 'speed': 100 });
+
 		// Any game in progress?
 		gameInProgress = false;
 		// if(juego guardado...){
@@ -19,15 +22,38 @@
 		}
 
 		// Set user language or more appropriate
-		language = localStorage.xtr;
-		if(!(language > -1 && language < _languages.length))
-			language = userLanguage();
-		translate();
+		setLanguage();
 
+		// Initialice events
 		setEvents();
 	}
 
-	var userLanguage = function () {
+
+	var translate = function () {
+		$('#languages span').removeClass('selected');
+		$($('#languages span')[language]).addClass('selected');
+
+		$.getJSON('j/xtr/' + _languages[language] + '.json', function (data) {
+			$.i18n.setDictionary(data);
+
+			$('.xtr').map(function () {
+				$(this).html($.i18n._($(this).attr('data-xtr')));
+			});
+		});
+	}
+	var setLanguage = function(n){
+		if(typeof n === "undefined" || isNaN(n)){
+			if(localStorage.xtr && !isNaN(localStorage.xtr) && localStorage.xtr > -1 && localStorage.xtr < _languages.length)
+				n = localStorage.xtr;
+			else
+				n = browserLanguage();
+		}
+
+		language = n;
+		localStorage.xtr = language;
+		translate();
+	}
+	var browserLanguage = function () {
 		userLang = (navigator.language) ? navigator.language : navigator.userLanguage;
 		switch (userLang) {
 			case "es":
@@ -43,25 +69,7 @@
 		}
 		return 0;
 	}
-	var translate = function () {
-		$('#languages span').removeClass('selected');
-		$('.xtr-' + language).addClass('selected');
 
-		$.getJSON('j/xtr/' + _languages[language] + '.json', function (data) {
-			$.i18n.setDictionary(data);
-
-			$('.xtr').map(function () {
-				$(this).html($.i18n._($(this).attr('data-xtr')));
-			});
-		});
-	}
-	var changeLanguage = function(n){
-		if (n > -1 && n < _languages.length) {
-			language = n;
-			localStorage.xtr = language;
-			translate();
-		}
-	}
 
 	var mousewheel = function (e) {
 		factor = e.wheelDelta || (e.detail * -1);
@@ -130,6 +138,7 @@
 		$('#tiles .tile').fadeIn(100);
 	}
 
+
 	var action = function(id){
 		switch(id){
 			case 0:
@@ -142,13 +151,13 @@
 					$fwt.pause(0);
 				});
 			break;
-			case 1:
-				$fwt.setEvents();
+			default:
+				fwt.setEvents();
 				$('.activity#game').show().animate({ 'margin-left': 0 }, 500);
 				$('.activity#main').animate({ 'margin-left': '-110%' }, 500, function () {
 					$(this).hide();
 					gameInProgress = true;
-					$fwt.newGame();
+					fwt.newGame();
 				});
 			break;
 			/*case 2:
@@ -164,12 +173,11 @@
 	}
 
 
-
 	// Public methods
 	this.action = action;
-	this.changeLanguage = changeLanguage;
+	this.setLanguage = setLanguage;
 
 	run();
 }
 
-var $ui = new ui();
+var ui = new ui();
