@@ -15,7 +15,7 @@ html, body {
 	bottom: 0;
 	font-family: Calibri, Helvetica, Arial, sans-serif;
 	left: 0;
-	min-height: 600px;
+	min-height: 500px;
 	min-width: 900px;
 	overflow: hidden;
 	position: absolute;
@@ -44,7 +44,7 @@ html, body {
 				margin-left: -250px;
 				margin-top: -40px;
 				position: absolute;
-				top: 20%;
+				top: 19%;
 				width: 500px;
 			}
 
@@ -55,7 +55,7 @@ html, body {
 				margin-left: -325px;
 				margin-top: 45px;
 				position: absolute;
-				top: 20%;
+				top: 19%;
 				width: 650px;
 			}
 
@@ -69,7 +69,7 @@ html, body {
 				margin-top: 55px;
 				position: absolute;
 				text-align: center;
-				top: 20%;
+				top: 19%;
 				width: 650px;
 				word-spacing: 2px;
 
@@ -98,17 +98,17 @@ html, body {
 				height: 220px;
 				left: 50%;
 				margin-left: -115px;
-				margin-top: -115px;
+				margin-top: -105px;
 				position: absolute;
-				top: 62%;
+				top: 63%;
 				width: 220px;
 			}
 
 			#selector {
 				height: 220px;
-				margin-top: -110px;
+				margin-top: -100px;
 				position: absolute;
-				top: 62%;
+				top: 63%;
 				width: 100%;
 
 				#tiles {
@@ -140,22 +140,22 @@ html, body {
 						width: 200px;
 
 						&#t0 {
-							background-image: url(../g/sv.png);
+							background-image: url(../g/tile-savedGame.png);
 						}
 						&#t1 {
-							background-image: url(../g/ng.png);
+							background-image: url(../g/tile-newGame.png);
 						}
 						&#t2 {
-							background-image: url(../g/ncg.png);
+							background-image: url(../g/tile-newCustomGame.png);
 						}
 						&#t3 {
-							background-image: url(../g/set.png);
+							background-image: url(../g/tile-settings.png);
 						}
 						&#t4 {
-							background-image: url(../g/rank.png);
+							background-image: url(../g/tile-rankings.png);
 						}
 						&#t5 {
-							background-image: url(../g/help.png);
+							background-image: url(../g/tile-help.png);
 						}
 					}
 				}
@@ -172,6 +172,7 @@ html, body {
 				background: -webkit-linear-gradient(top, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.2) 1%,rgba(255,255,255,0.2) 57%,rgba(255,255,255,0.35) 100%);
 				background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.2) 1%,rgba(255,255,255,0.2) 57%,rgba(255,255,255,0.35) 100%);
 				border-radius: 1px;
+				cursor: default;
 				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#59ffffff',GradientType=0 );
 				height: 180px;
 				left: 0;
@@ -258,15 +259,15 @@ html, body {
 					text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 				}
 
-				#paus {
+				&#paus {
 					top: 184px;
 				}
 
-				#newg {
+				&#newg {
 					top: 208px;
 				}
 
-				#sett {
+				&#sett {
 					background: rgba(255, 255, 255, 0.15);
 					top: 232px;
 
@@ -276,7 +277,7 @@ html, body {
 					}
 				}
 
-				#back {
+				&#back {
 					top: 258px;
 				}
 			}
@@ -290,7 +291,6 @@ html, body {
 			}
 
 			#canvas {
-				/*box-shadow: 0 0 1px rgba(0, 0, 0, 0.6);*/
 				background: rgba(255, 255, 255, 0.2);
 				border-radius: 1px;
 				position: absolute;
@@ -363,6 +363,7 @@ html, body {
 		bottom: 0;
 		box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
 		color: rgba(255,255,255,0.4);
+		cursor: default;
 		font-size: 12px;
 		height: 20px;
 		left: 0;
@@ -376,6 +377,20 @@ html, body {
 			position: absolute;
 			right: 6px;
 			top: 0;
+
+			a{
+				-moz-transition: all 0.15s linear 0s;
+				-o-transition: all 0.15s linear 0s;
+				-webkit-transition: all 0.15s linear 0s;
+				color: rgba(255,255,255,0.3);
+				cursor: pointer;
+				text-decoration: none;
+				transition: all 0.15s linear 0s;
+
+				&:hover{
+					color: rgba(255,255,255,0.5);
+				}
+			}
 		}
 	}
 }

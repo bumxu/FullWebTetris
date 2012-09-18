@@ -576,8 +576,10 @@
 
         fieldDistance = ($(".activity#game").innerWidth() - 125 - wPxC) / 2;
 
-        $(".activity#game canvas, .activity#game #osd").css("top", ($(".activity#game").innerHeight() - hPxC) / 2);
-        $(".activity#game canvas, .activity#game #osd").css("left", ($(".activity#game").innerWidth() - 125 - wPxC) / 2 + 125);
+        $(canvas).css("top", ($(".activity#game").innerHeight() - hPxC) / 2);
+        $(canvas).css("left", ($(".activity#game").innerWidth() - 125 - wPxC) / 2 + 125);
+        $(".activity#game #osd").css("top", ($(".activity#game").innerHeight() - hPxC) / 2);
+        $(".activity#game #osd").css("left", ($(".activity#game").innerWidth() - 125 - wPxC) / 2 + 125);
 
         repaint();
     }

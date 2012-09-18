@@ -1,0 +1,38 @@
+﻿{
+  "version": "2.1.9.6",
+  "name": "Tetris",
+  "description": "An awesome tetris game for the moments when you need to kill the boredom.",
+  "icons": {
+    "16": "/_mozilla/icon_16.png",
+    "128": "/_mozilla/icon_128.png"
+  },
+  "developer": {
+    "name": "Juande Martos",
+    "url": "http://www.bumxu.com"
+  },
+  "installs_allowed_from": ["*"],
+  "locales": {
+    "en": {
+      "description": "An awesome tetris game for the moments when you need to kill the boredom."
+    },
+    "es": {
+      "description": "Un colorido juego de tetris para los momentos en los que necesitas matar el aburrimiento."
+    },
+	"es_419": {
+      "description": "Un colorido juego de tetris para los momentos en los que necesitas matar el aburrimiento."
+    },
+	"ca": {
+      "description": "Un colorit joc de tetris per als moments en què necessites matar l'avorriment."
+    },
+	"fr": {
+      "description": "Un grand jeu de Tetris pour les fois où vous devez tuer l'ennui."
+    },
+	"it": {
+      "description": "Un fantastico gioco tetris per i momenti in cui dovete uccidere la noia."
+    },
+	"de": {
+      "description": "Ein eindrucksvoll Tetris spiel für zeiten wo sie du benötigen töten die langeweile."
+    }
+  },
+  "default_locale": "en"
+}
