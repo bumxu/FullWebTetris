@@ -54,7 +54,7 @@
 					<div onclick="ui.action(1)" id="t1" class="tile xtr" data-xtr="quickgame-mnu">Start new quick game</div>
 					<div onclick="ui.action(2)" id="t2" class="tile xtr" data-xtr="customgame-mnu">New custom game</div>
 					<div onclick="ui.action(3)" id="t3" class="tile xtr" data-xtr="settings-mnu">Settings</div>
-					<div onclick="ui.action(4)" id="t4" class="tile xtr" data-xtr="ranking-mnu">Ranking</div>
+					<!--div onclick="ui.action(4)" id="t4" class="tile xtr" data-xtr="ranking-mnu">Ranking</div-->
 					<div onclick="ui.action(5)" id="t5" class="tile xtr" data-xtr="helpabout-mnu">Help & About</div>
 				</div>
 			</div>
@@ -68,10 +68,8 @@
 				<div id="level"></div>
 			</div>
 
-			<div class="button xtr" id="paus" onclick="fwt.pause(1)" data-xtr="pausegame-btt"></div>
-			<div class="button xtr" id="newg" onclick="fwt.newGame()" data-xtr="newgame-btt"></div>
 			<div class="button xtr" id="sett" data-xtr="settings-btt"></div>
-			<div class="button xtr" id="back" onclick="$ui.goBack()" data-xtr="goback-btt"></div>
+			<div class="button xtr" id="back" onclick="ui.action(6)" data-xtr="goback-btt"></div>
 			
 			<div id="adGame">
 				<script type="text/javascript"><!--
@@ -89,6 +87,12 @@
 
 			<canvas id="canvas" width="800" height="600"></canvas>
 			<div id="osd"></div>
+		</div>
+
+		<div class="activity" id="settings">
+			<h1>ESTAS EN SETTINGS</h1>
+			<div class="button xtr" id="back" onclick="ui.action(6)" data-xtr="goback-btt"></div>
+			
 		</div>
 
 		<div class="activity" id="help">

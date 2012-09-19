@@ -17,21 +17,16 @@
 
 	// Pieces
 	var forms = [[[1, 1, 0], [0, 1, 1]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], [[1]], [[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]], [[1, 0], [1, 1]], [[0, 1], [1, 1]]];
+	var colors = ["red", "green", "cyan", "orange", "blue", "white", "yellow"];
 	var next, current, shade;
 	var clock = 0;
 
 	// Options
 	var shadeEnabled = false;
-	var colorTheme = "iced";
+	var colorTheme = "classic";
 
 	// Graphics
-	var graphics = {iced: {}, classic: {}};
-	graphics.iced.transparent = new Image();
-	graphics.iced.transparent.src = "g/bl-block-b.png";
-	graphics.iced.opaque = new Image();
-	graphics.iced.opaque.src = "g/bl-block-a.png";
-	graphics.classic.nonImplemented = new Image();
-	graphics.classic.nonImplemented.src = "g/bl-block-X.png";	
+	var graphics = {iced: {}, classic: {o: [], t: []}};
 
 	// rAF
 	window.requestAnimFrame = (function () {
@@ -147,7 +142,8 @@
 			for (var i = 0; i < current.form[j].length; i++) {
 				if (current.form[j][i] == 1) {
 					if (current.j + j >= 0) {
-						map[current.j + j][current.i + i].mat = 1;
+						map[current.j + j][current.i + i].mat = current.mat;
+						map[current.j + j][current.i + i].col = current.col;
 					} else {
 						gameOver();
 						return false;
@@ -235,11 +231,15 @@
 
 			if (n == width) {
 				for (j_involved = current.j + j; j_involved > lastLine; j_involved--) {
-					for (i = 0; i < width; i++)
+					for (i = 0; i < width; i++){
 						map[j_involved][i].mat = map[j_involved - 1][i].mat;  // IT CAN FAIL!
+						map[j_involved][i].col = map[j_involved - 1][i].col;
+					}
 				}
-				for (i = 0; i < width; i++)
+				for (i = 0; i < width; i++){
 					map[lastLine][i].mat = 0;
+					map[lastLine][i].col = 0;
+				}
 				lastLine++;
 				j++;
 
@@ -425,8 +425,7 @@
 			for (i = 0; i < map[j].length; i++) {
 				map[j][i] = {
 					mat: 0,
-					//color : "",
-					//image : 0
+					col: 0
 				}
 			}
 		}
@@ -486,49 +485,53 @@
 	var chooseImage = {
 		current: function(){
 			if (colorTheme == "classic"){
-				return graphics.classic.nonImplemented; // Current color
+				if (gameStatus == 3)
+					return graphics.classic.o[current.col];
+				else
+					return graphics.classic.t[current.col];
 			} else {
 				if (gameStatus == 3)
-					return graphics.iced.opaque;
+					return graphics.iced.o;
 				else
-					return graphics.iced.transparent;
+					return graphics.iced.t;
 			}
 		},
 		shade: function(){
 			if (colorTheme == "classic"){
-				return graphics.classic.nonImplemented; // Shade color transparent
+				return graphics.classic.t[current.col]
 			} else {
-				return graphics.iced.transparent;
+				return graphics.iced.t;
 			}
 		},
 		next: function(){
 			if (colorTheme == "classic"){
-				return graphics.classic.nonImplemented; // Next color
+				return graphics.classic.o[next.col];
 			} else {
-				if (gameStatus == 3)
-					return graphics.iced.opaque;
-				else
-					return graphics.iced.transparent;
+				return graphics.iced.o;
 			}	
 		},
 		mapped: function(i, j){
 			if (colorTheme == "classic"){
-				return graphics.classic.nonImplemented; // Mapped tile color
+				if (gameStatus == 3)
+					return graphics.classic.o[map[j][i].col];
+				else
+					return graphics.classic.t[map[j][i].col];
 			} else {
 				if (gameStatus == 3)
-					return graphics.iced.opaque;
+					return graphics.iced.o;
 				else
-					return graphics.iced.transparent;
+					return graphics.iced.t;
 			}	
 		}
 	}
 
 	var setNextPiece = function (first) {
 		rndForm = Math.round(Math.random() * (forms.length - 1));
+		rndColor = Math.round(Math.random() * (colors.length - 1));;
 		iSource = Math.round(width / 2) - Math.round(forms[rndForm][0].length / 2);
 		jSource = forms[rndForm].length * -1;
 
-		next = { i: iSource, j: jSource, mat: 1, form: forms[rndForm] }
+		next = { i: iSource, j: jSource, mat: 1, col: rndColor, form: forms[rndForm] }
 
 		// --- //
 
@@ -667,8 +670,26 @@
 		rnd4 = ["Línea simple", "Linea doble", "Linea triple", "Eso es un tetris"];
 	}
 
-	var loader = function(callback){
-		// Not implemented
+	var loader = function(){
+		graphics.iced.o = new Image();
+		graphics.iced.o.src = "g/material/iced-o.png";
+		graphics.iced.o.onload = loadedImage;
+		graphics.iced.t = new Image();
+		graphics.iced.t.src = "g/material/iced-t.png";
+		graphics.iced.t.onload = loadedImage;
+
+		for(n = 0; n < colors.length; n++){
+			graphics.classic.o[n] = new Image();
+			graphics.classic.o[n].src = "g/material/classic-o-" + colors[n] + ".png";
+			graphics.classic.o[n].onload = loadedImage;
+			graphics.classic.t[n] = new Image();
+			graphics.classic.t[n].src = "g/material/classic-t-" + colors[n] + ".png";
+			graphics.classic.t[n].onload = loadedImage;
+		}
+	}
+
+	var loadedImage = function(){
+		console.log("Image loaded");
 	}
 
 	// Public methods
@@ -679,5 +700,6 @@
 	this.experiment =  function(){
 		return $.toJSON(map);
 	}
+	loader();
 }
 var fwt = new fwt();

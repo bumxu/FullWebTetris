@@ -144,14 +144,14 @@
 			case 0:
 				if(!gameInProgress)
 					break;
-				$fwt.setEvents();
+				fwt.setEvents();
 				$('.activity#game').show().animate({ 'margin-left': 0 }, 500);
 				$('.activity#main').animate({ 'margin-left': '-110%' }, 500, function () {
 					$(this).hide();
-					$fwt.pause(0);
+					fwt.pause(0);
 				});
 			break;
-			default:
+			case 1:
 				fwt.setEvents();
 				$('.activity#game').show().animate({ 'margin-left': 0 }, 500);
 				$('.activity#main').animate({ 'margin-left': '-110%' }, 500, function () {
@@ -160,15 +160,36 @@
 					fwt.newGame();
 				});
 			break;
-			/*case 2:
-				$fwt.setEvents();
-				$('.activity#game').show().animate({ 'margin-left': 0 }, 500);
-				$('.activity#main').animate({ 'margin-left': '-110%' }, 500, function () {
-					$(this).hide();
-					gameInProgress = true;
-					$fwt.newGame();
-				});
-			break;*/
+			case 3:
+				fwt.pause(1);
+				setEvents();
+
+				$('.activity:not(#settings)').animate({ 'margin-left': '-110%' }, 500, function() { $(this).hide(); });
+				$('.activity#settings').show().animate({ 'margin-left': 0 }, 500);
+			break;
+			case 5:
+				fwt.pause(1);
+				setEvents();
+
+				$('.activity:not(#help)').animate({ 'margin-left': '-110%' }, 500, function() { $(this).hide(); });
+				$('.activity#help').show().animate({ 'margin-left': 0 }, 500);
+			break;
+			case 6:
+				fwt.pause(1);
+				setEvents();
+
+				if (gameInProgress) {
+					if ($('#tiles #t0').length < 1)
+						$('#tiles').prepend('<div onclick="ui.action(0)" id="t0" class="tile xtr" data-xtr="resumegame-mnu">' + $.i18n._('resumegame-mnu') + '</div>');
+					if ($('#tiles #t0').length > 0) {
+						menuItem = 0;
+					}
+					adjust();
+				}
+
+				$('.activity:not(#main)').animate({ 'margin-left': '110%' }, 500, function() { $(this).hide(); });
+				$('.activity#main').show().animate({ 'margin-left': 0 }, 500);
+			break;
 		}
 	}
 
