@@ -13,7 +13,7 @@ html, body {
 
 #layout {
 	bottom: 0;
-	font-family: Calibri, Helvetica, Arial, sans-serif;
+	font-family: 'Open Sans', 'Calibri', Arial, sans-serif;
 	left: 0;
 	min-height: 500px;
 	min-width: 900px;
@@ -61,8 +61,8 @@ html, body {
 
 			#languages {
 				color: rgba(255,255,255,0.3);
-				font-size: 13px;
-				font-weight: bold;
+				font-size: 12px;
+				font-weight: 600;
 				left: 50%;
 				letter-spacing: 1px;
 				margin-left: -325px;
@@ -129,7 +129,8 @@ html, body {
 						color: rgba(255, 255, 255, 0.2);
 						cursor: pointer;
 						display: none;
-						font-size: 15px;
+						font-size: 13px;
+						font-weight: 600;
 						height: 200px;
 						left: 50%;
 						line-height: 346px;
@@ -318,7 +319,17 @@ html, body {
 
 		&#help{
 
+			#title {
+				color: rgba(255,255,255,0.7);
+				font-size: 22px;
+				left: 20px;
+				position: absolute;
+				top: 10px;
+			}
+
+
 			#helpscroller {
+				display: none;
 				bottom: 0;
 				left: 20px;
 				max-width: 850px;
@@ -329,11 +340,7 @@ html, body {
 				top: 0;
 			}
 
-			.bigtitle {
-				color: rgba(255,255,255,0.7);
-				font-size: 38px;
-				margin: 20px 0 5px 10px;
-			}
+
 
 			p {
 				color: rgba(255,255,255,0.5);
@@ -362,9 +369,10 @@ html, body {
 		background: rgba(0, 0, 0, 0.2);
 		bottom: 0;
 		box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
-		color: rgba(255,255,255,0.4);
+		color: rgba(255,255,255,0.25);
 		cursor: default;
-		font-size: 12px;
+		font-size: 11px;
+		font-weight: 600;
 		height: 20px;
 		left: 0;
 		line-height: 20px;
@@ -382,13 +390,13 @@ html, body {
 				-moz-transition: all 0.15s linear 0s;
 				-o-transition: all 0.15s linear 0s;
 				-webkit-transition: all 0.15s linear 0s;
-				color: rgba(255,255,255,0.3);
+				color: rgba(255,255,255,0.2);
 				cursor: pointer;
 				text-decoration: none;
 				transition: all 0.15s linear 0s;
 
 				&:hover{
-					color: rgba(255,255,255,0.5);
+					color: rgba(255,255,255,0.4);
 				}
 			}
 		}

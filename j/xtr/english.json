@@ -1,10 +1,10 @@
 ﻿{
 	"resumegame-mnu": "Resume game",
-	"quickgame-mnu": "New quick game",
-	"customgame-mnu": "New custom game",
+	"quickgame-mnu": "Quick game",
+	"customgame-mnu": "Custom game",
 	"settings-mnu": "Settings",
 	"ranking-mnu": "Ranking",
-	"helpabout-mnu": "Help & about",
+	"helpabout-mnu": "Assistance",
 
 	"pausegame-btt": "Pause",
 	"newgame-btt": "Restart",

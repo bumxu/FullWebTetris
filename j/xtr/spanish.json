@@ -1,10 +1,10 @@
 ﻿{
 	"resumegame-mnu": "Continuar juego",
-	"quickgame-mnu": "Nuevo juego rápido",
-	"customgame-mnu": "Nuevo juego personalizado",
+	"quickgame-mnu": "Juego rápido",
+	"customgame-mnu": "Juego personalizado",
 	"settings-mnu": "Ajustes",
 	"ranking-mnu": "Clasificación",
-	"helpabout-mnu": "Ayuda y créditos",
+	"helpabout-mnu": "Asistencia",
 
 	"pausegame-btt": "Pausar",
 	"newgame-btt": "Reiniciar",
