@@ -1,10 +1,11 @@
 ﻿{
 	"resumegame-mnu": "Reprendre la partie",
-	"quickgame-mnu": "Nouveau partie rapide",
-	"customgame-mnu": "Nouveau partie personnalisée",
-	"settings-mnu": "Paramètres",
-	"ranking-mnu": "Classification",
-	"helpabout-mnu": "Aide et crédits",
+	"savedgame-mnu": "Partie sauvegardée",
+	"newgame-mnu": "Nouveau partie",
+	"customize-mnu": "Personnaliser jeu",
+	"marks-mnu": "Réalisations",
+	"helpabout-mnu": "Assistance",
+
 
 	"pausegame-btt": "Pause",
 	"newgame-btt": "Redémarrez",

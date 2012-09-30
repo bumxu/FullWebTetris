@@ -1,31 +1,44 @@
 ﻿var ui = function () {
 	
-	var gameInProgress, menuItem, language;
+	var gameInProgress, menuItem, language, saved, theBeginLoad = 0;
 
-	var _languages = ["english", "spanish", "french", "italian", "german"];
+	var _languages = ["english", "spanish", "french", "italian", "german", "portuguese"];
+
+	// The begin!!
+	var begin = function(){
+		theBeginLoad++;
+		if(theBeginLoad == 2){
+			$.backstretch("g/wall.jpg", {'speed': 100});
+			run();
+		}
+	}
+	_w = new Image(); _w.src = "g/wall.jpg";   _w.onload = begin;
+	_l = new Image(); _l.src = "g/loader.png"; _l.onload = begin;
 
 	var run = function() {
-		// Wall
-		$.backstretch("g/wall.jpg", { 'speed': 100 });
-
 		// Any game in progress?
-		gameInProgress = false;
-		// if(juego guardado...){
-		// 	preparar...
-		// 	gameInProgress = true;
-		// }
+		try{
+			saved = $.evalJSON(localStorage.savedGame);
+
+			gameInProgress = true;
+		} catch(e) {
+			gameInProgress = false;
+		}
 
 		// Menu item selected
 		menuItem = 0;
-		if(gameInProgress){
-			menuItem = 1;
-		}
+		if(gameInProgress)
+			$('#tiles').prepend('<div onclick="ui.action(7)" id="t0" class="tile"><span class="xtr" data-xtr="savedgame-mnu">' + $.i18n._('savedgame-mnu') + '</span></div>');
 
 		// Set user language or more appropriate
 		setLanguage();
 
 		// Initialice events
 		setEvents();
+
+		// Preload graphics
+		loader.ui();
+		fwt.loadGameGraphics();
 	}
 
 
@@ -34,10 +47,15 @@
 		$($('#languages span')[language]).addClass('selected');
 
 		$.getJSON('j/xtr/' + _languages[language] + '.json', function (data) {
-			$.i18n.setDictionary(data);
+			$(".tile span").fadeOut(200, function(){
 
-			$('.xtr').map(function () {
-				$(this).html($.i18n._($(this).attr('data-xtr')));
+				$.i18n.setDictionary(data);
+
+				$('.xtr').map(function () {
+					$(this).html($.i18n._($(this).attr('data-xtr')));
+				});
+
+				$(".tile span").fadeIn(200);
 			});
 		});
 	}
@@ -65,6 +83,8 @@
 			case "it":
 				return 3;
 			case "de":
+				return 4;
+			case "pt":
 				return 4;
 		}
 		return 0;
@@ -121,6 +141,8 @@
 				e.preventDefault();
 			}
 		}
+
+		//window.onbeforeunload = null;
 	}
 	var adjust = function () {
 		$(".activity").css('width', $('#layout').innerWidth() - 12);
@@ -180,8 +202,9 @@
 
 				if (gameInProgress) {
 					if ($('#tiles #t0').length < 1)
-						$('#tiles').prepend('<div onclick="ui.action(0)" id="t0" class="tile xtr" data-xtr="resumegame-mnu">' + $.i18n._('resumegame-mnu') + '</div>');
+						$('#tiles').prepend('<div onclick="ui.action(0)" id="t0" class="tile"><span class="xtr" data-xtr="resumegame-mnu">' + $.i18n._('resumegame-mnu') + '</span></div>');
 					if ($('#tiles #t0').length > 0) {
+						$('#tiles #t0 span').attr('data-xtr', 'resumegame-mnu').html($.i18n._('resumegame-mnu'));
 						menuItem = 0;
 					}
 					adjust();
@@ -190,15 +213,58 @@
 				$('.activity:not(#main)').animate({ 'margin-left': '110%' }, 500, function() { $(this).hide(); });
 				$('.activity#main').show().animate({ 'margin-left': 0 }, 500);
 			break;
+
+			case 7: // SPECIAL CASE - SAVED GAME
+				if(!gameInProgress || !saved)
+					break;
+
+				fwt.prepare(saved);
+				ui.action(0);
+			break;
 		}
 	}
 
+	var loader = {
+		total: 0,
+		loaded: 0,
+
+		tick: function(){
+			this.loaded++;
+			$('#loader-chispa').css('opacity', (this.loaded / this.total));
+		
+			if(this.loaded == this.total){
+				$('#firsttag-chispa, #loader-chispa').fadeOut(500, function(){
+					if ($("#title-chispa:animated").length === 0){
+						$('#title-chispa').fadeIn(600).delay(400).fadeOut(300, function(){
+							ui.action(6);
+						});
+					}
+				})
+			}
+		},
+		needed: function(n){
+			this.total += n;
+		},
+		ui: function(){
+			gf = ['tile-customize.png', 'tile-help.png', 'tile-newGame.png', 'tile-rankings.png', 'tile-savedGame.png', 'title.png'];
+			ga = [];
+			for(i = 0; i < gf.length; i++){
+				ui.loader.needed(1);
+				ga[i] = new Image();
+				ga[i].src = "g/" + gf[i];
+				ga[i].onload = function(){
+					ui.loader.tick();
+				}
+			}
+		}
+
+	}
 
 	// Public methods
 	this.action = action;
 	this.setLanguage = setLanguage;
-
-	run();
+	this.loader = loader;
+	
 }
 
 var ui = new ui();

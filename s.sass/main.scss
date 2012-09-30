@@ -33,9 +33,58 @@ html, body {
 		position: absolute;
 		top: 6px;
 
-		&#main {
+		&#loader {
 			display: block;
 			margin-left: 0;
+			bottom: 6px;
+			right: 6px;
+
+			#firsttag-chispa {
+				width: 128px;
+				height: 40px;
+				text-align: center;
+				font-size: 13px;
+				font-weight: 600;
+				color: rgba(0, 0, 0, 0.5);
+				position: absolute;
+				left: 50%;
+				margin-left: -64px;
+				top: 50%;
+				letter-spacing: 8px;
+				margin-top: 40px;
+			}
+
+			#loader-chispa {
+				background: url(../g/loader.png) center no-repeat;
+				width: 180px;
+				height: 180px;
+				position: absolute;
+				left: 50%;
+				margin-left: -90px;
+				top: 50%;
+				margin-top: -120px;
+				opacity: 0;
+				/*-moz-transition: all 0.4s linear 0s;
+				-o-transition: all 0.4s linear 0s;
+				-webkit-transition: all 0.4s linear 0s;
+				transition: all 0.4s linear 0s;*/
+			}
+
+			#title-chispa {
+				background: url(../g/title.png) center no-repeat;
+				height: 80px;
+				left: 50%;
+				margin-left: -250px;
+				margin-top: -40px;
+				position: absolute;
+				top: 50%;
+				display: none;
+				width: 500px;
+			}
+		}
+
+		&#main {
+			margin-left: -110%;
 
 			#title {
 				background: url(../g/title.png) center no-repeat;
@@ -123,7 +172,7 @@ html, body {
 						-o-transition: all 0.3s linear 0s;
 						-webkit-transition: all 0.3s linear 0s;
 						background-color: rgba(255, 255, 255, 0.1);
-						background-position: center;
+						background-position: 36px 24px;
 						background-repeat: no-repeat;
 						border-radius: 1px;
 						color: rgba(255, 255, 255, 0.2);
@@ -147,10 +196,7 @@ html, body {
 							background-image: url(../g/tile-newGame.png);
 						}
 						&#t2 {
-							background-image: url(../g/tile-newCustomGame.png);
-						}
-						&#t3 {
-							background-image: url(../g/tile-settings.png);
+							background-image: url(../g/tile-customize.png);
 						}
 						&#t4 {
 							background-image: url(../g/tile-rankings.png);
@@ -317,7 +363,83 @@ html, body {
 			}
 		}
 
-		&#help{
+		&#settings {
+
+			.row {
+				height: auto;
+				margin: 20px 0 0 20px;
+
+				.description {
+					width: 300px;
+					height: auto;
+					float: left;
+					font-size: 13px;
+					color: rgba(255, 255, 255, 0.4);
+
+					h3 {
+						font-size: 22px;
+						padding: 0;
+						margin: 0;
+						font-weight: 400;
+						color: rgba(255, 255, 255, 0.6);
+					}
+				}
+
+				.controls {
+					width: 400px;
+					height: auto;
+					float: left;
+					padding: 18px 20px;
+
+					div {
+						margin: 0 auto;
+						text-align: center;
+					}
+
+					.alternate {
+						float: left;
+						height: 27px;
+						font-size: 13px;
+						line-height: 27px;
+						text-align: center;
+						color: rgba(0, 0, 0, 0.5);
+						border-radius: 1px;
+						margin-right: 1px;
+						background: rgba(255, 255, 255, 0.3);
+						box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+						cursor: pointer;
+
+						&.s {
+							box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
+							background: rgba(255, 255, 255, 0.6);
+							color: rgba(0, 0, 0, 0.7);
+							font-weight: 600;
+						}
+
+						&.duo {
+							width: 150px;
+						}
+
+						&.true {
+							width: 50px;
+
+						}
+
+						&.false {
+							width: 50px;
+
+						}
+					}
+
+				}
+
+				.clear {
+					clear: both;
+				}
+			}
+		}
+
+		&#help {
 
 			#title {
 				color: rgba(255,255,255,0.7);

@@ -5,7 +5,7 @@
 
 	<meta charset="utf-8">
 	<meta name="author" content="Juande Martos">
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="s/main.css">
 
 	<link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
@@ -35,6 +35,12 @@
 			<div id="right">&copy; 2012 · <a href="http://www.bumxu.com" target="_blank">Bumxu</a></div>
 		</div>
 
+		<div class="activity" id="loader">
+			<div id="firsttag-chispa">CARGANDO</div>
+			<div id="loader-chispa"></div>
+			<div id="title-chispa"></div>
+		</div>
+
 		<div class="activity" id="main">
 			<div id="title"></div>
 			<div id="line"></div>
@@ -45,17 +51,17 @@
 				<span onclick="ui.setLanguage(2)">Français</span> - 
 				<span onclick="ui.setLanguage(3)">Italiano</span> - 
 				<span onclick="ui.setLanguage(4)">Deutsch</span> - 
+				<span onclick="ui.setLanguage(5)">Português</span> - 
 			</div>
 
 			<div id="sight"></div>
 
 			<div id="selector">
 				<div id="tiles">
-					<div onclick="ui.action(1)" id="t1" class="tile xtr" data-xtr="quickgame-mnu">Start new quick game</div>
-					<div onclick="ui.action(2)" id="t2" class="tile xtr" data-xtr="customgame-mnu">New custom game</div>
-					<div onclick="ui.action(3)" id="t3" class="tile xtr" data-xtr="settings-mnu">Settings</div>
-					<!--div onclick="ui.action(4)" id="t4" class="tile xtr" data-xtr="ranking-mnu">Ranking</div-->
-					<div onclick="ui.action(5)" id="t5" class="tile xtr" data-xtr="helpabout-mnu">Help & About</div>
+					<div onclick="ui.action(1)" id="t1" class="tile"><span class="xtr" data-xtr="newgame-mnu"></span></div>
+					<div onclick="ui.action(2)" id="t2" class="tile"><span class="xtr" data-xtr="customize-mnu"></span></div>
+					<div onclick="ui.action(4)" id="t4" class="tile"><span class="xtr" data-xtr="marks-mnu"></span></div>
+					<div onclick="ui.action(5)" id="t5" class="tile"><span class="xtr" data-xtr="helpabout-mnu"></span></div>
 				</div>
 			</div>
 		</div>
@@ -90,7 +96,43 @@
 		</div>
 
 		<div class="activity" id="settings">
-			<h1>ESTAS EN SETTINGS</h1>
+			<div class="row">
+				<div class="description">
+					<h3 class="xtr" data-xtr="custom-size"></h3>
+					<span class="xtr" data-xtr="custom-size-d"></span>
+				</div>
+				<div class="controls">
+					
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="row">
+				<div class="description">
+					<h3 class="xtr" data-xtr="custom-shade"></h3>
+					<span class="xtr" data-xtr="custom-shade-d"></span>
+				</div>
+				<div class="controls">
+					<div class="alternate false s">0</div>
+					<div class="alternate true">I</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="row">
+				<div class="description">
+					<h3 class="xtr" data-xtr="custom-theme">Tema</h3>
+					<span class="xtr" data-xtr="custom-theme-d"></span>
+				</div>
+				<div class="controls">
+					<div>
+						<div class="alternate duo">Clásico</div>
+						<div class="alternate duo s">Moderno</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+
 			<div class="button xtr" id="back" onclick="ui.action(6)" data-xtr="goback-btt"></div>
 			
 		</div>
@@ -112,7 +154,7 @@
 					<span class="line">Direct fall <span class="tab"><strong>Spacebar | 0 num key</strong></span></span><br />
 					<span class="line">Pause the game <span class="tab"><strong>P key | 7 num key</strong></span></span><br />
 					<span class="line">Restart game o start a new quick game <span class="tab"><strong>N key | 9 num key</strong></span></span><br />
-					<br />
+					<br>
 					* <em>According to settings</em>
 				</p>
 
@@ -190,10 +232,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!--audio id="audio" autoplay="autoplay">
-		<source src="m/mic.mp3">
-	</audio-->
 
 	<script type="text/javascript" src="j/jQ-json.js"></script>
 	<script type="text/javascript" src="j/jQ-i18n.js"></script>

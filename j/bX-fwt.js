@@ -23,7 +23,7 @@
 
 	// Options
 	var shadeEnabled = false;
-	var colorTheme = "classic";
+	var colorTheme = "iced";
 
 	// Graphics
 	var graphics = {iced: {}, classic: {o: [], t: []}};
@@ -51,7 +51,33 @@
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+	var prepare = function (saved) {
+		map = saved.map;
+		current = saved.current;
+		next = saved.next;
+		setNextPiece(false, true);
+
+		window.cancelAnimFrame(clock);
+
+		lastLine = saved.lastLine;
+		gameStatus = 3;
+
+		score = saved.score;
+		$('.activity#game #next #score').html(score);
+		
+		calcLevel();
+
+		dropBonus = saved.dropBonus;
+
+		clock = window.requestAnimFrame(pulse);
+		pause(1);
+	}
+
 	var newGame = function () {
+		// Erase saved game
+		localStorage.removeItem('saved');
+		window.onbeforeunload = saveToLS;
+
 		window.cancelAnimFrame(clock);
 
 		lastLine = height - 1;
@@ -163,6 +189,10 @@
 		gameStatus = 1;
 		repaint();
 		clearNext();
+
+		// Erase saved game
+		localStorage.removeItem('saved');
+		window.onbeforeunload = null;
 	}
 
 	var mark = function (plus, type, about) {
@@ -171,10 +201,7 @@
 		$('.activity#game #next #score').html(score);
 
 		// level //
-		level = Math.floor(score / 3000);
-		normalDelay = 40 - level;
-		limitDelay = normalDelay;
-		$('.activity#game #next #level').html('<span class="xtr" data-xtr="level-lab">' + $.i18n._('level-lab') + '</span> ' + level);
+		calcLevel();
 
 		// osd //
 		waitExtra = 0;
@@ -214,6 +241,13 @@
 		$('<div>').html('¡' + msg + '! <strong>+ ' + plus + '</strong>').addClass(classExtra).css({ 'top': osdY, 'left': osdX, 'opacity': 0 }).appendTo('#osd').delay(waitExtra).animate({ 'top': osdY - 60, 'opacity': 1 }, 800, 'linear').animate({ 'top': osdY - 60 - 30, 'opacity': 0 }, 600, 'linear', function () {
 			$(this).remove();
 		});
+	}
+
+	var calcLevel = function() {
+		level = Math.floor(score / 3000);
+		normalDelay = 40 - level;
+		limitDelay = normalDelay;
+		$('.activity#game #next #level').html('<span class="xtr" data-xtr="level-lab">' + $.i18n._('level-lab') + '</span> ' + level);
 	}
 
 	var checkLine = function () {
@@ -406,7 +440,7 @@
 		for (j = 0; j < aux.length; j++) {
 			for (i = 0; i < aux[0].length; i++) {
 				if (aux[j][i] != 0) {
-					if (current.j + j >= 0 && map[current.j + j][current.i + i].mat != 0)
+					if (current.j + j >= 0 && current.j + j < width && map[current.j + j][current.i + i].mat != 0)
 						return false;
 				}
 			}
@@ -525,13 +559,15 @@
 		}
 	}
 
-	var setNextPiece = function (first) {
-		rndForm = Math.round(Math.random() * (forms.length - 1));
-		rndColor = Math.round(Math.random() * (colors.length - 1));;
-		iSource = Math.round(width / 2) - Math.round(forms[rndForm][0].length / 2);
-		jSource = forms[rndForm].length * -1;
+	var setNextPiece = function(first, paintOnly) {
+		if(!paintOnly) {
+			rndForm = Math.round(Math.random() * (forms.length - 1));
+			rndColor = Math.round(Math.random() * (colors.length - 1));;
+			iSource = Math.round(width / 2) - Math.round(forms[rndForm][0].length / 2);
+			jSource = forms[rndForm].length * -1;
 
-		next = { i: iSource, j: jSource, mat: 1, col: rndColor, form: forms[rndForm] }
+			next = { i: iSource, j: jSource, mat: 1, col: rndColor, form: forms[rndForm] }
+		}
 
 		// --- //
 
@@ -556,14 +592,14 @@
 		}
 	}
 
-	var clearNext = function () {
+	var clearNext = function() {
 		next = {};
 		$('.activity#game #next canvas').animate({ 'left': 120, 'opacity': 0 }, 260, function () {
 			$(this).remove();
 		});
 	}
 
-	var clone = function (obj) {
+	var clone = function(obj) {
 		if (null == obj || "object" != typeof obj) return obj;
 
 		if (obj instanceof Date) {
@@ -591,7 +627,7 @@
 		throw new Error("Unable to copy obj! Its type isn't supported.");
 	}
 
-	var adjust = function () {
+	var adjust = function() {
 		$(".activity").css('width', $('#layout').innerWidth() - 12);
 		$(".activity").css('height', $('#layout').innerHeight() - 12 - 20);
 
@@ -623,13 +659,13 @@
 		repaint();
 	}
 
-	var setEvents = function () {
-		window.onresize = function () {
+	var setEvents = function() {
+		window.onresize = function() {
 			adjust();
 		}
 		adjust();
 
-		document.onkeyup = function (e) {
+		document.onkeyup = function(e) {
 			if (e.keyCode == 40 || e.keyCode == 98)
 				limitDelay = normalDelay;
 			if (e.keyCode == 88)
@@ -642,7 +678,7 @@
 				newGame();
 		}
 
-		document.onkeydown = function (e) {
+		document.onkeydown = function(e) {
 			if (e.keyCode == 39 || e.keyCode == 102)
 				right();
 			if (e.keyCode == 37 || e.keyCode == 100)
@@ -658,7 +694,24 @@
 			}
 		}
 
+		window.onbeforeunload = saveToLS;
+
 		setOSDMessages();
+	}
+
+	var saveToLS = function(){
+		save = {};
+		save.map = map;
+		save.current = current;
+		save.next = next;
+
+		save.lastLine = lastLine;
+
+		save.score = score;
+
+		save.dropBonus = dropBonus;
+
+		localStorage.savedGame = $.toJSON(save);
 	}
 
 	var setOSDMessages = function(){
@@ -670,36 +723,40 @@
 		rnd4 = ["Línea simple", "Linea doble", "Linea triple", "Eso es un tetris"];
 	}
 
-	var loader = function(){
+	var loadGameGraphics = function(){
+		ui.loader.needed(2 + colors.length * 2);
+
+		// Iced
 		graphics.iced.o = new Image();
 		graphics.iced.o.src = "g/material/iced-o.png";
-		graphics.iced.o.onload = loadedImage;
+		graphics.iced.o.onload = function(){
+			ui.loader.tick();
+		}
 		graphics.iced.t = new Image();
 		graphics.iced.t.src = "g/material/iced-t.png";
-		graphics.iced.t.onload = loadedImage;
+		graphics.iced.t.onload = function(){
+			ui.loader.tick();
+		}
 
 		for(n = 0; n < colors.length; n++){
 			graphics.classic.o[n] = new Image();
 			graphics.classic.o[n].src = "g/material/classic-o-" + colors[n] + ".png";
-			graphics.classic.o[n].onload = loadedImage;
+			graphics.classic.o[n].onload = function(){
+				ui.loader.tick();
+			}
 			graphics.classic.t[n] = new Image();
 			graphics.classic.t[n].src = "g/material/classic-t-" + colors[n] + ".png";
-			graphics.classic.t[n].onload = loadedImage;
+			graphics.classic.t[n].onload = function(){
+				ui.loader.tick();
+			}
 		}
-	}
-
-	var loadedImage = function(){
-		console.log("Image loaded");
 	}
 
 	// Public methods
 	this.newGame = newGame;
 	this.setEvents = setEvents;
 	this.pause = pause;
-
-	this.experiment =  function(){
-		return $.toJSON(map);
-	}
-	loader();
+	this.prepare = prepare;
+	this.loadGameGraphics = loadGameGraphics;
 }
 var fwt = new fwt();
