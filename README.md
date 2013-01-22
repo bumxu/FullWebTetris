@@ -5,7 +5,7 @@ An awesome tetris to kill boredom
 
 > **About Full Web Tetris:**
 
-> By [Juande Martos](https://twitter.com/GeorgeCzabania)  
+> By Juande Martos  
 Copyrigth &copy; 2012 [Bumxu](http://bumxu.com/)  
 Licensed under the [GPLv3 License](http://www.gnu.org/licenses/gpl-3.0.html)
 
