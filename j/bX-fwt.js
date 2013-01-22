@@ -17,14 +17,20 @@
 
 	// Pieces
 	var set = "full";
-
-	var forms = [[[1, 1, 0], [0, 1, 1]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], /*[[1]], */[[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]]/*, [[1, 0], [1, 1]], [[0, 1], [1, 1]]*/];
+	var formSets = {
+		classic: [[[1, 1, 0], [0, 1, 1]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], [[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]]],
+		full: [[[1, 1, 0], [0, 1, 1]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], [[1]], [[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]], [[1, 0], [1, 1]], [[0, 1], [1, 1]]],
+		challenge: [[[1, 1, 0], [0, 1, 1]], [[0, 1, 0], [1, 1, 1], [0, 1, 0]], [[0, 1, 1], [0, 1, 1], [1, 1, 0]], [[0, 1, 1], [0, 1, 1], [1, 1, 1]], [[1, 1, 1], [1, 1, 0], [0, 1, 1]], [[1, 1, 0], [0, 1, 1], [1, 1, 0]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], [[1]], [[1, 1]], [[1, 1, 1]], [[1, 1, 1], [1, 0, 1]], [[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]], [[1, 0], [1, 1]], [[0, 1], [1, 1]]],
+		lethal: [[[1, 1, 0], [0, 1, 1]], [[0, 1, 0], [1, 1, 1], [0, 1, 0]], [[0, 1, 1], [0, 1, 1], [1, 1, 0]], [[0, 1, 1], [0, 1, 1], [1, 1, 1]], [[1, 1, 1], [1, 1, 0], [0, 1, 1]], [[1, 1, 0], [0, 1, 1], [1, 1, 0]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], [[1]], [[1, 1]], [[1, 1, 1]], [[1, 1, 1, 1, 1, 1, 1, 1]], [[1, 1, 1],[1, 0, 1]], [[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]], [[1, 0], [1, 1]], [[0, 1], [1, 1]], [[0, 0, 1], [0, 1, 0], [1, 0, 0]], [[1, 0, 1], [0, 1, 0], [1, 0, 1]], [[0, 0, 1], [0, 1, 0], [1, 0, 1]], [[0, 1, 1], [1, 1, 0], [1, 0, 0]], [[0, 0, 1], [0, 1, 1], [1, 1, 0]], [[0, 1], [1, 0]], [[0, 1], [1, 1], [1, 1], [0, 1], [0, 1]], [[1, 0], [1, 1], [1, 1], [1, 0], [1, 0]], [[0, 1], [1, 1], [1, 1], [0, 1], [1, 1]], [[1, 1], [1, 0], [1, 1], [1, 0], [1, 1]], [[1, 1], [1, 0], [0, 1], [1, 0], [0, 1]], [[1, 1, 1], [1, 0, 1], [1, 1, 1]], [[1, 1, 1], [0, 0, 1], [1, 1, 1]], [[1, 1, 0], [1, 0, 1], [1, 0, 1]], [[1, 1, 0], [1, 1, 1], [1, 0, 1]], [[0, 1, 0], [1, 1, 1], [1, 0, 1]], [[0, 1, 1], [1, 0, 1], [1, 0, 1]], [[1, 1, 1], [0, 1, 0], [1, 1, 1]]]
+	}
+	var forms = formSets[set];
 	var colors = ["red", "green", "cyan", "orange", "blue", "white", "yellow"];
 	var next, current, shade;
 	var clock = 0;
 
 	// Options
 	var shadeEnabled = false;
+	var rotation = "cc";
 	var colorTheme = "iced";
 		$('canvas#canvas').attr('data-theme', colorTheme);
 
@@ -56,12 +62,14 @@
 	try{
 		prefs = $.evalJSON(localStorage.fwtPreferences);
 		
-		width = prefs.width;
-		height = prefs.height;
-		set = prefs.set;
-		colorTheme = prefs.theme;
+		width = prefs.width || width;
+		height = prefs.height || height;
+		set = prefs.set || set;
+			forms = formSets[set];
+		colorTheme = prefs.theme || colorTheme;
 			$('canvas#canvas').attr('data-theme', colorTheme);
-		shadeEnabled = prefs.shades;
+		shadeEnabled = prefs.shades || shadeEnabled;
+		rotation = prefs.rotation || rotation;
 	} catch(e){
 		//-> No action
 	}
@@ -208,7 +216,7 @@
 		clearNext();
 
 		// Erase saved game
-		localStorage.removeItem('saved');
+		localStorage.removeItem('fwtActiveGame');
 		window.onbeforeunload = null;
 
 		// Erase saved/progress game menu item
@@ -368,7 +376,14 @@
 	}
 
 
-	var rotateR = function () {
+	var rotate = function () {
+		if (rotation == "c")
+			rotateC();
+		else
+			rotateCC();
+	}
+
+	var rotateC = function () {
 		if (gameStatus < 2)
 			return;
 
@@ -394,7 +409,7 @@
 		}
 	}
 
-	var rotateL = function () {
+	var rotateCC = function () {
 		if (gameStatus < 2)
 			return;
 
@@ -713,9 +728,11 @@
 			if (e.keyCode == 40 || e.keyCode == 98)
 				limitDelay = normalDelay;
 			if (e.keyCode == 88)
-				rotateR();
-			if (e.keyCode == 90 || e.keyCode == 38 || e.keyCode == 104) //default
-				rotateL();
+				rotateC();
+			if (e.keyCode == 90)
+				rotateCC();
+			if (e.keyCode == 38 || e.keyCode == 104) //default
+				rotate();
 			if (e.keyCode == 32 || e.keyCode == 96)
 				drop();
 			if (e.keyCode == 78 || e.keyCode == 105)
@@ -760,7 +777,8 @@
 			'theme': colorTheme,
 			'width': width,
 			'height': height,
-			'set': set
+			'set': set,
+			'rotation': rotation
 		});
 	}
 
@@ -827,6 +845,23 @@
 	var getPiecesSet = function() {
 		return set;
 	}
+	var getRotation = function() {
+		return rotation;
+	}
+	var switchRotation = function(direction) {
+		if (direction == "cc" || direction == "c") {
+			rotation = direction;
+			savePrefs();
+		}
+	}
+	var switchSet = function(opt) {
+		if (opt == "classic" || opt == "full" || opt == "challenge" || opt == "lethal") {
+			set = opt;
+			forms = formSets[set];
+			newGame();
+			savePrefs();
+		}
+	}
 
 	// Public methods
 	this.newGame = newGame;
@@ -846,6 +881,9 @@
 	 this.getColorTheme 	= getColorTheme;
 	  this.switchTheme 		= switchTheme;
 	 this.getPiecesSet 		= getPiecesSet;
+	  this.switchSet 		= switchSet;
+	 this.getRotation 		= getRotation;
+	  this.switchRotation 	= switchRotation;
 
 }
 var fwt = new fwt();

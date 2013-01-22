@@ -60,6 +60,11 @@
 	"custom-theme-classic": "Classic (In full color pieces)",
 	"custom-theme-iced": "Modern (Beautiful minimalist style)",
 
+	"custom-rotation": "Direction of rotation",
+	"custom-rotation-d": "Select the default rotation to rotate a piece with the &uarr; key.",
+	"custom-rotation-clockwise": "Clockwise",
+	"custom-rotation-cclockwise": "Counterclockwise",
+
 	"custom-set": "Pieces set",
 	"custom-set-d": "Number of pieces and forms in the game.",
 	"custom-set-classic": "Tetris (7 classic pieces)",

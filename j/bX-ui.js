@@ -4,7 +4,7 @@ var ui = function () {
 	var menuItem;
 
 
-	console.log("Full Web Tetris 2.2.0");
+	console.log("\nFull Web Tetris 2.2.0");
 	console.log(" By Juande Martos\n Copyright © 2012 Bumxu\n Licensed under the GPLv3 license\n");
 
 //	<Preloader> preloads graphics to the <Loader>
@@ -36,7 +36,7 @@ var ui = function () {
 
 
 		//-> Preload game graphics & user interface
-		console.log(" - Preparing graphics...");
+		console.log(" - Setting up graphics...");
 		fwt.loadGameGraphics();
 		    loader.ui();
 		console.log("   Ready");
@@ -96,8 +96,6 @@ var ui = function () {
 	var translate = function () {
 		$('#languages span').removeClass('selected');
 		$($('#languages span')[language]).addClass('selected');
-
-		console.log(languageList[language]);
 
 		$.getJSON('j/xtr/' + languageList[language] + '.json', function (data) {
 			$(".tile span").fadeOut(200, function(){

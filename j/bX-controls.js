@@ -8,6 +8,7 @@ var controls = function () {
 		else
 			$("#settings #shades .alternate.false").addClass('s');
 		$('#settings #themes .alternate[data-value="'+fwt.getColorTheme()+'"]').addClass('s');
+		$('#settings #rotation .alternate[data-value="'+fwt.getRotation()+'"]').addClass('s');
 		$('#settings #set .alternate[data-value="'+fwt.getPiecesSet()+'"]').addClass('s');
 
 		$('#settings #sizes .val').removeClass('not1 not2');
@@ -33,11 +34,18 @@ var controls = function () {
 		fwt.repaintNextPiece();
 	});
 
+	// Rotation:
+	$("#settings #rotation .alternate.opt").click(function(){
+		$("#settings #rotation .alternate").removeClass('s');
+		$(this).addClass('s');
+		fwt.switchRotation($(this).attr("data-value"));
+	});
+
 	// Sets:
 	$("#settings #set .alternate.opt").click(function(){
 		$("#settings #set .alternate").removeClass('s');
 		$(this).addClass('s');
-		//fwt.switchTheme($(this).attr("data-value"));
+		fwt.switchSet($(this).attr("data-value"));
 		ui.stopGame();
 	});
 

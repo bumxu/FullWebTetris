@@ -60,6 +60,11 @@
 	"custom-theme-classic": "Classique (Dans les pièces de couleurs)",
 	"custom-theme-iced": "Moderne (Belle style minimaliste)",
 
+	"custom-rotation": "Sens de rotation",
+	"custom-rotation-d": "Sélectionnez la rotation par défaut pour faire tourner une pièce avec la touche &uarr;.",
+	"custom-rotation-clockwise": "Dans le sens horaire",
+	"custom-rotation-cclockwise": "Dans le sens antihoraire",
+	
 	"custom-set": "Ensemble de pièces",
 	"custom-set-d": "Nombre de pièces et de formes dans le jeu.",
 	"custom-set-classic": "Tetris (7 pièces classiques)",
