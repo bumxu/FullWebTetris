@@ -6,13 +6,13 @@
 	"marks-mnu": "Your marks",
 	"helpabout-mnu": "Assistance",
 	
+	"level-lab": "Level",
 
 	"pausegame-btt": "Pause",
 	"newgame-btt": "Restart",
 	"settings-btt": "Customize",
 	"goback-btt": "Go back",
 
-	"level-lab": "Level",
 
 	"well": "Well",
 	"candobetter": "Can do better",
@@ -20,17 +20,51 @@
 	"onemore": "One more",
 	"point": "Point",
 
+	"notbad": "Not bad",
+	"alright": "Alright",
+	"genial": "Genial",
+	"keepitup": "Keep it up",
+	"nottoobad": "Not too bad",
+
+	"magnificent": "Magnificent",
+	"veryfast": "Very fast",
+	"fast": "Fast",
+	"shooting": "Shooting",
+	"fast2": "Fast",
+
+	"instant": "Instant",
+	"most": "Most",
+	"welldone": "Well done",
+	"stellar": "Stellar",
+	"awesome": "Awesome",
+
+	"singleline": "Single line",
+	"doubleline": "Double line",
+	"tripleline": "Triple line",
+	"ttetris": "That's a tetris",
+
+
+	"newgame-notice": "* It will start a new game",
 
 	"custom-size": "Board size",
 	"custom-size-d": "You can resize the game board if the default size is too small or big for you, beware.",
+	"custom-size-width": "Width:",
+	"custom-size-height": "Height:",
+	"custom-size-notice": "* A value between 10 and 100",
+
 	"custom-shade": "Shades",
 	"custom-shade-d": "Shadows tell you where to drop a piece, activate them if the game is too much for you.",
+	
 	"custom-theme": "Theme",
 	"custom-theme-d": "Enabling this option you can continue watching the tetris in full color.",
+	"custom-theme-classic": "Classic (In full color pieces)",
+	"custom-theme-iced": "Modern (Beautiful minimalist style)",
 
-	"help-ttl": "Help",
-	"changelog-ttl": "Changelog",
-	"license-ttl": "License",
-	"privacy-ttl": "Privacy",
-	"about-ttl": "About"
+	"custom-set": "Pieces set",
+	"custom-set-d": "Number of pieces and forms in the game.",
+	"custom-set-classic": "Tetris (7 classic pieces)",
+	"custom-set-full": "Full (Extended set of pieces)",
+	"custom-set-challenge": "Challenge (Strange pieces)",
+	"custom-set-lethal": "Lethal (Random impossible pieces)"
+
 }

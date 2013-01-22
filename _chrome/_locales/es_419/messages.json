@@ -1,8 +1,8 @@
 {
-  "application_title": {
-    "message": "Full Web Tetris [ES]"
-  },
-  "application_description": {
-    "message": "Un increible juego de tetris para momentos en que necesitas matar el aburrimiento."
-  }
+   "application_description": {
+      "message": "Un increible juego de tetris para momentos en que necesitas matar el aburrimiento."
+   },
+   "application_title": {
+      "message": "Full Web Tetris"
+   }
 }

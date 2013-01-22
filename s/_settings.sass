@@ -1,0 +1,142 @@
+.activity#settings
+
+	.buttonback
+		+border-radius(0 0 1px 1px)
+		+transition(all 0.15s linear 0s)
+		+user-select(none)
+		background: url(../g/arrow.png) repeat-x rgba(255, 255, 255, 0.2)
+		background-position: 0 50px
+		color: rgba(255, 255, 255, 0.5)
+		font-size: 15px
+		font-weight: 600
+		left: 0
+		top: 0
+		bottom: 0
+		padding: 0
+		text-align: center
+		line-height: 380px
+		position: absolute
+		width: 120px
+
+		&:hover
+			background-color: rgba(255, 255, 255, 0.3)
+			background-position: -5px 50px
+			color: rgba(255, 255, 255, 0.7)
+			cursor: pointer
+
+	#settingscroller
+		+box-shadow(0 0 15px rgba(255, 255, 255, 0.08))
+		bottom: 0
+		border-left: 1px solid rgba(0, 0, 0, 0.1)
+		left: 130px
+		overflow: auto
+		padding: 10px 15px 0 15px
+		position: absolute
+		right: 0
+		top: 0
+
+		.row
+			height: auto
+			margin: 20px 0 0 10px
+
+			&:last-child
+				margin-bottom: 40px
+		
+			.description
+				+user-select(none)
+				color: rgba(255, 255, 255, 0.6)
+				float: left
+				position: absolute
+				font-size: 13px
+				font-weight: 600
+				height: 100%
+				width: 300px
+		
+				h3
+					color: rgba(255, 255, 255, 0.8)
+					font-size: 20px
+					font-weight: 400
+					margin: 0 0 5px 0
+					padding: 0
+		
+			.controls
+				height: auto
+				padding: 20px 0 18px 30px
+				float: right
+				width: 53%
+				min-height: 50px
+		
+				.alternate
+					+user-select(none)
+					+border-radius(1px)
+					+box-shadow(0 0 6px rgba(0, 0, 0, 0.15))
+					background: rgba(255, 255, 255, 0.3)
+					color: rgba(0, 0, 0, 0.6)
+					cursor: pointer
+					font-size: 14px
+					height: 30px
+					line-height: 30px
+					margin-bottom: 1px
+					text-align: center
+					font-weight: 600
+		
+					&.s
+						+box-shadow(0 0 7px rgba(0, 0, 0, 0.3))
+						background: rgba(255, 255, 255, 0.6)
+						color: rgba(0, 0, 0, 0.8)
+						z-index: 999
+
+					&.opt
+						+transition(all 0.1s linear 0s)
+						width: 320px
+						text-align: left
+						padding-left: 14px
+		
+					&.true, &.false
+						+transition(all 0.1s linear 0s)
+						float: left
+						margin-right: 1px
+						width: 60px
+
+				.textcamp
+					+user-select(none)
+					height: 30px
+					line-height: 30px
+					display: inline-block
+					font-weight: 600
+					color: rgba(255, 255, 255, 0.6)
+
+				.textinput
+					+border-radius(1px)
+					+box-shadow(0 0 6px rgba(0, 0, 0, 0.15))
+					+transition(all 0.1s linear 0s)
+					+user-select(auto) 
+					background: rgba(255, 255, 255, 0.3)
+					border: 3px solid rgba(255, 255, 255, 0.6)
+					color: rgba(0, 0, 0, 0.6)
+					font-family: 'Open Sans', Arial, sans-serif
+					font-size: 18px
+					font-weight: 600
+					height: 26px
+					line-height: 26px
+					margin: 0 24px 0 4px
+					padding: 0 6px
+					width: 60px
+					outline: none
+
+					&:focus
+						+box-shadow(0 0 7px rgba(0, 0, 0, 0.3))
+						background: rgba(255, 255, 255, 0.6)
+						border: 3px solid rgba(255, 255, 255, 0.8)
+						color: rgba(0, 0, 0, 0.8)
+
+				.textvalidate
+					+user-select(none)
+					color: rgba(255, 255, 255, 0.5)
+					font-size: 13px
+					font-weight: 600
+					height: 20px
+					line-height: 40px
+
+					&.val.not1, &.val.not2
+						color: rgba(180, 20, 20, 0.8)

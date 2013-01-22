@@ -1,0 +1,74 @@
+//-> MIXINs
+=user-select($prop: none)
+	-moz-user-select: $prop
+	-ms-user-select: $prop
+	-webkit-user-select: $prop
+	-o-user-select: $prop
+	user-select: $prop
+
+=fwt-relleno
+	+background-image(linear-gradient(left top, rgba(255,255,255,0.41), rgba(255,255,255,0.12)))
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7affffff', endColorstr='#1fffffff',GradientType=1 )
+	+box-shadow(0 0 15px rgba(255, 255, 255, 0.1) inset, 0 0 6px rgba(0, 0, 0, 0.4))
+
+*
+	position: relative
+
+.clear
+	clear: both
+	
+html, body
+	height: 100%
+	margin: 0
+	padding: 0
+	width: 100%
+
+#layout
+	bottom: 0
+	font-family: 'Open Sans', 'Calibri', Arial, sans-serif
+	left: 0
+	min-height: 500px
+	min-width: 900px
+	overflow: hidden
+	position: absolute
+	right: 0
+	top: 0
+
+	.activity
+		display: none
+		left: 6px
+		margin-left: 110%
+		overflow: hidden
+		position: absolute
+		top: 6px
+
+	#foot
+		+box-shadow(0 0 4px rgba(255, 255, 255, 0.2))
+		+user-select(none)
+		background: rgba(0, 0, 0, 0.2)
+		bottom: 0
+		color: rgba(255, 255, 255, 0.25)
+		cursor: default
+		font-size: 11px
+		font-weight: 600
+		height: 20px
+		left: 0
+		line-height: 20px
+		padding: 0 6px
+		position: absolute
+		right: 0
+		
+		#right
+			line-height: 20px
+			position: absolute
+			right: 6px
+			top: 0
+		
+			a
+				+transition(all 0.15s linear 0s)
+				color: rgba(255, 255, 255, 0.2)
+				cursor: pointer
+				text-decoration: none
+		
+				&:hover
+					color: rgba(255, 255, 255, 0.4)

@@ -16,7 +16,9 @@
 	var delay = 0, normalDelay = 40, limitDelay = normalDelay;
 
 	// Pieces
-	var forms = [[[1, 1, 0], [0, 1, 1]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], [[1]], [[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]], [[1, 0], [1, 1]], [[0, 1], [1, 1]]];
+	var set = "full";
+
+	var forms = [[[1, 1, 0], [0, 1, 1]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], /*[[1]], */[[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]]/*, [[1, 0], [1, 1]], [[0, 1], [1, 1]]*/];
 	var colors = ["red", "green", "cyan", "orange", "blue", "white", "yellow"];
 	var next, current, shade;
 	var clock = 0;
@@ -24,6 +26,7 @@
 	// Options
 	var shadeEnabled = false;
 	var colorTheme = "iced";
+		$('canvas#canvas').attr('data-theme', colorTheme);
 
 	// Graphics
 	var graphics = {iced: {}, classic: {o: [], t: []}};
@@ -49,18 +52,32 @@
 			window.clearTimeout;
 	})();
 
+	//-> Get preferences from localStorage if any
+	try{
+		prefs = $.evalJSON(localStorage.fwtPreferences);
+		
+		width = prefs.width;
+		height = prefs.height;
+		set = prefs.set;
+		colorTheme = prefs.theme;
+			$('canvas#canvas').attr('data-theme', colorTheme);
+		shadeEnabled = prefs.shades;
+	} catch(e){
+		//-> No action
+	}
+
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 	var prepare = function (saved) {
 		map = saved.map;
 		current = saved.current;
 		next = saved.next;
-		setNextPiece(false, true);
 
 		window.cancelAnimFrame(clock);
 
 		lastLine = saved.lastLine;
 		gameStatus = 3;
+		setNextPiece(false, true); // -> This requires gameStatus > 1
 
 		score = saved.score;
 		$('.activity#game #next #score').html(score);
@@ -193,6 +210,9 @@
 		// Erase saved game
 		localStorage.removeItem('saved');
 		window.onbeforeunload = null;
+
+		// Erase saved/progress game menu item
+		ui.stopGame();
 	}
 
 	var mark = function (plus, type, about) {
@@ -499,7 +519,7 @@
 						out.drawImage(chooseImage.mapped(i, j), size * i, size * j, size, size);
 
 
-			if (current !== undefined)
+			if (typeof current != 'undefined' && typeof current.form != 'undefined')
 				for (j = 0; j < current.form.length; j++)
 					for (i = 0; i < current.form[j].length; i++)
 						if (current.form[j][i] == 1)
@@ -560,6 +580,9 @@
 	}
 
 	var setNextPiece = function(first, paintOnly) {
+		if (gameStatus < 2)
+			return;
+
 		if(!paintOnly) {
 			rndForm = Math.round(Math.random() * (forms.length - 1));
 			rndColor = Math.round(Math.random() * (colors.length - 1));;
@@ -659,6 +682,27 @@
 		repaint();
 	}
 
+	var switchTheme = function(theme){
+		switch(theme){
+			case "classic":
+			 colorTheme = "classic";
+			 break;
+			default:
+			 colorTheme = "iced";
+		}
+		$('canvas#canvas').attr('data-theme', colorTheme);
+		savePrefs();
+	}
+
+	var switchShades = function(bool){
+		shadeEnabled = bool;
+		if (gameStatus > 1) {
+			generateShade();
+			repaint();
+		}
+		savePrefs();
+	}
+
 	var setEvents = function() {
 		window.onresize = function() {
 			adjust();
@@ -700,28 +744,34 @@
 	}
 
 	var saveToLS = function(){
-		save = {};
+		save = {};		
 		save.map = map;
 		save.current = current;
 		save.next = next;
-
 		save.lastLine = lastLine;
-
 		save.score = score;
-
 		save.dropBonus = dropBonus;
+		localStorage.fwtActiveGame = $.toJSON(save);
+	}
 
-		localStorage.savedGame = $.toJSON(save);
+	var savePrefs = function() {
+		localStorage.fwtPreferences = $.toJSON({
+			'shades': shadeEnabled,
+			'theme': colorTheme,
+			'width': width,
+			'height': height,
+			'set': set
+		});
 	}
 
 	var setOSDMessages = function(){
 		// OSD messages
 		rnd0 = [$.i18n._('well'), $.i18n._('slow'), $.i18n._('candobetter'), $.i18n._('onemore'), $.i18n._('point')]
-		rnd1 = ["Nada mal", "Muy bien", "Genial", "Sigue así", "No está mal"];
-		rnd2 = ["Magnífico", "Muy rápido", "Rápido", "Fugaz", "Rapidisimo"];
-		rnd3 = ["Instantaneo", "Lo más", "Bien hecho", "Estelar", "Impresionante"];
-		rnd4 = ["Línea simple", "Linea doble", "Linea triple", "Eso es un tetris"];
-	}
+		rnd1 = [$.i18n._('notbad'), $.i18n._('alright'), $.i18n._('genial'), $.i18n._('keepitup'), $.i18n._('nottoobad')];
+		rnd2 = [$.i18n._('magnificent'), $.i18n._('veryfast'), $.i18n._('fast'), $.i18n._('shooting'), $.i18n._('fast2')];
+		rnd3 = [$.i18n._('instant'), $.i18n._('most'), $.i18n._('welldone'), $.i18n._('stellar'), $.i18n._('awesome')];
+		rnd4 = [$.i18n._('singleline'), $.i18n._('doubleline'), $.i18n._('tripleline'), $.i18n._('ttetris')];
+	}	
 
 	var loadGameGraphics = function(){
 		ui.loader.needed(2 + colors.length * 2);
@@ -752,11 +802,50 @@
 		}
 	}
 
+	var getWidth = function() {
+		return width;
+	}
+	var setWidth = function(p) {
+		width = p*1;
+		newGame();
+		savePrefs();
+	}
+	var setHeight = function(p) {
+		height = p*1;
+		newGame();
+		savePrefs();
+	}
+	var getHeight = function() {
+		return height;
+	}
+	var getShadeEnabled = function() {
+		return shadeEnabled;
+	}
+	var getColorTheme = function() {
+		return colorTheme;
+	}	
+	var getPiecesSet = function() {
+		return set;
+	}
+
 	// Public methods
 	this.newGame = newGame;
 	this.setEvents = setEvents;
 	this.pause = pause;
 	this.prepare = prepare;
 	this.loadGameGraphics = loadGameGraphics;
+	this.repaintNextPiece = function() { setNextPiece(false, true); }
+
+	 // Prefs
+	 this.getWidth 			= getWidth;
+	  this.setWidth 		= setWidth;
+	 this.getHeight 		= getHeight;
+	  this.setHeight 		= setHeight;
+	 this.getShadeEnabled 	= getShadeEnabled;
+	  this.switchShades 	= switchShades;
+	 this.getColorTheme 	= getColorTheme;
+	  this.switchTheme 		= switchTheme;
+	 this.getPiecesSet 		= getPiecesSet;
+
 }
 var fwt = new fwt();

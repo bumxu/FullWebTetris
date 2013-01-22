@@ -1,0 +1,73 @@
+.activity#help
+	+user-select(none)
+	
+	.buttonback
+		+border-radius(0 0 1px 1px)
+		+transition(all 0.15s linear 0s)
+		background: url(../g/arrow.png) repeat-x rgba(255, 255, 255, 0.2)
+		background-position: 0 50px
+		color: rgba(255, 255, 255, 0.5)
+		font-size: 15px
+		font-weight: 600
+		left: 0
+		top: 0
+		bottom: 0
+		padding: 0
+		text-align: center
+		line-height: 380px
+		position: absolute
+		width: 120px
+
+		&:hover
+			background-color: rgba(255, 255, 255, 0.3)
+			background-position: -5px 50px
+			color: rgba(255, 255, 255, 0.7)
+			cursor: pointer
+
+	#helpscroller
+		+box-shadow(0 0 15px rgba(255, 255, 255, 0.08))
+		bottom: 0
+		border-left: 1px solid rgba(0, 0, 0, 0.1)
+		left: 130px
+		overflow: auto
+		padding: 10px 0 0 15px
+		position: absolute
+		right: 0
+		top: 0
+
+		.bigtitle
+			color: rgba(255, 255, 255, 0.8)
+			letter-spacing: 2px
+			font-size: 22px
+			margin: 25px 30px 6px 0
+			padding: 0 0 1px 7px
+			border-bottom: 1px solid rgba(255, 255, 255, 0.15)
+
+		p
+			color: rgba(255, 255, 255, 0.6)
+			font-size: 13px
+			margin: 0 0 5px 30px
+
+			.title
+				font-size: 16px
+				margin-left: -7px
+				color: rgba(255, 255, 255, 0.65)
+
+			strong
+				font-weight: 600
+
+			.line
+				display: inline-block
+				width: 94%
+
+			.tab
+				left: 360px
+				position: absolute
+
+			a
+				color: rgba(255, 255, 255, 0.6)
+				text-decoration: none 
+
+				&:hover
+					text-decoration: underline
+
