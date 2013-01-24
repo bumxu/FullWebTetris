@@ -6,31 +6,68 @@
 	"marks-mnu": "Façanhas",
 	"helpabout-mnu": "Assistência",
 	
+	"level-lab": "Nível",
 
-	"pausegame-btt": "Pause",
-	"newgame-btt": "Restart",
-	"settings-btt": "Customize",
-	"goback-btt": "Go back",
-
-	"level-lab": "Level",
-
-	"well": "Well",
-	"candobetter": "Can do better",
-	"slow": "Slow",
-	"onemore": "One more",
-	"point": "Point",
+	"pausegame-btt": "Pausa",
+	"newgame-btt": "Reiniciar",
+	"settings-btt": "Personalizar",
+	"goback-btt": "Voltar",
 
 
-	"custom-size": "Board size",
-	"custom-size-d": "You can resize the game board if the default size is too small or big for you, beware.",
-	"custom-shade": "Shades",
-	"custom-shade-d": "Shadows tell you where to drop a piece, activate them if the game is too much for you.",
-	"custom-theme": "Theme",
-	"custom-theme-d": "Enabling this option you can continue watching the tetris in full color.",
+	"well": "Bem",
+	"candobetter": "Pode fazer melhor",
+	"slow": "Lento",
+	"onemore": "Mais um",
+	"point": "Ponto",
 
-	"help-ttl": "Help",
-	"changelog-ttl": "Changelog",
-	"license-ttl": "License",
-	"privacy-ttl": "Privacy",
-	"about-ttl": "About"
+	"notbad": "Não é mau",
+	"alright": "Muito bem",
+	"genial": "Genial",
+	"keepitup": "Continue assim",
+	"nottoobad": "Não é mau",
+
+	"magnificent": "Magnífico",
+	"veryfast": "Muito rápido",
+	"fast": "Fast",
+	"shooting": "Fugaz",
+	"fast2": "Breeze",
+
+	"instant": "Instantâneas",
+	"most": "Mais",
+	"welldone": "Bem feito",
+	"stellar": "Star",
+	"awesome": "Impressionante",
+
+	"singleline": "Única linha",
+	"doubleline": "Linhas duplas",
+	"tripleline": "Linha tripla",
+	"ttetris": "Isso é um tetris",
+
+	"newgame-notice": "* Vai reiniciar o jogo",
+
+	"custom-size": "Tamanho do jogo",
+	"custom-size-d": "Você pode redimensionar o jogo para algo mais confortável para você.",
+	"custom-size-width": "Largura:",
+	"custom-size-height": "High:",
+	"custom-size-notice": "* Um valor entre 10 e 100",
+
+	"custom-shade": "Sombras",
+	"custom-shade-d": "Mostrar onde as sombras cairão uma parte, se o jogo pode ativá-los com você.",
+	
+	"custom-theme": "Tema",
+	"custom-theme-d": "Com esta opção, você pode continuar a ver o tetris colorido assim.",
+	"custom-theme-classic": "Classic (Parts cores)",
+	"custom-theme-iced": "Moderna (minimalista nice)",
+
+	"custom-rotation": "Rotação",
+	"custom-rotation-d": "Selecione a rotação padrão para girar uma peça com &uarr; .",
+	"custom-rotation-clockwise": "Sentido horário",
+	"custom-rotation-cclockwise": "Sentido anti-horário",
+
+	"custom-set": "Definir peças",
+	"custom-set-d": "Número de peças e formas de o jogo.",
+	"custom-set-classic": "Tetris (As 7 peças clássicas)",
+	"custom-set-full": "Completa (conjunto de peças estendidos)",
+	"custom-set-challenge": "Desafio (Peças estranho)",
+	"custom-set-lethal": "Lethal (Peças formas impossíveis)"
 }
