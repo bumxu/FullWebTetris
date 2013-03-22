@@ -6,16 +6,17 @@ An awesome tetris to kill boredom
 > **About Full Web Tetris:**
 
 > By Juande Martos  
-Copyrigth &copy; 2012 [Bumxu](http://bumxu.com/)  
+Copyrigth &copy; 2013 [Bumxu](http://bumxu.com/)  
 Licensed under the [GPLv3 License](http://www.gnu.org/licenses/gpl-3.0.html)
 
 - - -
 
 > **Get Full Web Tetris:**  
 
-> [On the web](http://fullwebtetris.bumxu.com/)  
+> [Directly on the web](http://fullwebtetris.bumxu.com/)  
 [Chrome Web Store](https://chrome.google.com/webstore/detail/ieicmdpibfnjbmjolkmohnelljmjomoj)  
-[Firefox Marketplace](https://marketplace.mozilla.org/app/fullwebtetris)
+Installable (Cooming soon...)  
+Firefox Marketplace (Back soon...)  
 
 - - -
 
