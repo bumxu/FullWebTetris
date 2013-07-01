@@ -1,5 +1,6 @@
 #Full Web Tetris  ![](https://github.com/Bumxu/FullWebTetris/blob/master/_chrome/icon_16.png?raw=true)
 An awesome tetris to kill boredom
+> **3rd version under development :-)**
 
 - - - 
 
