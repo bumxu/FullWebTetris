@@ -1,31 +1,27 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html manifest="available.off">
 <head>
 	<title>Full Web Tetris</title>
 
 	<meta charset="utf-8">
 	<meta name="author" content="Juande Martos - bumxu.com">
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="production.css">
 
 	<link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 
-	<script type="text/javascript" src="j/jQuery.js" ></script>
-	<script type="text/javascript" src="j/jQ-backstretch.js" ></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="production.css">
 
-	<script type="text/javascript">
+	<script type="text/javascript" src="j/jQall.js" ></script>
 
-	  var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-27625873-1']);
-		_gaq.push(['_trackPageview']);
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-		(function () {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-
+	  ga('create', 'UA-27625873-1', 'bumxu.com');
+	  ga('send', 'pageview');
 	</script>
 </head>
 <body>
@@ -78,23 +74,21 @@
 			<div class="button xtr" id="paus" onclick="fwt.pause()" data-xtr="pausegame-btt"></div>
 			<div class="button xtr" id="sett" onclick="ui.action(2)" data-xtr="settings-btt"></div>
 			<div class="button xtr" id="back" onclick="ui.action(6)" data-xtr="goback-btt"></div>
-			
-			<div id="adGame">
-				<script type="text/javascript"><!--
-					google_ad_client = "ca-pub-6611676208266769";
-					/* Full Web Tetris 2.2+ */
-					google_ad_slot = "6868645547";
-					google_ad_width = 120;
-					google_ad_height = 240;
-					//-->
-					</script>
-					<script type="text/javascript"
-					src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-				</script>
-			</div>
 
 			<canvas id="canvas" width="800" height="600"></canvas>
 			<div id="osd"></div>
+
+			<div id="adGame">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Full Web Tetris 2.2+ -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:120px;height:240px"
+				     data-ad-client="ca-pub-6611676208266769"
+				     data-ad-slot="6868645547"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+			</div>
 		</div>
 
 		<div class="activity" id="settings">
@@ -193,6 +187,14 @@
 
 				<div class="bigtitle">Changelog</div>
 				<p>
+					<strong class="title">Version 2.3.3</strong><br>
+					Fix of important last week bug with new bumxu server schema, sorry gamers.<br>
+					Merry christmas!<br>
+					<br>
+					<strong class="title">Version 2.3.2</strong><br>
+					Collision system redone (now the game is "inbugeable" lol).<br>
+					Loading performance opmimization.<br>
+					<br>
 					<strong class="title">Version 2.3.1</strong><br>
 					Improvements and bugfixes.<br>
 					Default direction of rotation option in preferences panel.<br>
@@ -247,6 +249,8 @@
 					Personalised game modes.<br>
 					Adjustable levels.<br>
 					Touch mouse controls.<br>
+					Music.<br>
+					New translations soon<br>
 					<br>
 					<strong class="title">Fails & faults</strong><br>
 					Anything! =D<br>
@@ -260,7 +264,7 @@
 				<p>
 					<strong class="title">Credits</strong><br>
 					<span class="line">Progamming, design and documentation <span class="tab"><strong>Juande Martos</strong></span></span><br>
-					<span class="line">Performance testing and extreme ideas <span class="tab"><strong>Juanjo Riado</strong></span></span><br>
+					<span class="line">Performance testing and extreme ideas <span class="tab"><strong>Juanjo Riado, Jorge Martín</strong></span></span><br>
 					<br>
 					<strong class="title">With the help of...</strong><br>
 					<span class="line">Speeding up user interface <span class="tab"><strong><a href="http://jquery.com" target="_blank">jQuery</strong></a></span></span><br>
@@ -271,11 +275,6 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="j/jQ-json.js"></script>
-	<script type="text/javascript" src="j/jQ-i18n.js"></script>
-
-	<script type="text/javascript" src="j/bX-fwt.js"></script>
-	<script type="text/javascript" src="j/bX-ui.js"></script>
-	<script type="text/javascript" src="j/bX-controls.js"></script>
+	<script type="text/javascript" src="j/bXall.php"></script>
 </body>
 </html>
