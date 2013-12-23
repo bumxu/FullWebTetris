@@ -1,26 +1,21 @@
-.activity#main
-	margin-left: -110%
+section#main
 	+user-select(none)
 
-	#title
-		background: url(g/title.png) center no-repeat
-		height: 80px
-		left: 50%
-		margin-left: -250px
-		margin-top: -40px
-		position: absolute
-		top: 19%
-		width: 500px
+	
 
-	#line
-		background: rgba(255, 255, 255, 0.2)
-		height: 1px
-		left: 50%
-		margin-left: -325px
-		margin-top: 45px
+	#title
+		left: 0
 		position: absolute
-		top: 19%
-		width: 650px
+		text-align: center
+		margin-top: -8px
+		top: 12%
+		width: 100%
+		max-width: 76%
+		height: 16%
+
+		img
+			height: 100%
+			max-height: 76px
 
 	#languages
 		color: rgba(255, 255, 255, 0.3)
@@ -35,6 +30,7 @@
 		top: 19%
 		width: 650px
 		word-spacing: 2px
+		display: none
 
 		span
 			+transition(all 0.15s linear 0s)
@@ -58,6 +54,7 @@
 		position: absolute
 		top: 63%
 		width: 220px
+		display: none
 
 	#selector
 		height: 220px
@@ -65,6 +62,7 @@
 		position: absolute
 		top: 63%
 		width: 100%
+		display: none
 
 		#tiles
 			height: 220px

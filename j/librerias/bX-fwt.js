@@ -1,6 +1,6 @@
 ﻿var fwt = function () {
 	// Canvas
-	var canvas = $('.activity#game canvas')[0];
+	var canvas = $('section#game canvas')[0];
 	var out = canvas.getContext('2d');
 
 	// Board
@@ -88,7 +88,7 @@
 		setNextPiece(false, true); // -> This requires gameStatus > 1
 
 		score = saved.score;
-		$('.activity#game #next #score').html(score);
+		$('section#game #next #score').html(score);
 		
 		calcLevel();
 
@@ -113,8 +113,8 @@
 
 		level = 0;
 		score = 0;
-		$('.activity#game #next #score').html(score);
-		$('.activity#game #next #level').html('<span class="xtr" data-xtr="level-lab">' + $.i18n._('level-lab') + '</span> ' + level);
+		$('section#game #next #score').html(score);
+		$('section#game #next #level').html('<span class="xtr" data-xtr="level-lab">' + $.i18n._('level-lab') + '</span> ' + level);
 
 		resetMap();
 		setNextPiece(true);
@@ -226,7 +226,7 @@
 	var mark = function (plus, type, about) {
 		// score //
 		score += plus;
-		$('.activity#game #next #score').html(score);
+		$('section#game #next #score').html(score);
 
 		// level //
 		calcLevel();
@@ -275,7 +275,7 @@
 		level = Math.floor(score / 3000);
 		normalDelay = 40 - level;
 		limitDelay = normalDelay;
-		$('.activity#game #next #level').html('<span class="xtr" data-xtr="level-lab">' + $.i18n._('level-lab') + '</span> ' + level);
+		$('section#game #next #level').html('<span class="xtr" data-xtr="level-lab">' + $.i18n._('level-lab') + '</span> ' + level);
 	}
 
 	var checkLine = function () {
@@ -325,7 +325,7 @@
 			for (j = piece.form.length - 1; j > -1; j--) {
 				if (piece.form[j][i] != 0) {
 					if (map[piece.j + j + 1] !== undefined) {
-						if (map[piece.j + j + 1][piece.i + i].mat != 0)
+						if (typeof map[piece.j + j + 1][piece.i + i] == 'undefined' || map[piece.j + j + 1][piece.i + i].mat != 0)
 							return false;
 						else
 							break;
@@ -436,13 +436,14 @@
 	}
 
 	var canRight = function () {
-		if (current.i + current.form[0].length + 1 > width)
+		if (current.i + 1 + current.form[0].length > width) {
 			return false;
+		}
 
 		for (j = 0; j < current.form.length; j++) {
 			for (i = current.form[0].length - 1; i > -1; i--) {
 				if (current.form[j][i] != 0) {
-					if (map[current.j + j] !== undefined && map[current.j + j][current.i + i + 1].mat != 0)
+					if (current.j + j > -1 && map[current.j + j][current.i + i + 1].mat != 0)
 						return false;
 
 					break;
@@ -454,13 +455,14 @@
 	}
 
 	var canLeft = function () {
-		if (current.i - 1 < 0)
+		if (current.i - 1 < 0) {
 			return false;
+		}
 
 		for (j = 0; j < current.form.length; j++) {
 			for (i = 0; i < current.form[0].length; i++) {
 				if (current.form[j][i] != 0) {
-					if (map[current.j + j] !== undefined && map[current.j + j][current.i + i - 1].mat != 0)
+					if (current.j + j > -1 && map[current.j + j][current.i + i - 1].mat != 0)
 						return false;
 
 					break;
@@ -474,10 +476,12 @@
 	var canRotate = function (aux) {
 		for (j = 0; j < aux.length; j++) {
 			for (i = 0; i < aux[0].length; i++) {
-				if (aux[j][i] != 0) {
-					if (current.j + j >= 0 && current.j + j < width && map[current.j + j][current.i + i].mat != 0)
+
+				if (aux[j][i] != 0 && (current.j + j > 0)) {
+					if (typeof map[current.j + j] == 'undefined' || typeof map[current.j + j][current.i + i] == 'undefined' || map[current.j + j][current.i + i].mat != 0)
 						return false;
 				}
+
 			}
 		}
 
@@ -610,8 +614,8 @@
 		// --- //
 
 		if (first !== true) {
-			$('.activity#game #next .oldNext').remove();
-			$('.activity#game #next .newNext').addClass('oldNext').removeClass('newNext').animate({ 'left': 120, 'opacity': 0 }, 260, function () {
+			$('section#game #next .oldNext').remove();
+			$('section#game #next .newNext').addClass('oldNext').removeClass('newNext').animate({ 'left': 120, 'opacity': 0 }, 260, function () {
 				$(this).remove();
 			});
 
@@ -632,7 +636,7 @@
 
 	var clearNext = function() {
 		next = {};
-		$('.activity#game #next canvas').animate({ 'left': 120, 'opacity': 0 }, 260, function () {
+		$('section#game #next canvas').animate({ 'left': 120, 'opacity': 0 }, 260, function () {
 			$(this).remove();
 		});
 	}
@@ -666,11 +670,11 @@
 	}
 
 	var adjust = function() {
-		$(".activity").css('width', $('#layout').innerWidth() - 12);
-		$(".activity").css('height', $('#layout').innerHeight() - 12 - 20);
+		$("section").css('width', $('#layout').innerWidth() - 12);
+		$("section").css('height', $('#layout').innerHeight() - 12 - 20);
 
-		wPxB = $(".activity#game").innerWidth() - 125;
-		hPxB = $(".activity#game").innerHeight();
+		wPxB = $("section#game").innerWidth() - 125;
+		hPxB = $("section#game").innerHeight();
 
 		size = Math.floor(hPxB / height);
 		wPxC = width * size;
@@ -684,15 +688,15 @@
 
 		$(canvas).attr("width", wPxC);
 		$(canvas).attr("height", hPxC);
-		$(".activity#game #osd").css("width", wPxC);
-		$(".activity#game #osd").css("height", hPxC);
+		$("section#game #osd").css("width", wPxC);
+		$("section#game #osd").css("height", hPxC);
 
-		fieldDistance = ($(".activity#game").innerWidth() - 125 - wPxC) / 2;
+		fieldDistance = ($("section#game").innerWidth() - 125 - wPxC) / 2;
 
-		$(canvas).css("top", ($(".activity#game").innerHeight() - hPxC) / 2);
-		$(canvas).css("left", ($(".activity#game").innerWidth() - 125 - wPxC) / 2 + 125);
-		$(".activity#game #osd").css("top", ($(".activity#game").innerHeight() - hPxC) / 2);
-		$(".activity#game #osd").css("left", ($(".activity#game").innerWidth() - 125 - wPxC) / 2 + 125);
+		$(canvas).css("top", ($("section#game").innerHeight() - hPxC) / 2);
+		$(canvas).css("left", ($("section#game").innerWidth() - 125 - wPxC) / 2 + 125);
+		$("section#game #osd").css("top", ($("section#game").innerHeight() - hPxC) / 2);
+		$("section#game #osd").css("left", ($("section#game").innerWidth() - 125 - wPxC) / 2 + 125);
 
 		repaint();
 	}

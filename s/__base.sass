@@ -23,38 +23,45 @@ html, body
 	padding: 0
 	width: 100%
 
+body
+	background: rgb(174,55,55)
+	+transition(background 0.5s linear 0s)
+
+body.blu
+	background: rgb(34, 34, 34)
+
 #layout
+	background: url(darknoise.png) center
 	bottom: 0
 	font-family: 'Open Sans', 'Calibri', Arial, sans-serif
 	left: 0
-	min-height: 500px
-	min-width: 900px
 	overflow: hidden
 	position: absolute
 	right: 0
 	top: 0
 
-	.activity
+	section
+		bottom: 3px
 		display: none
-		left: 6px
-		margin-left: 110%
+		left: 3px
 		overflow: hidden
 		position: absolute
-		top: 6px
+		right: 3px
+		top: 3px
 
-	#foot
-		+box-shadow(0 0 4px rgba(255, 255, 255, 0.2))
+	header#top
+		+box-shadow(0 0 8px rgba(0, 0, 0, 0.2))
 		+user-select(none)
-		background: rgba(0, 0, 0, 0.2)
-		bottom: 0
+		background: rgba(255, 255, 255, 0.06)
+		top: 0
 		color: rgba(255, 255, 255, 0.25)
 		cursor: default
 		font-size: 11px
 		font-weight: 600
-		height: 20px
+		height: 18%
+		max-height: 120px
 		left: 0
 		line-height: 20px
-		padding: 0 6px
 		position: absolute
 		right: 0
 		
@@ -68,7 +75,26 @@ html, body
 				+transition(all 0.15s linear 0s)
 				color: rgba(255, 255, 255, 0.2)
 				cursor: pointer
+				outline: 0
 				text-decoration: none
 		
-				&:hover
+				&:hover, &:focus
 					color: rgba(255, 255, 255, 0.4)
+					outline: 0
+
+	header#corner
+		+box-shadow(0 0 8px rgba(0, 0, 0, 0.2))
+		+user-select(none)
+		background: rgba(255, 255, 255, 0.06)
+		top: 0
+		color: rgba(255, 255, 255, 0.25)
+		cursor: default
+		font-size: 11px
+		font-weight: 600
+		width: 18%
+		max-width: 120px
+
+		left: 0
+		line-height: 20px
+		position: absolute
+		bottom: 0

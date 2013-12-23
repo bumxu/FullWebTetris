@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html manifest="available.off">
+<!-- manifest="available.off"-->
+<html>
 <head>
 	<title>Full Web Tetris</title>
 
 	<meta charset="utf-8">
-	<meta name="author" content="Juande Martos - bumxu.com">
+	<meta name="author" content="Juande Martos">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 	<link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
@@ -14,39 +16,42 @@
 
 	<script type="text/javascript" src="j/jQall.js" ></script>
 
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	  ga('create', 'UA-27625873-1', 'bumxu.com');
-	  ga('send', 'pageview');
-	</script>
 </head>
-<body>
+<body class="blu">
 	<div id="layout">
-		<div id="foot">
-			Full Web Tetris v.2.3
-			<div id="right">&copy; 2013 · <a href="http://www.bumxu.com" target="_blank">Bumxu</a></div>
-		</div>
+		<header id="corner">
+			<div class="c-logo"></div>
+			<canvas id="c-next"></canvas>
+		</header>
+		<header id="top">
+			<div class="t-logo"></div>
+			<canvas id="t-next"></canvas>
+		</header>
 
-		<div class="activity" id="loader">
+		<section id="loader">
 			<div id="firsttag-chispa">LOADING</div>
 			<div id="loader-chispa"></div>
 			<div id="title-chispa"></div>
-		</div>
+		</section>
 
-		<div class="activity" id="main">
-			<div id="title"></div>
-			<div id="line"></div>
-			<div id="languages">
+		<section id="main">
+			<div id="title">
+				<img src="g/title.png">
+			</div>
+
+			<div id="menu">
+				<div onclick="ui.action(1)" id="t1" class="tile"><span class="xtr" data-xtr="newgame-mnu"></span></div>
+				<div onclick="ui.action(2)" id="t2" class="tile"><span class="xtr" data-xtr="customize-mnu"></span></div>
+				<!--div onclick="ui.action(3)" id="t4" class="tile"><span class="xtr" data-xtr="marks-mnu"></span></div-->
+				<div onclick="ui.action(4)" id="t5" class="tile"><span class="xtr" data-xtr="helpabout-mnu"></span></div>
+			</div>
+			<!--div id="languages">
 				- 
 				<span onclick="ui.setLanguage(0)">English</span> - 
 				<span onclick="ui.setLanguage(1)">Español</span> - 
-				<span onclick="ui.setLanguage(2)">Français</span> - <!--
+				<span onclick="ui.setLanguage(2)">Français</span> - <
 				<span onclick="ui.setLanguage(3)">Italiano</span> - 
-				<span onclick="ui.setLanguage(4)">Deutsch</span> --> 
+				<span onclick="ui.setLanguage(4)">Deutsch</span> -> 
 				<span onclick="ui.setLanguage(5)">Português</span> - 
 			</div>
 
@@ -56,42 +61,34 @@
 				<div id="tiles">
 					<div onclick="ui.action(1)" id="t1" class="tile"><span class="xtr" data-xtr="newgame-mnu"></span></div>
 					<div onclick="ui.action(2)" id="t2" class="tile"><span class="xtr" data-xtr="customize-mnu"></span></div>
-					<!--div onclick="ui.action(3)" id="t4" class="tile"><span class="xtr" data-xtr="marks-mnu"></span></div-->
+					<!--div onclick="ui.action(3)" id="t4" class="tile"><span class="xtr" data-xtr="marks-mnu"></span></div->
 					<div onclick="ui.action(4)" id="t5" class="tile"><span class="xtr" data-xtr="helpabout-mnu"></span></div>
 				</div>
-			</div>
-		</div>
+			</div-->
+		</section>
 
-		<div class="activity" id="game">
-			<div id="next">
+		<section id="game" style="text-align:center">
+			<!--div id="next">
 				<div id="l1"></div>
 				<div id="score"></div>
 				<div id="l2"></div>
 				<div id="level"></div>
-			</div>
+			</div-->
 
-			<div class="button xtr" id="newg" onclick="ui.action(1)" data-xtr="newgame-btt"></div>
+			<div class="fpsmetter">0 FPS</div>
+
+			<!--div class="button xtr" id="newg" onclick="ui.action(1)" data-xtr="newgame-btt"></div>
 			<div class="button xtr" id="paus" onclick="fwt.pause()" data-xtr="pausegame-btt"></div>
 			<div class="button xtr" id="sett" onclick="ui.action(2)" data-xtr="settings-btt"></div>
-			<div class="button xtr" id="back" onclick="ui.action(6)" data-xtr="goback-btt"></div>
+			<div class="button xtr" id="back" onclick="ui.action(6)" data-xtr="goback-btt"></div-->
 
 			<canvas id="canvas" width="800" height="600"></canvas>
 			<div id="osd"></div>
+			<div id="big-paused"></div>
+			<!--div id="big-over"></div-->
+		</section>
 
-			<div id="adGame">
-				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-				<!-- Full Web Tetris 2.2+ -->
-				<ins class="adsbygoogle"
-				     style="display:inline-block;width:120px;height:240px"
-				     data-ad-client="ca-pub-6611676208266769"
-				     data-ad-slot="6868645547"></ins>
-				<script>
-				(adsbygoogle = window.adsbygoogle || []).push({});
-				</script>
-			</div>
-		</div>
-
-		<div class="activity" id="settings">
+		<section id="settings">
 
 			<div class="buttonback xtr" onclick="ui.action(6)" data-xtr="goback-btt"></div>
 
@@ -161,10 +158,9 @@
 					<div class="clear"></div>
 				</div>
 			</div>
+		</section>
 
-		</div>
-
-		<div class="activity" id="help">
+		<section id="help">
 
 			<div class="buttonback xtr" onclick="ui.action(6)" data-xtr="goback-btt"></div>
 
@@ -187,10 +183,6 @@
 
 				<div class="bigtitle">Changelog</div>
 				<p>
-					<strong class="title">Version 2.3.3</strong><br>
-					Fix of important last week bug with new bumxu server schema, sorry gamers.<br>
-					Merry christmas!<br>
-					<br>
 					<strong class="title">Version 2.3.2</strong><br>
 					Collision system redone (now the game is "inbugeable" lol).<br>
 					Loading performance opmimization.<br>
@@ -264,7 +256,7 @@
 				<p>
 					<strong class="title">Credits</strong><br>
 					<span class="line">Progamming, design and documentation <span class="tab"><strong>Juande Martos</strong></span></span><br>
-					<span class="line">Performance testing and extreme ideas <span class="tab"><strong>Juanjo Riado, Jorge Martín</strong></span></span><br>
+					<span class="line">Performance testing and extreme ideas <span class="tab"><strong>Juanjo Riado</strong></span></span><br>
 					<br>
 					<strong class="title">With the help of...</strong><br>
 					<span class="line">Speeding up user interface <span class="tab"><strong><a href="http://jquery.com" target="_blank">jQuery</strong></a></span></span><br>
@@ -272,9 +264,21 @@
 				</p>
 				<br><br>
 			</div>
-		</div>
+		</section>
 	</div>
 
-	<script type="text/javascript" src="j/bXall.php"></script>
+	<!--script type="text/javascript" src="j/bXall.php"></script-->
+	<script type="text/javascript" src="j/bX-core.js"></script>
+	<!--script type="text/javascript" src="j/bX-game.js"></script-->
+	<script type="text/javascript" src="j/bX-hci.js"></script>
+	<script type="text/javascript" src="j/bX-ui.js"></script>
+
+	<script type="text/javascript">
+		fwt = {}
+		//fwt.core = new core(fwt);
+		fwt.hci  = new HCI(fwt);
+		fwt.ui  = new UI(fwt);
+		//fwt.game = new Game();
+	</script>
 </body>
 </html>

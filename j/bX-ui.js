@@ -1,312 +1,88 @@
-var ui = function () {
-	
-	
-	var menuItem;
+var UI = function (fwt) {
 
+	var redim_clk;
 
-	console.log("\nFull Web Tetris 2.2.0");
-	console.log(" By Juande Martos\n Copyright © 2012 Bumxu\n Licensed under the GPLv3 license\n");
-
-//	<Preloader> preloads graphics to the <Loader>
-	var preLoaderDone = 0;
-	var preLoaderToDo = 2;
-
-	var preLoader = function(){
-		preLoaderDone++;
-		if(preLoaderDone == preLoaderToDo){
-			$.backstretch("g/wall.jpg", {'speed': 100});
-			init();
-		}
-	}
-
-	_iv0 = new Image(); _iv0.src = "g/wall.jpg";   _iv0.onload = preLoader;
-	_iv1 = new Image(); _iv1.src = "g/loader.png"; _iv1.onload = preLoader;
-//
-
-//	<Init> prepares user interface
-	var savedGameImage = null;
-	var activeGame = false;
-
-	var init = function(){
-		//-> Set more apropiate language
-		setLanguage();
-
-		//-> Set user interface events
-		setEvents();
-
-
-		//-> Preload game graphics & user interface
-		console.log(" - Setting up graphics...");
-		fwt.loadGameGraphics();
-		    loader.ui();
-		console.log("   Ready");
-
-		//-> Get saved game from localStorage if any
-		try{
-			savedGameImage = $.evalJSON(localStorage.fwtActiveGame);
-			activeGame = true;
-			console.log(" - Active game found");
-		} catch(e){
-			activeGame = false;
-			console.log(" - No active game found");
-		}
-
-		menuItem = 0;
-		if(activeGame)
-			$('#tiles').prepend('<div onclick="ui.action(7)" id="t0" class="tile"><span class="xtr" data-xtr="savedgame-mnu">' + $.i18n._('savedgame-mnu') + '</span></div>');
-	}
-//
-
-//	<Set language><Browser languge><Translate> detect and define the more adecuated language
-	var language;
-	var languageList = ["english", "spanish", "french", "italian", "german", "portuguese"];
-
-	var setLanguage = function(n){
-		if(typeof n === "undefined" || isNaN(n)){
-			if(localStorage.fwtLanguage && !isNaN(localStorage.fwtLanguage) && localStorage.fwtLanguage > -1 && localStorage.fwtLanguage < languageList.length)
-				n = localStorage.fwtLanguage;
-			else
-				n = browserLanguage();
-		}
-
-		language = n;
-		localStorage.fwtLanguage = language;
-		translate();
-	}
-
-	var browserLanguage = function () {
-		userLang = (navigator.language) ? navigator.language : navigator.userLanguage;
-		switch (userLang) {
-			case "es":
-				return 1;
-			case "ca":
-				return 1;
-			case "fr":
-				return 2;
-			case "it":
-				return 3;
-			case "de":
-				return 4;
-			case "pt":
-				return 4;
-		}
-		return 0;
-	}
-
-	var translate = function () {
-		$('#languages span').removeClass('selected');
-		$($('#languages span')[language]).addClass('selected');
-
-		$.getJSON('j/xtr/' + languageList[language] + '.json', function (data) {
-			$(".tile span").fadeOut(200, function(){
-				$.i18n.setDictionary(data);
-
-				$('.xtr').map(function () {
-					$(this).html($.i18n._($(this).attr('data-xtr')));
-				});
-
-				$(".tile span").fadeIn(200);
-			});
-		});
-	}
-//
-
-//	<Set events><Mousewheel>
-	var setEvents = function () {
-		window.onresize = function () {
-			adjust();
-		}
-		adjust();
-
-		document.getElementById('main').onmousewheel = mousewheel;
-		document.getElementById('main').addEventListener('DOMMouseScroll', mousewheel, false);
-
-		document.onkeydown = function (e) {
-			if (e.keyCode == 39 || (!event.shiftKey && event.keyCode == 9)) {
-				menuItem++;
-				if (menuItem > $('#tiles .tile').length - 1)
-					menuItem = 0;
-				adjust();
-				e.preventDefault();
-			}
-			if (e.keyCode == 37 || (event.shiftKey && event.keyCode == 9)) {
-				menuItem--;
-				if (menuItem < 0)
-					menuItem = $('#tiles .tile').length - 1;
-				adjust();
-				e.preventDefault();
-			}
-			if (e.keyCode == 13) {
-				if(activeGame == true)
-					action(menuItem);
-				else
-					action(menuItem + 1);
-				e.preventDefault();
-			}
-		}
-	}
-
-	var mousewheel = function (e) {
-		factor = e.wheelDelta || (e.detail * -1);
-
-		if (factor < 0) {
-			menuItem++;
-			if (menuItem > $('#tiles .tile').length - 1)
-				menuItem = 0;
-			adjust();
-		}
-		if (factor > 0) {
-			menuItem--;
-			if (menuItem < 0)
-				menuItem = $('#tiles .tile').length - 1;
-			adjust();
-		}
-		
-		e.preventDefault();
-	}
-//
-
-//	<Loader> preloads all the game & interface graphics, and SHOW MAIN MENU when ready
-	var loader = {
-		total: 0,
-		loaded: 0,
-
-		tick: function(){
-			this.loaded++;
-			$('#loader-chispa').css('opacity', (this.loaded / this.total));
-		
-			if(this.loaded == this.total){
-				$('#firsttag-chispa, #loader-chispa').fadeOut(500, function(){
-					if ($("#title-chispa:animated").length === 0){
-						$('#title-chispa').fadeIn(400).delay(200).fadeOut(300, function(){
-							ui.action(6);
-						});
-					}
-				})
-			}
-		},
-		needed: function(n){
-			this.total += n;
-		},
-		ui: function(){
-			gf = ['tile-customize.png', 'tile-help.png', 'tile-newGame.png', 'tile-rankings.png', 'tile-savedGame.png', 'title.png', 'arrow.png'];
-			ga = [];
-			for(i = 0; i < gf.length; i++){
-				ui.loader.needed(1);
-				ga[i] = new Image();
-				ga[i].src = "g/" + gf[i];
-				ga[i].onload = function(){
-					ui.loader.tick();
-				}
-			}
-		}
-
-	}
-//
-
-//	<Adjust> resize the elements to fit screen
+	// Resizes canvas with window
 	var adjust = function () {
-		$(".activity").css('width', $('#layout').innerWidth() - 12);
-		$(".activity").css('height', $('#layout').innerHeight() - 12 - 20);
 
-		for (i = 0; i < $('#tiles .tile').length; i++) {
-			$($('#tiles .tile')[i]).css({ 'margin-left': -100 + 230 * (i - menuItem) });
-			
-			if (i == menuItem)
-				$($('#tiles .tile')[i]).css({ 'color': 'rgba(0, 0, 0, 0.7)', 'box-shadow': '0 0 6px rgba(0, 0, 0, 0.3)', 'background-color': 'rgba(255, 255, 255, 0.3)' });
-			else
-				$($('#tiles .tile')[i]).css({ 'color': 'rgba(255, 255, 255, 0.2)', 'box-shadow': 'none', 'background-color': 'rgba(255, 255, 255, 0.1)' });
-		}
+		if(fwt.game)
+			fwt.game.pauseGame(true);
 
-		$('#tiles .tile').fadeIn(100);
+		/*$("section#game").css('width',  $('#layout').innerWidth() - 12);
+		$("section#game").css('height', $('#layout').innerHeight() - 12 - 20);*/
+
+		clearTimeout(redim_clk);
+		/*redim_clk = setTimeout(function() {
+			$('section#game #canvas').attr("height", $("section#game").innerHeight() - 20);
+			$('section#game #canvas').attr("width", $("section#game").innerWidth() - 20);
+
+			if(fwt.game)
+				fwt.game.repaint();
+		}, 150);*/
+
+		$('header, section#game #canvas, section#game #big-paused').fadeTo(1, 0);
+
+		redim_clk = setTimeout(function() {
+
+			// Top bar pre.
+			bar1 = 18 * $("section#game").innerHeight() / 100;
+			bar1 = (bar1 > 120) ? 120 : bar1;
+			bar1 += 3;
+			wid1 = $("section#game").innerWidth();
+			hei1 = wid1 * 24 / 16;
+			if (hei1 > $("section#game").innerHeight() - bar1) {
+				hei1 = $("section#game").innerHeight() - bar1;
+				wid1 = hei1 * 16 / 24;
+			}
+
+			// Corner bar pre.
+			bar2 = 18 * $("section#game").innerWidth() / 100;
+			bar2 = (bar2 > 120) ? 120 : bar2;
+			bar2 += 3;
+			wid2 = $("section#game").innerWidth() - bar2;
+			hei2 = wid2 * 24 / 16;
+			if (hei2 > $("section#game").innerHeight()) {
+				hei2 = $("section#game").innerHeight();
+				wid2 = hei2 * 16 / 24;
+			}
+
+			if (hei1 > hei2) {
+				$('section#game #canvas').attr("width", wid1);
+				$('section#game #canvas').attr("height", hei1);
+
+				$('section#game #canvas').css({left: $("section#game").innerWidth() / 2 - wid1/2, top: ($("section#game").innerHeight() - bar1) / 2 + bar1 - hei1/2});
+
+				bigSize = Math.min(wid1, hei1) * 40 / 100;
+				$('section#game #big-paused').css({"margin-left": 0 - bigSize/2, "margin-top": 0 - bigSize/2 + bar1/2, "width": bigSize, "height": bigSize});
+
+				$('header#top').fadeTo(200, 1);
+			} else {
+				$('section#game #canvas').attr("width", wid2);
+				$('section#game #canvas').attr("height", hei2);
+
+				$('section#game #canvas').css({left: ($("section#game").innerWidth() - bar2) / 2 + bar2 - wid2/2, top: $("section#game").innerHeight() / 2 - hei2/2});
+
+				bigSize = Math.min(wid2, hei2) * 40 / 100;
+				$('section#game #big-paused').css({"margin-left": 0 - bigSize/2 + bar2/2, "margin-top": 0 - bigSize/2, "width": bigSize, "height": bigSize});
+
+				$('header#corner').fadeTo(200, 1);
+			}
+
+			if(fwt.game) {
+				fwt.game.repaint();
+
+				$('section#game #big-paused').fadeTo(200, 1);
+			}
+
+			$('section#game #canvas').fadeTo(200, 1);
+
+		}, 150);
 	}
 
-
-	var action = function(id){
-		switch(id){
-			case 0:
-				if(!activeGame)
-					break;
-				fwt.setEvents();
-				$('.activity#game').show().animate({ 'margin-left': 0 }, 500);
-				$('.activity#main').animate({ 'margin-left': '-110%' }, 500, function () {
-					$(this).hide();
-					fwt.pause(0);
-				});
-			break;
-			case 1: // -> New game
-				fwt.setEvents();
-				$('.activity#game').show().animate({ 'margin-left': 0 }, 500);
-				$('.activity#main').animate({ 'margin-left': '-110%' }, 500, function () {
-					$(this).hide();
-					activeGame = true;
-					savedGameImage = null;
-					fwt.newGame();
-				});
-			break;
-			case 2: // -> Customize
-				fwt.pause(1);
-				setEvents();
-
-				cmd.loadPrefs();
-
-				$('.activity:not(#settings)').animate({ 'margin-left': '-110%' }, 500, function() { $(this).hide(); });
-				$('.activity#settings').show().animate({ 'margin-left': 0 }, 500);
-			break;
-			case 3: // -> Marks
-				$('.activity:not(#marks)').animate({ 'margin-left': '-110%' }, 500, function() { $(this).hide(); });
-				$('.activity#marks').show().animate({ 'margin-left': 0 }, 500);
-			break;
-			case 4: // -> Assistance
-				fwt.pause(1);
-				setEvents();
-
-				$('.activity:not(#help)').animate({ 'margin-left': '-110%' }, 500, function() { $(this).hide(); });
-				$('.activity#help').show().animate({ 'margin-left': 0 }, 500);
-			break;
-			case 6: // -> Back to main menu
-				fwt.pause(1);
-				setEvents();
-
-				if (activeGame && savedGameImage == null) {
-					$('#tiles #t0').remove();
-					$('#tiles').prepend('<div onclick="ui.action(0)" id="t0" class="tile"><span class="xtr" data-xtr="resumegame-mnu">' + $.i18n._('resumegame-mnu') + '</span></div>');
-
-					menuItem = 0;
-					adjust();
-				}
-
-				$('.activity:not(#main)').animate({ 'margin-left': '110%' }, 500, function() { $(this).hide(); });
-				$('.activity#main').show().animate({ 'margin-left': 0 }, 500);
-			break;
-			case 7: // -> Start saved game
-				if(!activeGame || savedGameImage == null)
-					break;
-
-				fwt.prepare(savedGameImage);
-				savedGameImage = null;
-				ui.action(0);
-			break;
-		}
-	}
-
-	var stopGame = function() {
-		activeGame = false;
-		savedGameImage = null;
-
-		$('#tiles #t0').remove();
-		
-		menuItem = 0;
+	window.onresize = function () {
 		adjust();
 	}
+	adjust();
 
 
-	// Public methods
-	this.action = action;
-	this.setLanguage = setLanguage;
-	this.loader = loader;
-	this.stopGame = stopGame;
-	
 }
-
-var ui = new ui();

@@ -1,5 +1,7 @@
-.activity#game 
+section#game 
 	+user-select(none)
+
+	display: block
 
 	#next
 		+border-radius(1px 1px 0 0)
@@ -110,3 +112,31 @@
 			width: 500px
 		.line
 			font-size: 22px
+
+	#big-paused
+		background: url(g/big-paused.svg)
+		background-size: 100%
+		position: absolute
+		top: 50%
+		left: 50%
+		width: 80px
+		height: 80px
+		display: none
+
+	.fpsmetter
+		position: absolute
+		z-index: 300
+		right: 5px
+		top: 5px
+		background: rgba(0, 0, 0, 0.5)
+		color: rgba(180, 180, 0, 0.4)
+		font-weight: bold
+		font-size: 11px
+		width: 60px
+		padding: 4px 0 4px 3px
+		border-radius: 1px
+		text-align: center
+		border-right: 3px solid rgba(0, 0, 0, 0)
+
+		&.rp
+			border-right: 3px solid rgba(180, 180, 0, 0.8)
