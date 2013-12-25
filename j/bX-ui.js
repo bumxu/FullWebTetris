@@ -4,22 +4,46 @@ var UI = function (fwt) {
 
 	// Resizes canvas with window
 	var adjust = function () {
+
+		//> Main menu size
 		if ($("section#main #frame2").innerWidth() * 0.8 < $("section#main #frame2").innerHeight())
 		{
-			var side = $("section#main #frame2").innerWidth() * 0.7;
+			var side = Math.min(  $("section#main #frame2").innerWidth() * 0.7  , 280);
 			$("section#main #sight")
 			 .css('width', side)
 			 .css('height', side)
 			 .css('margin-left', - side / 2 - 5)
 			 .css('margin-top', - (side+10) / 2 );
+
+			$("section#main #selector")
+			 .css('height', side)
+			 .css('margin-top', - (side+10) / 2 + 5);
+
+			$("section#main #tiles .tile")
+			 .css('width', $("section#main #tiles").innerHeight());
+
 		} else {
-			var side = $("section#main #frame2").innerHeight() * 0.9;
+			var side = Math.min(  $("section#main #frame2").innerHeight() * 0.9  , 280);
 			$("section#main #sight")
 			 .css('width', side)
 			 .css('height', side)
 			 .css('margin-left', - side / 2 - 5)
 			 .css('margin-top', - (side+10) / 2 );
+
+			$("section#main #selector")
+			 .css('height', side)
+			 .css('margin-top', - (side+10) / 2 + 5 );
+
+			$("section#main #tiles .tile")
+			 .css('width', $("section#main #tiles").innerHeight());
 		}
+
+		$("section#main #tiles")
+			 .css('width', ($("section#main #tiles").innerHeight() + 20) * $("section#main #tiles .tile").length);
+
+		$("section#main #tiles")
+			 .css('margin-left', - $("section#main #tiles").innerHeight()/2 - 10)
+			 .css('font-size', Math.floor(side / 14));
 
 
 		if(fwt.game)

@@ -1,28 +1,17 @@
 var HCI = function (fwt) {
 
-	// Resizes the elements to fit screen
-	//var adjust = function () {
-		/*$("section").css('width', $('#layout').innerWidth() - 12);
-		$("section").css('height', $('#layout').innerHeight() - 12 - 20);
+	var offset = 0;
+	var mOffset;
 
-		for (i = 0; i < $('#tiles .tile').length; i++) {
-			$($('#tiles .tile')[i]).css({ 'margin-left': -100 + 230 * (i - menuItem) });
-			
-			if (i == menuItem)
-				$($('#tiles .tile')[i]).css({ 'color': 'rgba(0, 0, 0, 0.7)', 'box-shadow': '0 0 6px rgba(0, 0, 0, 0.3)', 'background-color': 'rgba(255, 255, 255, 0.3)' });
-			else
-				$($('#tiles .tile')[i]).css({ 'color': 'rgba(255, 255, 255, 0.2)', 'box-shadow': 'none', 'background-color': 'rgba(255, 255, 255, 0.1)' });
-		}
+	$("section#main #selector").bind("touchstart", function(e)
+	{
+		mOffset = e.originalEvent.changedTouches[0].pageX - $(this).children("#tiles").position().left - 3;
+	});
 
-		$('#tiles .tile').fadeIn(100);*/
-
-		
-	//}
-
-	//window.onresize = function () {
-	//	adjust();
-	//}
-	//adjust();
+	$("section#main #selector").bind("touchmove", function(e) {
+		e.preventDefault();
+		$(this).children("#tiles").css("left", e.originalEvent.changedTouches[0].pageX - mOffset);
+	});
 
 
 	document.onkeyup = function(e) {
