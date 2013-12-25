@@ -11,23 +11,12 @@
 	<link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="production.css">
 
 	<script type="text/javascript" src="j/jQall.js" ></script>
-
 </head>
-<body class="blu">
+<body>
 	<div id="layout">
-		<header id="corner">
-			<div class="c-logo"></div>
-			<canvas id="c-next"></canvas>
-		</header>
-		<header id="top">
-			<div class="t-logo"></div>
-			<canvas id="t-next"></canvas>
-		</header>
-
 		<section id="loader">
 			<div id="firsttag-chispa">LOADING</div>
 			<div id="loader-chispa"></div>
@@ -35,45 +24,58 @@
 		</section>
 
 		<section id="main">
-			<div id="title">
-				<img src="g/title.png">
-			</div>
+			<div id="frame1">
+				<div id="title"></div>
 
-			<div id="menu">
-				<div onclick="ui.action(1)" id="t1" class="tile"><span class="xtr" data-xtr="newgame-mnu"></span></div>
-				<div onclick="ui.action(2)" id="t2" class="tile"><span class="xtr" data-xtr="customize-mnu"></span></div>
-				<!--div onclick="ui.action(3)" id="t4" class="tile"><span class="xtr" data-xtr="marks-mnu"></span></div-->
-				<div onclick="ui.action(4)" id="t5" class="tile"><span class="xtr" data-xtr="helpabout-mnu"></span></div>
-			</div>
-			<!--div id="languages">
-				- 
-				<span onclick="ui.setLanguage(0)">English</span> - 
-				<span onclick="ui.setLanguage(1)">Español</span> - 
-				<span onclick="ui.setLanguage(2)">Français</span> - <
-				<span onclick="ui.setLanguage(3)">Italiano</span> - 
-				<span onclick="ui.setLanguage(4)">Deutsch</span> -> 
-				<span onclick="ui.setLanguage(5)">Português</span> - 
-			</div>
+				<div id="frame2">
+					<!--div id="menu">
+						<div onclick="ui.action(1)" id="t1" class="tile"><span class="xtr" data-xtr="newgame-mnu"></span></div>
+						<div onclick="ui.action(2)" id="t2" class="tile"><span class="xtr" data-xtr="customize-mnu"></span></div>
+						<!-div onclick="ui.action(3)" id="t4" class="tile"><span class="xtr" data-xtr="marks-mnu"></span></div->
+						<div onclick="ui.action(4)" id="t5" class="tile"><span class="xtr" data-xtr="helpabout-mnu"></span></div>
+					</div-->
+					<!--div id="languages">
+						- 
+						<span onclick="ui.setLanguage(0)">English</span> - 
+						<span onclick="ui.setLanguage(1)">Español</span> - 
+						<span onclick="ui.setLanguage(2)">Français</span> - <
+						<span onclick="ui.setLanguage(3)">Italiano</span> - 
+						<span onclick="ui.setLanguage(4)">Deutsch</span> -> 
+						<span onclick="ui.setLanguage(5)">Português</span> - 
+					</div-->
 
-			<div id="sight"></div>
+					<div id="sight">
+					</div>
 
-			<div id="selector">
-				<div id="tiles">
-					<div onclick="ui.action(1)" id="t1" class="tile"><span class="xtr" data-xtr="newgame-mnu"></span></div>
-					<div onclick="ui.action(2)" id="t2" class="tile"><span class="xtr" data-xtr="customize-mnu"></span></div>
-					<!--div onclick="ui.action(3)" id="t4" class="tile"><span class="xtr" data-xtr="marks-mnu"></span></div->
-					<div onclick="ui.action(4)" id="t5" class="tile"><span class="xtr" data-xtr="helpabout-mnu"></span></div>
+					<!--div id="selector">
+						<div id="tiles">
+							<div onclick="ui.action(1)" id="t1" class="tile"><span class="xtr" data-xtr="newgame-mnu"></span></div>
+							<div onclick="ui.action(2)" id="t2" class="tile"><span class="xtr" data-xtr="customize-mnu"></span></div>
+							<!--div onclick="ui.action(3)" id="t4" class="tile"><span class="xtr" data-xtr="marks-mnu"></span></div->
+							<div onclick="ui.action(4)" id="t5" class="tile"><span class="xtr" data-xtr="helpabout-mnu"></span></div>
+						</div>
+					</div-->
 				</div>
-			</div-->
+
+			</div>
 		</section>
 
 		<section id="game" style="text-align:center">
-			<!--div id="next">
+			<header id="corner">
+				<div class="c-logo"></div>
+				<canvas id="c-next"></canvas>
+			</header>
+			<header id="top">
+				<div class="t-logo"></div>
+				<canvas id="t-next"></canvas>
+			</header>
+
+			<div id="next">
 				<div id="l1"></div>
 				<div id="score"></div>
 				<div id="l2"></div>
 				<div id="level"></div>
-			</div-->
+			</div>
 
 			<div class="fpsmetter">0 FPS</div>
 
@@ -267,18 +269,15 @@
 		</section>
 	</div>
 
-	<!--script type="text/javascript" src="j/bXall.php"></script-->
 	<script type="text/javascript" src="j/bX-core.js"></script>
-	<!--script type="text/javascript" src="j/bX-game.js"></script-->
 	<script type="text/javascript" src="j/bX-hci.js"></script>
 	<script type="text/javascript" src="j/bX-ui.js"></script>
 
 	<script type="text/javascript">
 		fwt = {}
-		//fwt.core = new core(fwt);
 		fwt.hci  = new HCI(fwt);
 		fwt.ui  = new UI(fwt);
-		//fwt.game = new Game();
 	</script>
+
 </body>
 </html>

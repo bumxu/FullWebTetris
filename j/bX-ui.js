@@ -4,6 +4,23 @@ var UI = function (fwt) {
 
 	// Resizes canvas with window
 	var adjust = function () {
+		if ($("section#main #frame2").innerWidth() * 0.8 < $("section#main #frame2").innerHeight())
+		{
+			var side = $("section#main #frame2").innerWidth() * 0.7;
+			$("section#main #sight")
+			 .css('width', side)
+			 .css('height', side)
+			 .css('margin-left', - side / 2 - 5)
+			 .css('margin-top', - (side+10) / 2 );
+		} else {
+			var side = $("section#main #frame2").innerHeight() * 0.9;
+			$("section#main #sight")
+			 .css('width', side)
+			 .css('height', side)
+			 .css('margin-left', - side / 2 - 5)
+			 .css('margin-top', - (side+10) / 2 );
+		}
+
 
 		if(fwt.game)
 			fwt.game.pauseGame(true);

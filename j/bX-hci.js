@@ -1,7 +1,7 @@
 var HCI = function (fwt) {
 
 	// Resizes the elements to fit screen
-	var adjust = function () {
+	//var adjust = function () {
 		/*$("section").css('width', $('#layout').innerWidth() - 12);
 		$("section").css('height', $('#layout').innerHeight() - 12 - 20);
 
@@ -17,12 +17,12 @@ var HCI = function (fwt) {
 		$('#tiles .tile').fadeIn(100);*/
 
 		
-	}
+	//}
 
-	window.onresize = function () {
-		adjust();
-	}
-	adjust();
+	//window.onresize = function () {
+	//	adjust();
+	//}
+	//adjust();
 
 
 	document.onkeyup = function(e) {
