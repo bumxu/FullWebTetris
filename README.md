@@ -17,7 +17,8 @@ Licensed under the [Creative Commons BY-NC-ND License](http://creativecommons.or
 
 > [Directly on the web](http://fwt.bumxu.com/)  
 [Chrome Web Store](https://chrome.google.com/webstore/detail/ieicmdpibfnjbmjolkmohnelljmjomoj)  
-[Firefox Marketplace] (https://marketplace.firefox.com/app/full-web-tetris)  
+[Firefox Marketplace](https://marketplace.firefox.com/app/full-web-tetris)  
+[Maybe... Windows Store] 
 
 - - -
 
