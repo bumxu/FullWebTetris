@@ -215,8 +215,8 @@ var UI = function (fwt) {
 	{
 		var first = true;
 
-		$('#big-languages span').removeClass('selected');
-		$($('#big-languages span')[language]).addClass('selected');
+		$('#languages .item').removeClass('selected');
+		$('#languages .item[data-tto="' + language + '"]').addClass('selected');
 
 		$.getJSON('j/xtr/' + languageList[language] + '.json', function (data) {
 			$(".tile .text").fadeOut(100, function(){
@@ -235,6 +235,24 @@ var UI = function (fwt) {
 		});
 	}
 
+	var langDialog = function()
+	{	
+		if ($("#overlay").is(":hidden"))
+			$("#overlay").fadeIn(200);
+		else
+			$("#overlay").fadeOut(200);
+	}
+
+	$("#overlay").click(function() {
+		$("#overlay").fadeOut(200);
+	});
+
+	$("#languages .item").click(function() {
+		setLanguage( $(this).attr("data-tto") );
+	});
+
+	$("#bi18n").click(langDialog);
+
 //··································································································································//
 //····························································· EVENTS ·····························································//
 	
@@ -244,6 +262,7 @@ var UI = function (fwt) {
 //····························································· PUBLIC ·····························································//
 
 	this.setLanguage = setLanguage;
+	this.langDialog = langDialog;
 
 //··································································································································//
 //······························································ INIT ······························································//

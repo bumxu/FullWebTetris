@@ -156,6 +156,9 @@ var HCI = function (fwt) {
 		{
 			newGame();
 		}
+
+		if (kc == 76)
+			fwt.ui.langDialog();
 	}
 
 	document.onkeydown = function(e) {

@@ -120,6 +120,7 @@ html, body
 	bottom: 0
 	background: url(darknoise.png) rgba(0, 0, 0, 0.7)
 	z-index: 999
+	display: block
 
 	#languages
 		width: 240px
@@ -133,7 +134,6 @@ html, body
 		margin-left: -120px
 		margin-top: -135px
 		padding: 4px 0
-
 
 		.item
 			height: 28px
@@ -152,8 +152,13 @@ html, body
 			cursor: pointer
 
 			&:hover
-				background-color: rgba(0, 0, 0, 0.1)
+				background-color: rgba(0, 0, 0, 0.08)
 				opacity: 1
+
+			&.selected
+				background-color: rgba(0, 0, 0, 0.18)
+				opacity: 1
+				font-weight: 700
 
 			&.en
 				background-image: url(g/flags/en.png)
