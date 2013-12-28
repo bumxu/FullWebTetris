@@ -1,7 +1,7 @@
 var Game = function(options) {
 
 	// Canvas
-	var canvas = $('section#game canvas')[0];
+	var canvas = $('section#game #canvas')[0];
 	var out = canvas.getContext('2d');
 
 	var map//, compiled;

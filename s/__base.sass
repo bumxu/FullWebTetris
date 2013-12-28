@@ -38,19 +38,11 @@ html, body
 	margin: 0
 	padding: 0
 	width: 100%
-
-body
-	background: #17334B
-	background: url(g/wall.jpg) center no-repeat
-	background-size: cover
-
-body.blu
-	background: rgb(34, 34, 34)
+	font-family: 'Lato', 'Calibri', Arial, sans-serif
 
 #layout
-	background: url(darknoise.png) center
+	//background: url(darknoise.png) center
 	bottom: 0
-	font-family: 'Lato', 'Calibri', Arial, sans-serif
 	left: 0
 	overflow: hidden
 	position: absolute
@@ -58,16 +50,20 @@ body.blu
 	top: 0
 
 	section
-		bottom: 3px
-		display: none
-		left: 3px
+		height: 100%
+		left: 0
 		overflow: hidden
 		position: absolute
-		right: 3px
-		top: 3px
+		right: 0
+		top: -100%
+		background: #17334B url(g/wall.jpg) center no-repeat
+		background-size: cover
+
+		&.device
+			background: #17334B
 
 	header#top
-		+box-shadow(0 0 8px rgba(0, 0, 0, 0.2))
+		//+box-shadow(0 0 8px rgba(0, 0, 0, 0.2))
 		+user-select(none)
 		background: rgba(255, 255, 255, 0.06)
 		top: 0
@@ -100,7 +96,7 @@ body.blu
 					outline: 0
 
 	header#corner
-		+box-shadow(0 0 8px rgba(0, 0, 0, 0.2))
+		//+box-shadow(0 0 8px rgba(0, 0, 0, 0.2))
 		+user-select(none)
 		background: rgba(255, 255, 255, 0.06)
 		top: 0
@@ -115,3 +111,77 @@ body.blu
 		line-height: 20px
 		position: absolute
 		bottom: 0
+
+#overlay
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	background: url(darknoise.png) rgba(0, 0, 0, 0.7)
+	z-index: 999
+
+	#languages
+		width: 240px
+		height: 270px
+		position: absolute
+		background: rgba(255, 255, 255, 0.8)
+		border-radius: 2px
+		left: 50%
+		overflow: auto
+		top: 50%
+		margin-left: -120px
+		margin-top: -135px
+		padding: 4px 0
+
+
+		.item
+			height: 28px
+			line-height: 30px
+			margin: 2px 5px
+			padding: 3px 8px
+			padding-left: 42px
+			opacity: 0.7
+			font-size: 19px
+			color: rgba(0, 0, 0, 0.7)
+			white-space: nowrap
+			overflow: hidden
+			text-overflow: ellipsis
+			+transition(all 0.15s linear 0s)
+			background: no-repeat 9px center
+			cursor: pointer
+
+			&:hover
+				background-color: rgba(0, 0, 0, 0.1)
+				opacity: 1
+
+			&.en
+				background-image: url(g/flags/en.png)
+			&.es
+				background-image: url(g/flags/es.png)
+			&.fr
+				background-image: url(g/flags/fr.png)
+			&.it
+				background-image: url(g/flags/it.png)
+			&.de
+				background-image: url(g/flags/de.png)
+			&.pt
+				background-image: url(g/flags/pt.png)
+			&.jp
+				background-image: url(g/flags/jp.png)
+			&.ru
+				background-image: url(g/flags/ru.png)
+
+	@media screen and (max-height: 240px)
+		#languages
+			top: 3px
+			bottom: 3px
+			margin-top: 0
+			height: auto
+
+	@media screen and (max-width: 270px)
+		#languages
+			left: 3px
+			right: 3px
+			margin-left: 0
+			width: auto

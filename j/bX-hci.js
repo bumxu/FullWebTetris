@@ -5,21 +5,143 @@ var HCI = function (fwt) {
 
 	$("section#main #selector").bind("touchstart", function(e)
 	{
-		mOffset = e.originalEvent.changedTouches[0].pageX - $(this).children("#tiles").position().left - 3;
+		mOffset = e.originalEvent.changedTouches[0].pageX - $(this).children("#tiles").position().left;
 	});
 
 	$("section#main #selector").bind("touchmove", function(e) {
 		e.preventDefault();
-		$(this).children("#tiles").css("left", e.originalEvent.changedTouches[0].pageX - mOffset);
+
+		var value = e.originalEvent.changedTouches[0].pageX - mOffset;
+
+		//> Common operations
+		var selectMed =  $("section#main #selector").innerWidth() / 2;
+		var tileMed = $("section#main .tile").innerHeight() / 2;
+
+		//> Establishing limits
+		var limitA = selectMed - 10 - tileMed;
+		var limitB = selectMed - $("section#main #tiles").innerWidth() + tileMed + 10;
+
+		if (value > limitA)
+		{
+			value = limitA;
+			mOffset = e.originalEvent.changedTouches[0].pageX - $(this).children("#tiles").position().left;
+		}
+
+		if (value < limitB)
+		{
+			value = limitB;
+			mOffset = e.originalEvent.changedTouches[0].pageX - $(this).children("#tiles").position().left;
+		}
+
+		$(this).children("#tiles").css("left", value);
+		localStorage.fwt3MenuPos = value;
 	});
 
+	var wTarget = -1;
 
-	document.onkeyup = function(e) {
+	var mousewheel = function (e) {
+		if (wTarget == -1)
+			wTarget = $("section#main #tiles").position().left
+
+		var factor = ( e.wheelDelta || (e.detail * -1) ) / 120;
+
+		wTarget += factor * (0.30 * $("section#main .tile").innerHeight());
+
+		//> Common operations
+		var selectMed =  $("section#main #selector").innerWidth() / 2;
+		var tileMed = $("section#main .tile").innerHeight() / 2;
+
+		//> Establishing limits
+		var limitA = selectMed - 10 - tileMed;
+		var limitB = selectMed - $("section#main #tiles").innerWidth() + tileMed + 10;
+
+		if (wTarget > limitA)
+			wTarget = limitA;
+
+		if (wTarget < limitB)
+			wTarget = limitB;
+
+		$("section#main #tiles").stop().animate({"left": wTarget}, 100, "linear", function(){
+			wTarget = -1;
+		});
+		localStorage.fwt3MenuPos = wTarget;
+		
+		e.preventDefault();
+	}
+
+	document.getElementById('main').onmousewheel = mousewheel;
+	document.getElementById('main').addEventListener('DOMMouseScroll', mousewheel, false);
+
+		//document.onkeydown = function (e) {
+		//	if (e.keyCode == 39 || (!event.shiftKey && event.keyCode == 9)) {
+		//		menuItem++;
+		//		if (menuItem > $('#tiles .tile').length - 1)
+		//			menuItem = 0;
+		//		adjust();
+		//		e.preventDefault();
+		//	}
+		//	if (e.keyCode == 37 || (event.shiftKey && event.keyCode == 9)) {
+		//		menuItem--;
+		//		if (menuItem < 0)
+		//			menuItem = $('#tiles .tile').length - 1;
+		//		adjust();
+		//		e.preventDefault();
+		//	}
+		//	if (e.keyCode == 13) {
+		//		if(activeGame == true)
+		//			action(menuItem);
+		//		else
+		//			action(menuItem + 1);
+		//		e.preventDefault();
+		//	}
+		//}
+
+
+
+
+
+//··································································································································//
+//························································ MAIN INTERACTION ························································//
+
+	var newGame = function ()
+	{
+		$("#game").css({"top": "-100%"});
+		$("#game").animate({"top": "0"}, 500, function() {
+			$("section:not(#game)").hide();
+
+			if (fwt.game)
+				fwt.game.endGame();
+
+			//$("#big-paused, #big-over").fadeOut(200);
+
+			fwt.game = new Game();
+
+		});
+	}
+
+	var customizeGame = function ()
+	{
+		$("#settings").css({"top": "-100%"});
+		$("#settings").animate({"top": "0"}, 500, function() {
+			$("section:not(#settings)").hide();
+
+		});
+	}
+
+	$("#tiles #t1").click(newGame);
+	$("#tiles #t2").click(customizeGame);
+	
+//··································································································································//
+//···························································· KEYBOARD ····························································//
+
+	document.onkeyup = function(e)
+	{
 		kc = e.keyCode;
 		/*if (e.keyCode == 40 || e.keyCode == 98)
 			limitDelay = normalDelay;*/
 
-		if (fwt.game) {
+		if (fwt.game)
+		{
 			if (kc == 88)
 				fwt.game.rotateC();
 			if (kc == 90)
@@ -30,15 +152,10 @@ var HCI = function (fwt) {
 				fwt.game.drop();
 		}
 
-		if (kc == 78 || kc == 105) {
-			if (fwt.game)
-				fwt.game.endGame();
-
-			$("#big-paused, #big-over").fadeOut(200);
-
-			fwt.game = new Game();
+		if (kc == 78 || kc == 105)
+		{
+			newGame();
 		}
-
 	}
 
 	document.onkeydown = function(e) {

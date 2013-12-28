@@ -42,7 +42,7 @@ var UI = function (fwt) {
 			 .css('width', ($("section#main #tiles").innerHeight() + 20) * $("section#main #tiles .tile").length);
 
 		$("section#main #tiles")
-			 .css('margin-left', - $("section#main #tiles").innerHeight()/2 - 10)
+			 //.css('margin-left', - $("section#main #tiles").innerHeight()/2 - 10)
 			 .css('font-size', Math.floor(side / 14));
 
 
@@ -120,10 +120,136 @@ var UI = function (fwt) {
 		}, 150);
 	}
 
-	window.onresize = function () {
-		adjust();
-	}
-	adjust();
+//··································································································································//
+//························································· MENU POSITION ··························································//
 
+	var restoreMenuPos = function()
+	{
+		var _p = localStorage.fwt3MenuPos;
+
+		if ( isNaN(_p) )
+			_p = localStorage.fwt3MenuPos = ($("section#main #selector").innerWidth() - $("section#main .tile").innerHeight() - 20) / 2;
+		else
+			_p = Number(_p);
+
+		$("section#main #tiles").css("left", _p);
+	}
+
+//··································································································································//
+//·························································· LOW GRAPHICS ··························································//
+
+	//> Lower quality of graphics on devices.
+	if ( (/(iPad|iPhone|iPod|android|Mozilla\/5.0 \(Mobile)/i).test(navigator.userAgent) )
+		$("section").addClass("device");
+
+//··································································································································//
+//···························································· LANGUAGE ····························································//
+
+	var language;
+	var languageList = ["en","es","fr","it","de","pt","jp","ru"];
+
+	//> Choose best language or indicated and translate UI.
+	var setLanguage = function(n){
+		if ( isNaN(n) )
+		{
+			if ( isNaN(localStorage.fwt3Language) )
+				n = browserLanguage();
+			else
+			{
+				n = Number(localStorage.fwt3Language);
+
+				if (n < 0 || n > languageList.length - 1)
+					n = browserLanguage();
+			}
+		}
+		else
+		{
+			n = Number(n);
+
+			if (n < 0 || n > languageList.length - 1)
+				n = browserLanguage();
+		}
+
+		localStorage.fwt3Language = language = n;
+
+		translate();
+	}
+
+	//> 
+	var browserLanguage = function()
+	{
+		var browserLang = (navigator.language) ? navigator.language : navigator.userLanguage;
+		 browserLang = browserLang.substr(0, 2);
+
+		if ( ! /^[a-z]{2}$/.test(browserLang) )
+			return 0;
+
+		switch (browserLang)
+		{
+			case "es":
+				return 1;
+			case "ca":
+				return 1;
+			case "eu":
+				return 1;
+			case "fr":
+				return 2;
+			case "ar":
+				return 2;
+			case "it":
+				return 3;
+			case "de":
+				return 4;
+			case "pt":
+				return 5;
+			case "jp":
+				return 6;
+			case "ru":
+				return 7;	
+		}
+
+		return 0;
+	}
+
+	var translate = function()
+	{
+		var first = true;
+
+		$('#big-languages span').removeClass('selected');
+		$($('#big-languages span')[language]).addClass('selected');
+
+		$.getJSON('j/xtr/' + languageList[language] + '.json', function (data) {
+			$(".tile .text").fadeOut(100, function(){
+				if (first) {
+					first = false;
+
+					$('.xtr').each(function() {
+						$(this).html( data[$(this).attr("data-xtr")] || $(this).attr("data-xtr") );
+					});
+
+					$(".tile .text").fadeIn(100);
+				}
+			});
+		}).fail(function() {
+			setLanguage(0);
+		});
+	}
+
+//··································································································································//
+//····························································· EVENTS ·····························································//
+	
+	window.onresize = adjust;
+
+//··································································································································//
+//····························································· PUBLIC ·····························································//
+
+	this.setLanguage = setLanguage;
+
+//··································································································································//
+//······························································ INIT ······························································//
+	
+	adjust();
+	setLanguage();
+	restoreMenuPos();
 
 }

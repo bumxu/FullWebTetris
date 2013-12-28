@@ -1,4 +1,6 @@
 ﻿{
+	"language": "Language",
+
 	"resumegame-mnu": "Resume game",
 	"savedgame-mnu": "Saved game",
 	"newgame-mnu": "New game",

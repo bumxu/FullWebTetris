@@ -17,47 +17,35 @@
 </head>
 <body>
 	<div id="layout">
-		<section id="loader">
+		<!--section id="loader">
 			<div id="firsttag-chispa">LOADING</div>
 			<div id="loader-chispa"></div>
 			<div id="title-chispa"></div>
-		</section>
+		</section-->
 
 		<section id="main">
+			<div id="b-i18n" class="xtr" data-xtr="language"></div>
+
 			<div id="frame1">
 				<div id="title"></div>
 
 				<div id="frame2">
-					<!--div id="menu">
-						<div onclick="ui.action(1)" id="t1" class="tile"><span class="xtr" data-xtr="newgame-mnu"></span></div>
-						<div onclick="ui.action(2)" id="t2" class="tile"><span class="xtr" data-xtr="customize-mnu"></span></div>
-						<!-div onclick="ui.action(3)" id="t4" class="tile"><span class="xtr" data-xtr="marks-mnu"></span></div->
-						<div onclick="ui.action(4)" id="t5" class="tile"><span class="xtr" data-xtr="helpabout-mnu"></span></div>
-					</div-->
-					<!--div id="languages">
-						- 
-						<span onclick="ui.setLanguage(0)">English</span> - 
-						<span onclick="ui.setLanguage(1)">Español</span> - 
-						<span onclick="ui.setLanguage(2)">Français</span> - <
-						<span onclick="ui.setLanguage(3)">Italiano</span> - 
-						<span onclick="ui.setLanguage(4)">Deutsch</span> -> 
-						<span onclick="ui.setLanguage(5)">Português</span> - 
-					</div-->
-
-					<div id="sight"></div>
 					<div id="selector">
 						<div id="tiles">
-							<div onclick="ui.action(1)" id="t1" class="tile"><div class="xtr text" data-xtr="newgame-mnu">Texto de ejemplo</div></div>
-							<div onclick="ui.action(2)" id="t2" class="tile"><div class="xtr text" data-xtr="customize-mnu">Texto de ejemplo</div></div>
-							<div onclick="ui.action(3)" id="t4" class="tile"><div class="xtr text" data-xtr="marks-mnu">Texto de ejemplo</div></div>
-							<div onclick="ui.action(4)" id="t5" class="tile"><div class="xtr text" data-xtr="helpabout-mnu">Texto de ejemplo</div></div>
+							<div id="t1" class="tile"><div class="xtr text" data-xtr="newgame-mnu"></div></div>
+							<div id="t2" class="tile"><div class="xtr text" data-xtr="customize-mnu"></div></div>
+							<div id="t3" class="tile"><div class="xtr text" data-xtr="marks-mnu"></div></div>
+							<div id="t4" class="tile"><div class="xtr text" data-xtr="helpabout-mnu"></div></div>
 							<div class="clear"></div>
 						</div>
 					</div>
-
 				</div>
-
 			</div>
+
+			<footer>
+				Full Web Tetris v.3.0
+				<div id="right">© 2013 · <a href="http://www.bumxu.com" target="_blank">Bumxu</a></div>
+			</footer>
 		</section>
 
 		<section id="game" style="text-align:center">
@@ -162,7 +150,7 @@
 			</div>
 		</section>
 
-		<section id="help">
+		<!--section id="help">
 
 			<div class="buttonback xtr" onclick="ui.action(6)" data-xtr="goback-btt"></div>
 
@@ -250,15 +238,16 @@
 					Anything! =D<br>
 				</p>
 
-				<!--div class="bigtitle">License</div-->
+				<div class="bigtitle">License</div>
 
-				<!--div class="bigtitle">Privacy</div-->
+				<div class="bigtitle">Privacy</div>
 
 				<div class="bigtitle">About</div>
 				<p>
 					<strong class="title">Credits</strong><br>
 					<span class="line">Progamming, design and documentation <span class="tab"><strong>Juande Martos</strong></span></span><br>
 					<span class="line">Performance testing and extreme ideas <span class="tab"><strong>Juanjo Riado</strong></span></span><br>
+					<span class="line">Flag Icons <span class="tab"><a href="http://icondrawer.com" target="_blank"><strong>Icon Drawer</strong></a></span></span><br>
 					<br>
 					<strong class="title">With the help of...</strong><br>
 					<span class="line">Speeding up user interface <span class="tab"><strong><a href="http://jquery.com" target="_blank">jQuery</strong></a></span></span><br>
@@ -266,7 +255,20 @@
 				</p>
 				<br><br>
 			</div>
-		</section>
+		</section-->
+	</div>
+
+	<div id="overlay">
+		<div id="languages">
+			<div class="item en" onclick="ui.setLanguage(0)">English</div class="item">
+			<div class="item es" onclick="ui.setLanguage(1)">Español</div class="item">
+			<div class="item fr" onclick="ui.setLanguage(2)">Français</div class="item">
+			<div class="item it" onclick="ui.setLanguage(3)">Italiano</div class="item">
+			<div class="item de" onclick="ui.setLanguage(4)">Deutsch</div class="item">
+			<div class="item pt" onclick="ui.setLanguage(5)">Português</div class="item">
+			<div class="item jp" onclick="ui.setLanguage(5)">日本語</div class="item">
+			<div class="item ru" onclick="ui.setLanguage(5)">Русский</div class="item">
+		</div>
 	</div>
 
 	<script type="text/javascript" src="j/bX-core.js"></script>
