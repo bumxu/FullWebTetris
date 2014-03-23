@@ -45,15 +45,15 @@ section#main
 			top: 50%
 
 		#title
-			width: 82%
-			left: 9%
+			width: 84%
+			left: 8%
 			bottom: 71%
 			position: absolute
 			height: 12%
 			background: url(g/title.png) center no-repeat
 			background-size: contain
 			overflow: visible
-			max-height: 75px
+			max-height: 90px
 
 		#big-languages
 			color: rgba(255, 255, 255, 0.3)
@@ -85,7 +85,7 @@ section#main
 		left: 0
 		right: 0
 		top: 34%
-		height: 56%
+		height: 54%
 		text-align: center
 
 		#selector
@@ -104,24 +104,21 @@ section#main
 				
 				.tile
 					+transition(color 0.15s linear 0s)
-					//+transition(box-shadow 0.15s linear 0s)
 					+transition(background-color 0.15s linear 0s)
-					background-color: rgba(255, 255, 255, 0.12)
-					background-position: 50% 32%
-					background-repeat: no-repeat
-					background-size: 60%
-					border-radius: 1px
+					//background-color: rgba(255, 255, 255, 0.12)
+					//background-position: 50% 32%
+					//background-repeat: no-repeat
+					//background-size: 60%
+					border-radius: 4px
 					color: rgba(0, 0, 0, 0.6)
 					display: block
 					float: left
 					cursor: pointer
 					margin: 0 10px
 					height: 100%
-
-					&:hover
-						color: rgba(0, 0, 0, 0.8)
-						background-color: rgba(255, 255, 255, 0.25)
-						//box-shadow: 0 0 3px rgba(0, 0, 0, 0.6)
+					font-weight: 400
+					//box-shadow: 0 0 7px rgba(0, 0, 0, 0.25)
+					//background: url(cristal.png) 0 0
 
 					.text
 						bottom: 10%
@@ -130,15 +127,24 @@ section#main
 						text-align: center
 
 					&#t0
-						background-image: url(g/tile-savedGame.png)
+						background: url(g/tile-savedGame.png) 50% 32% no-repeat rgba(0, 0, 0, 0)
+						background-size: 70%, auto
 					&#t1
-						background-image: url(g/tile-newGame.png)
+						background: url(g/tile-newGame.png) 50% 32% no-repeat rgba(0, 0, 0, 0) !important
+						background-size: 70%, auto
 					&#t2
-						background-image: url(g/tile-customize.png)
+						background: url(g/tile-customize.png) 50% 32% no-repeat rgba(0, 0, 0, 0)
+						background-size: 70%, auto
 					&#t4
-						background-image: url(g/tile-rankings.png)
+						background: url(g/tile-rankings.png) 50% 32% no-repeat rgba(0, 0, 0, 0)
+						background-size: 70%, auto
 					&#t5
-						background-image: url(g/tile-help.png)
+						background: url(g/tile-help.png) 50% 32% no-repeat rgba(0, 0, 0, 0)
+						background-size: 70%, auto
+
+				.tile:hover, .tile.tab
+					color: rgba(0, 0, 0, 0.8) !important
+					background-color: rgba(255, 255, 255, 0.35) !important
 
 	footer
 		+user-select(none)
