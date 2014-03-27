@@ -103,10 +103,19 @@ var HCI = function (fwt) {
 //··································································································································//
 //························································ MAIN INTERACTION ························································//
 
-	var newGame = function ()
+	var showMain = function()
 	{
-		$("#game").css({"top": "-100%"});
-		$("#game").animate({"top": "0"}, 500, function() {
+		$("#game, #settings, #marks, #help").animate({"left": "100%"}, 350);
+		$("#main").animate({"left": "0"}, 350, function() {
+			//$("section:not(#settings)").hide();
+		});
+	}	
+
+	var newGame = function()
+	{
+		$("#game").css({"left": "100%"});
+		$("#main").animate({"left": "-100%"}, 350);
+		$("#game").animate({"left": "0"}, 350, function() {
 			$("section:not(#game)").hide();
 
 			if (fwt.game)
@@ -119,17 +128,40 @@ var HCI = function (fwt) {
 		});
 	}
 
-	var customizeGame = function ()
+	var customizeGame = function()
 	{
-		$("#settings").css({"top": "-100%"});
-		$("#settings").animate({"top": "0"}, 500, function() {
-			$("section:not(#settings)").hide();
+		if ($('#main').css('left') == '0px')
+			$('#main').animate({'left': '-100%'}, 350);
+		else
+			$('#game').animate({'left': '-100%'}, 350);
 
+		$('#settings').animate({'left': 0}, 350, function() {
+			//$("section:not(#settings)").hide();
 		});
 	}
 
+	var showMarks = function()
+	{
+		$("#main").animate({"left": "-100%"}, 350);
+		$("#marks").animate({"left": "0"}, 350, function() {
+			//$("section:not(#settings)").hide();
+		});
+	}	
+
+	var showHelp = function()
+	{
+		$("#main").animate({"left": "-100%"}, 350);
+		$("#help").animate({"left": "0"}, 350, function() {
+			//$("section:not(#settings)").hide();
+		});
+	}	
+
 	$("#tiles #t1").click(newGame);
 	$("#tiles #t2").click(customizeGame);
+	$("#tiles #t3").click(showMarks);
+	$("#tiles #t4").click(showHelp);
+
+	$("section .menu-back").click(showMain);
 	
 //··································································································································//
 //···························································· KEYBOARD ····························································//
