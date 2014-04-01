@@ -1,9 +1,6 @@
 section#main
 	+user-select(none)
-	min-height: 120px
-
 	display: block
-	top: 0
 
 	#bi18n
 		height: 24px
@@ -47,9 +44,9 @@ section#main
 		#title
 			width: 84%
 			left: 8%
-			bottom: 71%
+			bottom: 72%
 			position: absolute
-			height: 12%
+			height: 10.5%
 			background: url(g/title.png) center no-repeat
 			background-size: contain
 			overflow: visible
@@ -105,11 +102,11 @@ section#main
 				.tile
 					+transition(color 0.15s linear 0s)
 					+transition(background-color 0.15s linear 0s)
-					//background-color: rgba(255, 255, 255, 0.12)
-					//background-position: 50% 32%
-					//background-repeat: no-repeat
-					//background-size: 60%
-					border-radius: 4px
+					background-color: rgba(255, 255, 255, 0.12)
+					background-position: 50% 32%
+					background-repeat: no-repeat
+					background-size: 60%
+					border-radius: 2px
 					color: rgba(0, 0, 0, 0.6)
 					display: block
 					float: left
@@ -121,60 +118,31 @@ section#main
 					//background: url(cristal.png) 0 0
 
 					.text
-						bottom: 10%
+						bottom: 13%
 						position: absolute
 						width: 100%
 						text-align: center
 
 					&#t0
-						background: url(g/tile-savedGame.png) 50% 32% no-repeat rgba(0, 0, 0, 0)
-						background-size: 70%, auto
+						background: url(g/menu/saved.png) 50% 30% no-repeat rgba(255,255,255,0.05)
+						background-size: 75%, auto
 					&#t1
-						background: url(g/tile-newGame.png) 50% 32% no-repeat rgba(0, 0, 0, 0) !important
-						background-size: 70%, auto
+						background: url(g/menu/new.png) 50% 30% no-repeat rgba(255,255,255,0.05)
+						background-size: 75%, auto
 					&#t2
-						background: url(g/tile-customize.png) 50% 32% no-repeat rgba(0, 0, 0, 0)
-						background-size: 70%, auto
+						background: url(g/menu/customize.png) 50% 30% no-repeat rgba(255,255,255,0.05)
+						background-size: 75%, auto
+					&#t3
+						background: url(g/menu/marks.png) 50% 30% no-repeat rgba(255,255,255,0.05)
+						background-size: 75%, auto
 					&#t4
-						background: url(g/tile-rankings.png) 50% 32% no-repeat rgba(0, 0, 0, 0)
-						background-size: 70%, auto
-					&#t5
-						background: url(g/tile-help.png) 50% 32% no-repeat rgba(0, 0, 0, 0)
-						background-size: 70%, auto
+						background: url(g/menu/help.png) 50% 30% no-repeat rgba(255,255,255,0.05)
+						background-size: 75%, auto
 
 				.tile:hover, .tile.tab
 					color: rgba(0, 0, 0, 0.8) !important
-					background-color: rgba(255, 255, 255, 0.35) !important
-
-	footer
-		+user-select(none)
-		background: rgba(0, 0, 0, 0.2)
-		bottom: 0
-		color: rgba(255, 255, 255, 0.25)
-		cursor: default
-		font-size: 10px
-		font-weight: 600
-		height: 18px
-		left: 0
-		line-height: 20px
-		padding: 0 6px
-		position: absolute
-		right: 0
-		border-top: 1px solid rgba(255, 255, 255, 0.1)
-		
-		#right
-			position: absolute
-			right: 6px
-			top: 0
-		
-			a
-				+transition(all 0.15s linear 0s)
-				color: rgba(255, 255, 255, 0.2)
-				cursor: pointer
-				text-decoration: none
-		
-				&:hover
-					color: rgba(255, 255, 255, 0.4)
+					background-color: rgba(255, 255, 255, 0.15) !important
+					box-shadow: 0 0 4px rgba(0, 0, 0, 0.5)
 
 	@media screen and (max-height: 300px)
 		#bi18n
@@ -189,21 +157,3 @@ section#main
 			width: 24px
 			color: rgba(0, 0, 0, 0)
 			background-position: center
-
-	@media screen and (min-height: 500px)
-		footer
-			font-size: 11px
-			height: 20px
-			left: 0
-			line-height: 22px
-
-	@media screen and (min-height: 600px)
-		footer
-			font-size: 14px
-			height: 26px
-			left: 0
-			line-height: 28px
-			padding: 0 10px
-
-			#right
-				right: 10px

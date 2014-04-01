@@ -2,6 +2,8 @@ var UI = function (fwt) {
 
 	var redim_clk;
 
+	var device = false;
+
 	// Resizes canvas with window
 	var adjust = function () {
 
@@ -61,7 +63,7 @@ var UI = function (fwt) {
 				fwt.game.repaint();
 		}, 150);*/
 
-		$('header, section#game #canvas, section#game #big-paused').fadeTo(1, 0);
+		//$('header, section#game #canvas, section#game #big-paused').fadeTo(1, 0);
 
 		redim_clk = setTimeout(function() {
 
@@ -70,10 +72,10 @@ var UI = function (fwt) {
 			bar1 = (bar1 > 120) ? 120 : bar1;
 			bar1 += 3;
 			wid1 = $("section#game").innerWidth();
-			hei1 = wid1 * 24 / 16;
+			hei1 = wid1 * 17 / 24;
 			if (hei1 > $("section#game").innerHeight() - bar1) {
 				hei1 = $("section#game").innerHeight() - bar1;
-				wid1 = hei1 * 16 / 24;
+				wid1 = hei1 * 24 / 17;
 			}
 
 			// Corner bar pre.
@@ -81,10 +83,10 @@ var UI = function (fwt) {
 			bar2 = (bar2 > 120) ? 120 : bar2;
 			bar2 += 3;
 			wid2 = $("section#game").innerWidth() - bar2;
-			hei2 = wid2 * 24 / 16;
+			hei2 = wid2 * 17 / 24;
 			if (hei2 > $("section#game").innerHeight()) {
 				hei2 = $("section#game").innerHeight();
-				wid2 = hei2 * 16 / 24;
+				wid2 = hei2 * 24 / 17;
 			}
 
 			if (hei1 > hei2) {
@@ -121,7 +123,19 @@ var UI = function (fwt) {
 	}
 
 //··································································································································//
+//···························································· MOBILE OS ···························································//
+
+	//> Search movile os.
+	if ( (/(iPad|iPhone|iPod|android|Mozilla\/5.0 \(Mobile)/i).test(navigator.userAgent) ) {
+		device = true;
+		$("section").addClass("device");
+	}
+
+//··································································································································//
 //························································· MENU POSITION ··························································//
+	
+	var menuTab = 1;
+	var anyTab = true;
 
 	var restoreMenuPos = function()
 	{
@@ -133,14 +147,18 @@ var UI = function (fwt) {
 			_p = Number(_p);
 
 		$("section#main #tiles").css("left", _p);
+		$("section#main .tile#t" + menuTab).addClass("tab");
 	}
 
-//··································································································································//
-//·························································· LOW GRAPHICS ··························································//
+	$("section#main .tile").mouseover(function() {
+		$("section#main .tile").removeClass("tab");
+		anyTab = false;
+	});
 
-	//> Lower quality of graphics on devices.
-	if ( (/(iPad|iPhone|iPod|android|Mozilla\/5.0 \(Mobile)/i).test(navigator.userAgent) )
-		$("section").addClass("device");
+	$("section#main .tile").mouseout(function() {
+		$("section#main .tile#t" + menuTab).addClass("tab");
+		anyTab = true;
+	});
 
 //··································································································································//
 //···························································· LANGUAGE ····························································//

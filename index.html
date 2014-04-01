@@ -14,9 +14,10 @@
 	<link rel="stylesheet" type="text/css" href="production.css">
 
 	<script type="text/javascript" src="j/jQall.js" ></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 </head>
 <body>
-	<div id="layout">
+	<main id="layout">
 		<!--section id="loader">
 			<div id="firsttag-chispa">LOADING</div>
 			<div id="loader-chispa"></div>
@@ -28,10 +29,11 @@
 
 			<div id="frame1">
 				<div id="title"></div>
-
+				<!--iframe src="http://yakmob.com/plugin/web/chat/mrna0afug8q9szdt/room1" frameborder="0"></iframe-->
 				<div id="frame2">
 					<div id="selector">
 						<div id="tiles">
+							<div id="t0" class="tile"><div class="xtr text" data-xtr="savedgame-mnu"></div></div>
 							<div id="t1" class="tile"><div class="xtr text" data-xtr="newgame-mnu"></div></div>
 							<div id="t2" class="tile"><div class="xtr text" data-xtr="customize-mnu"></div></div>
 							<div id="t3" class="tile"><div class="xtr text" data-xtr="marks-mnu"></div></div>
@@ -41,11 +43,6 @@
 					</div>
 				</div>
 			</div>
-
-			<footer>
-				Full Web Tetris v.3.0
-				<div id="right">© 2013 · <a href="http://www.bumxu.com" target="_blank">Bumxu</a></div>
-			</footer>
 		</section>
 
 		<section id="game" style="text-align:center">
@@ -78,9 +75,15 @@
 			<!--div id="big-over"></div-->
 		</section>
 
+		<section id="game" style="text-align:center">
+
+			<div class="menu-back buttonback xtr" data-xtr="goback-btt"></div>
+
+		</section>
+
 		<section id="settings">
 
-			<div class="buttonback xtr" onclick="ui.action(6)" data-xtr="goback-btt"></div>
+			<div class="menu-back buttonback xtr" data-xtr="goback-btt"></div>
 
 			<div id="settingscroller">
 
@@ -150,9 +153,8 @@
 			</div>
 		</section>
 
-		<!--section id="help">
-
-			<div class="buttonback xtr" onclick="ui.action(6)" data-xtr="goback-btt"></div>
+		<section id="help">
+			<div class="menu-back buttonback xtr" onclick="ui.action(6)" data-xtr="goback-btt"></div>
 
 			<div id="helpscroller">
 				
@@ -255,9 +257,15 @@
 				</p>
 				<br><br>
 			</div>
-		</section-->
-	</div>
+		</section>
 
+		<footer>
+			Full Web Tetris v.3.0
+			<div id="right">2014 · <a href="http://fwt.bumxu.com" target="_blank">bumxu</a></div>
+		</footer>
+	</main>
+
+	<div id="overlax"></div>
 	<div id="overlay">
 		<div id="languages">
 			<div class="item en" data-tto="0">English</div>

@@ -11,7 +11,7 @@ var Game = function(options) {
 	// Game
 	var gameState; // 0: over - 1: paused - 2: active
 	var S_OVER = 0, S_PAUSED = 1, S_ACTIVE = 2;
-	//var level, score, dropBonus;
+	var level, lines, score, dropBonus;
 	//var rnd0, rnd1, rnd2, rnd3, rnd4;
 
 	// Velocity
@@ -109,8 +109,8 @@ var Game = function(options) {
 
 	var constructor = function(options) {
 
-		width = options.width || 16;
-		height = options.height || 24;
+		width = options.width || 24;
+		height = options.height || 17;
 
 		shadeEnabled = (options.shade == true) || true;
 
@@ -401,18 +401,18 @@ var Game = function(options) {
 
 		topLine = Math.min(current.j, topLine);
 
-		//checkLine();
+		checkLine();
 
 		return true;
 	}
 
 	var checkLine = function () {
-		lines = 0;
+		var _lines = 0;
 
 		for (j = current.form.length - 1; j >= 0; j--) {
 
-			n = 0;
-			for (i = 0; i < width; i++) {
+			var n = 0;
+			for (var i = 0; i < width; i++) {
 				if (map[current.j + j][i].mat == 0)
 					break;
 				else
@@ -420,28 +420,28 @@ var Game = function(options) {
 			}
 
 			if (n == width) {
-				for (j_involved = current.j + j; j_involved > lastLine; j_involved--) {
-					for (i = 0; i < width; i++){
+				for (var j_involved = current.j + j; j_involved > lastLine; j_involved--) {
+					for (var i = 0; i < width; i++){
 						map[j_involved][i].mat = map[j_involved - 1][i].mat;  // IT CAN FAIL!
 						map[j_involved][i].col = map[j_involved - 1][i].col;
 					}
 				}
-				for (i = 0; i < width; i++){
+				for (var i = 0; i < width; i++){
 					map[lastLine][i].mat = 0;
 					map[lastLine][i].col = 0;
 				}
 				lastLine++;
 				j++;
 
-				lines++;
+				_lines++;
 			}
 
 		}
 
-		if (lines > 0) {
-			fsum = [40, 100, 300, 1200];
-			p = fsum[lines - 1] * (level + 1);
-			mark(p, "line", lines);
+		if (_lines > 0) {
+			fsum = [10, 25, 75, 300];
+			//p = fsum[_lines - 1] * (level + 1);
+			//mark(p, "line", _lines);
 		}
 	}
 

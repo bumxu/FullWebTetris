@@ -105,24 +105,28 @@ var HCI = function (fwt) {
 
 	var showMain = function()
 	{
-		$("#game, #settings, #marks, #help").animate({"left": "100%"}, 350);
-		$("#main").animate({"left": "0"}, 350, function() {
-			//$("section:not(#settings)").hide();
-		});
+		// Show footer
+		$('footer').animate({bottom: -52}, 250);
+
+		// Change
+		$('section').fadeOut(250);
+		$('#main').delay(250).fadeIn(250);
 	}	
 
 	var newGame = function()
 	{
-		$("#game").css({"left": "100%"});
-		$("#main").animate({"left": "-100%"}, 350);
-		$("#game").animate({"left": "0"}, 350, function() {
-			$("section:not(#game)").hide();
+		// Hide footer
+		$('footer').animate({bottom: -52}, 250);
 
+		// Change
+		$('#main').fadeOut(250);
+		$('#game').delay(250).fadeIn(250, function() {
+
+			// End any active game
 			if (fwt.game)
 				fwt.game.endGame();
 
-			//$("#big-paused, #big-over").fadeOut(200);
-
+			// Create new game
 			fwt.game = new Game();
 
 		});
@@ -130,30 +134,26 @@ var HCI = function (fwt) {
 
 	var customizeGame = function()
 	{
-		if ($('#main').css('left') == '0px')
-			$('#main').animate({'left': '-100%'}, 350);
-		else
-			$('#game').animate({'left': '-100%'}, 350);
+		// Show footer
+		$('footer').animate({bottom: -52}, 250);
 
-		$('#settings').animate({'left': 0}, 350, function() {
-			//$("section:not(#settings)").hide();
-		});
+		// Change
+		$('section').fadeOut(250);
+		$('#settings').delay(250).fadeIn(250);
 	}
 
 	var showMarks = function()
 	{
-		$("#main").animate({"left": "-100%"}, 350);
-		$("#marks").animate({"left": "0"}, 350, function() {
-			//$("section:not(#settings)").hide();
-		});
+		// Change
+		$('#main').fadeOut(250);
+		$('#marks').delay(250).fadeIn(250);
 	}	
 
 	var showHelp = function()
 	{
-		$("#main").animate({"left": "-100%"}, 350);
-		$("#help").animate({"left": "0"}, 350, function() {
-			//$("section:not(#settings)").hide();
-		});
+		// Change
+		$('#main').fadeOut(250);
+		$('#help').delay(250).fadeIn(250);
 	}	
 
 	$("#tiles #t1").click(newGame);

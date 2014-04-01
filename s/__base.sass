@@ -12,18 +12,18 @@
 	+box-shadow(0 0 15px rgba(255, 255, 255, 0.1) inset, 0 0 6px rgba(0, 0, 0, 0.4))
 
 @font-face
-	font-family: "Lato"
-	src: url('f/lato300-webfont.svg') format('svg'), url('f/lato300-webfont.ttf') format('truetype')
+	font-family: "Calibri"
+	src: url('f/lato300-webfont.svga') format('svg'), url('f/calibri.ttf') format('truetype')
 	font-weight: 300
 	font-style: normal
 @font-face
 	font-family: "Lato"
-	src: url('f/lato400-webfont.svg') format('svg'), url('f/lato400-webfont.ttf') format('truetype')
+	src: url('f/lato400-webfont.svga') format('svg'), url('f/lato400-webfont.ttf') format('truetype')
 	font-weight: 400
 	font-style: normal
 @font-face
 	font-family: "Lato"
-	src: url('f/lato700-webfont.svg') format('svg'), url('f/lato700-webfont.ttf') format('truetype')
+	src: url('f/lato700-webfont.svga') format('svg'), url('f/lato700-webfont.ttf') format('truetype')
 	font-weight: 700
 	font-style: normal
 
@@ -38,10 +38,66 @@ html, body
 	margin: 0
 	padding: 0
 	width: 100%
-	font-family: 'Lato', 'Calibri', Arial, sans-serif
+	min-height: 150px
+	font-family: 'Calibri', Arial, sans-serif
+	background: #17334B url("g/wall - copia.jpg") center no-repeat
+	//background-size: cover
+
+	footer
+		+user-select(none)
+		bottom: 0
+		color: rgba(255, 255, 255, 0.18)
+		cursor: default
+		font-size: 10px
+		height: 18px
+		left: 0
+		line-height: 18px
+		padding: 0 6px
+		position: absolute
+		right: 0
+		z-index: 100
+		+transition(all 0.15s linear 0s)
+
+		#right
+			position: absolute
+			right: 6px
+			top: 0
+		
+			a
+				+transition(all 0.15s linear 0s)
+				color: rgba(255, 255, 255, 0.2)
+				cursor: pointer
+				text-decoration: none
+		
+				&:hover, &:focus
+					+transition(all 0.15s linear 0s)
+					outline: 0
+					color: rgba(255, 255, 255, 0.4)
+
+	@media screen and (min-height: 460px)
+		footer
+			font-size: 13px
+			height: 24px
+			line-height: 24px
+			padding: 0 7px
+
+			#right
+				right: 7px
+
+	@media screen and (min-height: 650px)
+		footer
+			font-size: 16px
+			height: 32px
+			line-height: 32px
+			padding: 0 11px
+
+			#right
+				right: 11px
+
+	footer.hidden
+		bottom: -32px
 
 #layout
-	//background: url(darknoise.png) center
 	bottom: 0
 	left: 0
 	overflow: hidden
@@ -50,17 +106,29 @@ html, body
 	top: 0
 
 	section
-		height: 100%
 		left: 0
 		overflow: hidden
 		position: absolute
-		right: 0
-		top: -100%
-		background: #17334B url(http://www.magic4walls.com/wp-content/uploads/2014/01/texture-blue-fonchik-simple-dark-colors-glow-background.jpg) center no-repeat
-		background-size: cover
+		width: 100%
+		top: 0
+		bottom: 18px
+		display: none
 
-		&.device
-			background: #17334B
+	@media screen and (min-height: 460px)
+		section
+			bottom: 24px
+
+	@media screen and (min-height: 650px)
+		section
+			bottom: 32px
+
+	section.center
+		+transition(left 0.4s ease-out 0s)
+		left: 0 !important
+
+	section.left
+		+transition(left 0.4s ease-out 0s)
+		left: -100% !important	
 
 	header#top
 		//+box-shadow(0 0 8px rgba(0, 0, 0, 0.2))
@@ -111,6 +179,16 @@ html, body
 		line-height: 20px
 		position: absolute
 		bottom: 0
+
+#overlax
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	background: url(darknoise.png) rgba(255, 255, 255, 1)
+	z-index: 999
+	display: none
 
 #overlay
 	position: fixed
