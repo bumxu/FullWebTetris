@@ -3,26 +3,22 @@ section#main
 	display: block
 
 	#bi18n
-		height: 24px
+		height: 20px
+		width: 28px
 		position: absolute
-		top: 16px
+		top: 20px
 		right: 20px
-		padding-left: 35px
-		padding-right: 7px
-		line-height: 26px
-		color: rgba(255, 255, 255, 0.6)
-		font-size: 14px
-		font-weight: 700
-		background: url(g/flags/es.png) no-repeat 6px 0
-		border-radius: 2px
+		background: rgba(255,255,255,0.4) url(g/flags/es.png) no-repeat center
 		cursor: pointer
 		opacity: 0.6
+		border-radius: 1px
+		color: rgba(0,0,0,0)
 		z-index: 800
-		+transition(all 0.15s linear 0s)
+		+transition(opacity 0.4s linear 0s)
 
 		&:hover
-			background-color: rgba(255, 255, 255, 0.15)
 			opacity: 1
+			+transition(opacity 0.2s linear 0s)
 
 	#frame1
 		position: absolute
@@ -44,7 +40,7 @@ section#main
 		#title
 			width: 84%
 			left: 8%
-			bottom: 72%
+			bottom: 70%
 			position: absolute
 			height: 10.5%
 			background: url(g/title.png) center no-repeat
@@ -93,8 +89,8 @@ section#main
 
 			#tiles
 				left: 50%
-				top: 1%
-				bottom: 1%
+				top: 8%
+				bottom: 2%
 				overflow: visible
 				position: absolute
 				width: 100%
@@ -125,35 +121,21 @@ section#main
 
 					&#t0
 						background: url(g/menu/saved.png) 50% 30% no-repeat rgba(255,255,255,0.05)
-						background-size: 75%, auto
+						background-size: 70%, auto
 					&#t1
 						background: url(g/menu/new.png) 50% 30% no-repeat rgba(255,255,255,0.05)
-						background-size: 75%, auto
+						background-size: 70%, auto
 					&#t2
 						background: url(g/menu/customize.png) 50% 30% no-repeat rgba(255,255,255,0.05)
-						background-size: 75%, auto
+						background-size: 70%, auto
 					&#t3
 						background: url(g/menu/marks.png) 50% 30% no-repeat rgba(255,255,255,0.05)
-						background-size: 75%, auto
+						background-size: 70%, auto
 					&#t4
 						background: url(g/menu/help.png) 50% 30% no-repeat rgba(255,255,255,0.05)
-						background-size: 75%, auto
+						background-size: 70%, auto
 
 				.tile:hover, .tile.tab
 					color: rgba(0, 0, 0, 0.8) !important
 					background-color: rgba(255, 255, 255, 0.15) !important
 					box-shadow: 0 0 4px rgba(0, 0, 0, 0.5)
-
-	@media screen and (max-height: 300px)
-		#bi18n
-			padding: 0
-			width: 24px
-			color: rgba(0, 0, 0, 0)
-			background-position: center
-
-	@media screen and (max-width: 650px)
-		#bi18n
-			padding: 0
-			width: 24px
-			color: rgba(0, 0, 0, 0)
-			background-position: center

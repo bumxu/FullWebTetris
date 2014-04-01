@@ -106,7 +106,7 @@ var HCI = function (fwt) {
 	var showMain = function()
 	{
 		// Show footer
-		$('footer').animate({bottom: -52}, 250);
+		$('footer').animate({bottom: 0}, 250);
 
 		// Change
 		$('section').fadeOut(250);
@@ -135,7 +135,7 @@ var HCI = function (fwt) {
 	var customizeGame = function()
 	{
 		// Show footer
-		$('footer').animate({bottom: -52}, 250);
+		$('footer').animate({bottom: 0}, 250);
 
 		// Change
 		$('section').fadeOut(250);

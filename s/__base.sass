@@ -13,17 +13,12 @@
 
 @font-face
 	font-family: "Calibri"
-	src: url('f/lato300-webfont.svga') format('svg'), url('f/calibri.ttf') format('truetype')
-	font-weight: 300
-	font-style: normal
-@font-face
-	font-family: "Lato"
-	src: url('f/lato400-webfont.svga') format('svg'), url('f/lato400-webfont.ttf') format('truetype')
+	src: url('f/calibri.ttf') format('truetype')
 	font-weight: 400
 	font-style: normal
 @font-face
-	font-family: "Lato"
-	src: url('f/lato700-webfont.svga') format('svg'), url('f/lato700-webfont.ttf') format('truetype')
+	font-family: "Calibri"
+	src: url('f/calibrib.ttf') format('truetype')
 	font-weight: 700
 	font-style: normal
 
@@ -41,7 +36,7 @@ html, body
 	min-height: 150px
 	font-family: 'Calibri', Arial, sans-serif
 	background: #17334B url("g/wall - copia.jpg") center no-repeat
-	//background-size: cover
+	background-size: cover
 
 	footer
 		+user-select(none)
@@ -180,23 +175,13 @@ html, body
 		position: absolute
 		bottom: 0
 
-#overlax
-	position: fixed
-	top: 0
-	left: 0
-	right: 0
-	bottom: 0
-	background: url(darknoise.png) rgba(255, 255, 255, 1)
-	z-index: 999
-	display: none
-
 #overlay
 	position: fixed
 	top: 0
 	left: 0
 	right: 0
 	bottom: 0
-	background: url(darknoise.png) rgba(0, 0, 0, 0.7)
+	background: url(g/darknoise.png) rgba(0, 0, 0, 0.7)
 	z-index: 999
 	display: none
 
@@ -215,7 +200,7 @@ html, body
 
 		.item
 			height: 28px
-			line-height: 30px
+			line-height: 27px
 			margin: 2px 5px
 			padding: 3px 8px
 			padding-left: 42px
