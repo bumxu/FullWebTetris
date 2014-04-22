@@ -3,7 +3,7 @@
 
 This is the branch of 3rd version, under development.
 
-###Details
+###Details (translation ongoing)
 >***An awesome tetris to kill boredom***
 
 >**Full Web Tetris es un juego para tu navegador basado en el clásico Tetris con el que puedes disfrutar de un juego de toda la vida a tu medida y con un aspecto fresco y cuidado.**
@@ -58,12 +58,15 @@ https://crowdin.net/project/full-web-tetris
 > * **More info is not stable right now...**
 
 ###About
-> **Design and programming:**  
+> * **Design and programming:**  
 [Juande Martos](https://twitter.com/bumxu)  
-**Tests, errors and ideas:**  
+* **Tests, errors and ideas:**  
 Juanjo · [Robinson](https://twitter.com/RFDaemoniac) · [Jorge](https://twitter.com/arasthel92)  
-**Translators:**  
-[Juande Martos](https://twitter.com/bumxu) · [Mr. Caveman](http://translate.google.com/)
+* **Game translators:**  
+[Juande Martos](https://twitter.com/bumxu) · [Mr. Caveman](http://translate.google.com/)  
+* **Text translators:**  
+  Thanks to all users of [Duolingo](https://www.duolingo.com).
+  * English: [KAT76_](https://www.duolingo.com/KAT76_) · [Colian Giannini](https://www.duolingo.com/colly8ynine) · [ueck1](https://www.duolingo.com/ueck1) · [Esther McKay](https://www.duolingo.com/banjolelegirl) · [Patricia](https://www.duolingo.com/lookslikelove25) · [Jonathan Mast](https://www.duolingo.com/Jonamast) · [Kelly Bevando](https://www.duolingo.com/kbevando)
 
 ###License
 >**The MIT License (MIT)**
