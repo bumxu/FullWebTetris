@@ -2,6 +2,7 @@
 
 
 This is the branch of 3rd version, under development.
+Development is currently paused because of work and studies, but I never forget that game is not finished ;)
 
 ###Details (translation ongoing)
 >***An awesome tetris to kill boredom***
