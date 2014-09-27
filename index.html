@@ -13,23 +13,26 @@
 
 	<link rel="stylesheet" type="text/css" href="production.css">
 
-	<script type="text/javascript" src="j/jQall.js" ></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+	<script type="text/javascript" src="j/librerias/jQuery.js" ></script>
+	<!--script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"--></script>
 </head>
 <body>
+	<div class="fondo"></div>
+
 	<main id="layout">
-		<!--section id="loader">
+		<section id="loader" class="active">
 			<div id="firsttag-chispa">LOADING</div>
 			<div id="loader-chispa"></div>
 			<div id="title-chispa"></div>
-		</section-->
+		</section>
 
 		<section id="main">
+			main activity!
 			<div id="bi18n" class="xtr" data-xtr="language"></div>
 
 			<div id="frame1">
 				<div id="title"></div>
-				<!--iframe src="http://yakmob.com/plugin/web/chat/mrna0afug8q9szdt/room1" frameborder="0"></iframe-->
+				
 				<div id="frame2">
 					<div id="selector">
 						<div id="tiles">
@@ -45,7 +48,7 @@
 			</div>
 		</section>
 
-		<section id="game" style="text-align:center">
+		<section id="game">
 			<header id="corner">
 				<div class="c-logo"></div>
 				<canvas id="c-next"></canvas>
@@ -69,17 +72,17 @@
 			<div class="button xtr" id="sett" onclick="ui.action(2)" data-xtr="settings-btt"></div>
 			<div class="button xtr" id="back" onclick="ui.action(6)" data-xtr="goback-btt"></div-->
 
-			<canvas id="canvas" width="800" height="600"></canvas>
+			<canvas id="board" width="800" height="600"></canvas>
 			<div id="osd"></div>
 			<div id="big-paused"></div>
 			<!--div id="big-over"></div-->
 		</section>
 
-		<section id="game" style="text-align:center">
+		<!--section id="game" style="text-align:center">
 
 			<div class="menu-back buttonback xtr" data-xtr="goback-btt"></div>
 
-		</section>
+		</section-->
 
 		<section id="settings">
 
@@ -154,109 +157,121 @@
 		</section>
 
 		<section id="help">
-			<!--div class="menu-back buttonback xtr" onclick="ui.action(6)" data-xtr="goback-btt"></div-->
+			<header>
+				<div class="max">
+					<h2>Support and credits</h2>
+					<button class="back xtr" data-xtr="help-bt-back">BACK</button>
+				</div>
+			</header>
 
-			<div id="help-content">
-				
-				<div class="bigtitle">Keyboard shortcuts</div>
-				<p>
-					<span class="line">Move piece to the right <span class="tab"><strong>Right arrow | 6 num key</strong></span></span><br>
-					<span class="line">Move piece to the left <span class="tab"><strong>Left arrow | 4 num key</strong></span></span><br>
-					<span class="line">Rotate piece<span class="tab"><strong>Up arrow* | 8 num key*</strong></span></span><br>
-					<span class="line">Rotate piece counterclockwise<span class="tab"><strong>Z key</strong></span></span><br>
-					<span class="line">Rotate piece clockwise <span class="tab"><strong>X key</strong></span></span><br>
-					<span class="line">Speedup piece drop <span class="tab"><strong>Down key | 2 num key</strong></span></span><br>
-					<span class="line">Direct fall <span class="tab"><strong>Spacebar | 0 num key</strong></span></span><br>
-					<span class="line">Pause the game <span class="tab"><strong>P key | 7 num key</strong></span></span><br>
-					<span class="line">Restart game o start a new quick game <span class="tab"><strong>N key | 9 num key</strong></span></span><br>
-					<br>
-					* Direction according to user settings
-				</p>
+			<article>
 
-				<div class="bigtitle">Changelog</div>
-				<p>
-					<strong class="title">Version 2.3.2</strong><br>
-					Collision system redone (now the game is "inbugeable" lol).<br>
-					Loading performance opmimization.<br>
-					<br>
-					<strong class="title">Version 2.3.1</strong><br>
-					Improvements and bugfixes.<br>
-					Default direction of rotation option in preferences panel.<br>
-					Different sets of pieces.<br>
-					Portuguese available again.<br>
-					Try to fix an unusual error on first load.<br>
-					<br>
-					<strong class="title">Version 2.3.0</strong><br>
-					Numerous improvements and bugfixes.<br>
-					New customized game panel finished.<br>
-					Deep review of the user interface.<br>
-					Review of the changelog.<br>
-					<br>
-					<strong class="title">Deleted from Chrome Store by user complaints :-(</strong><br>
-					<br>
-					<strong class="title">Version 2.2.0</strong><br>
-					New customized game panel in beta.<br>
-					Smart preload system.<br>
-					Recover saved games.<br>
-					Fixed: No pause on Internet Explorer.<br>
-					Fixed: With the game finished, speed up key still works. XD<br>
-					<br>
-					<strong class="title">Version 2.1.0</strong><br>
-					Game box size variable.<br>
-					<br>
-					<strong class="title">Version 2.0.8</strong><br>
-					Released documentation in English.<br>
-					Images perloader added.<br>
-					"New game" without reload the application & keyboard shourcuts.<br>
-					Conversion to OOP.<br>
-					Autoresize improved.<br>
-					Direct fall of pieces with the spacebar key.<br>
-					OSD.<br>
-					<br>
-					<strong class="title">Version 2.0.6</strong><br>
-					Next piece box enabled.<br>
-					<br>
-					<strong class="title">Version 2.0.5</strong><br>
-					New score system.<br>
-					Fixed minor bugs with the keyboard control.<br>
-					<br>
-					<strong class="title">Version 2</strong><br>
-					Programmed from scratch.<br>
-					Highly optimized.<br>
-					Completely integrated with site interface.<br>
-					Core separated from rendering, optimized for HTML5 but with classic mode available.<br>
-					In studing failures of the previous version.<br>
-					Interface an game board dinamicaly adaptable whit resolution up to 1000 x 600 (netbooks, tablets).
-				<br>
-					<br>
-					<strong class="title">Future features</strong><br>
-					Personalised game modes.<br>
-					Adjustable levels.<br>
-					Touch mouse controls.<br>
-					Music.<br>
-					New translations soon<br>
-					<br>
-					<strong class="title">Fails & faults</strong><br>
-					Anything! =D<br>
-				</p>
+				<div class="max">
+					<h3>Keyboard shortcuts</h3>
+					<p>
+						<span class="line">Move piece to the right <span class="tab"><strong>Right arrow | 6 num key</strong></span></span><br>
+						<span class="line">Move piece to the left <span class="tab"><strong>Left arrow | 4 num key</strong></span></span><br>
+						<span class="line">Rotate piece<span class="tab"><strong>Up arrow* | 8 num key*</strong></span></span><br>
+						<span class="line">Rotate piece counterclockwise<span class="tab"><strong>Z key</strong></span></span><br>
+						<span class="line">Rotate piece clockwise <span class="tab"><strong>X key</strong></span></span><br>
+						<span class="line">Speedup piece drop <span class="tab"><strong>Down key | 2 num key</strong></span></span><br>
+						<span class="line">Direct fall <span class="tab"><strong>Spacebar | 0 num key</strong></span></span><br>
+						<span class="line">Pause the game <span class="tab"><strong>P key | 7 num key</strong></span></span><br>
+						<span class="line">Restart game o start a new quick game <span class="tab"><strong>N key | 9 num key</strong></span></span><br>
+						<br>
+						* Direction according to user settings
+					</p>
 
-				<div class="bigtitle">License</div>
+					<h3>Changelog</h3>
+					<h4>Version 2.4.0</h4>
+					<li>· Deep changes</li>
+					<li>· Full responsive user interface</li>
+					<li>· Redesigned game experience</li>
+					<li>· Feedback &amp; donations in app</li>
+					<li>· [Chrome] Available full offline version (<em>Chrome desktop app</em>)</li>
+					<li>· [Desktop] Working on Windows 8 app</li>
+					<h4>Version 2.3.4</h4>
+					<li>· Quick fix to the leveling error! I could not delay it to the next version... :-)</li>
+					<h4>Version 2.3.3</h4>
+					<li>· Fix of important last week bug with new bumxu server schema, sorry gamers</li>
+					<li>· Merry christmas!</li>
+					<h4>Version 2.3.2</h4>
+					<li>· Collision system redone (now the game is "inbugeable" lol)</li>
+					<li>· Loading performance opmimization</li>
+					<h4>Version 2.3.1</h4>
+					<li>· Improvements and bugfixes</li>
+					<li>· Default direction of rotation option in preferences panel</li>
+					<li>· Different sets of pieces</li>
+					<li>· Portuguese available again</li>
+					<li>· Try to fix an unusual error on first load</li>
+					<h4>Version 2.3.0</h4>
+					<li>· Numerous improvements and bugfixes</li>
+					<li>· New customized game panel finished</li>
+					<li>· Deep review of the user interface</li>
+					<li>· Review of the changelog</li>
+					<h4>Deleted from Chrome Store by user complaints :-(</h4>
+					<h4>Version 2.2.0</h4>
+					<li>· New customized game panel in beta</li>
+					<li>· Smart preload system</li>
+					<li>· Recover saved games</li>
+					<li>· Fixed: No pause on Internet Explorer</li>
+					<li>· Fixed: With the game finished, speed up key still works XD</li>
+					<h4>Version 2.1.0</h4>
+					<li>· Game box size variable</li>
+					<h4>Version 2.0.8</h4>
+					<li>· Released documentation in English</li>
+					<li>· Images perloader added</li>
+					<li>· "New game" without reload the application &amp; keyboard shourcuts</li>
+					<li>· Conversion to OOP</li>
+					<li>· Autoresize improved</li>
+					<li>· Direct fall of pieces with the spacebar key</li>
+					<li>· OSD</li>
+					<h4>Version 2.0.6</h4>
+					<li>· Next piece box enabled</li>
+					<h4>Version 2.0.5</h4>
+					<li>· New score system</li>
+					<li>· Fixed minor bugs with the keyboard control</li>
+					<h4>Version 2</h4>
+					<li>· Programmed from scratch</li>
+					<li>· Highly optimized</li>
+					<li>· Completely integrated with site interface</li>
+					<li>· Core separated from rendering, optimized for HTML5 but with classic mode available</li>
+					<li>· In studing failures of the previous version</li>
+					<li>· Interface an game board dinamicaly adaptable whit resolution up to 1000 x 600 (netbooks, tablets)</li>
+					<h4>Future features</h4>
+					<li>· Personalised game modes</li>
+					<li>· Adjustable levels</li>
+					<li>· Touch mouse controls</li>
+					<li>· Music</li>
+					<li>· New translations soon</li>
+					<h4>Fails &amp; faults</h4>
+					<li>· Anything! =D</li>
 
-				<div class="bigtitle">Privacy</div>
+					<h3>License</h3>
+					<p class="license">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac quam placerat, vestibulum est non, hendrerit orci. Nullam eu metus leo. 
+						Pellentesque condimentum aliquam dui in aliquam. Proin sed pharetra ligula. Ut vitae libero eros. Nam convallis feugiat neque, id aliquet 
+						turpis sagittis ut. Quisque fermentum eleifend elit, a aliquam nibh feugiat ac. Fusce congue tempor erat, vel convallis neque scelerisque 
+						id. Integer bibendum fermentum sapien at mattis.
+					</p>
 
-				<div class="bigtitle">About</div>
-				<p>
-					<strong class="title">Credits</strong><br>
-					<span class="line">Progamming, design and documentation <span class="tab"><strong>Juande Martos</strong></span></span><br>
-					<span class="line">Performance testing and extreme ideas <span class="tab"><strong>Juanjo Riado</strong></span></span><br>
-					<span class="line">Flag Icons <span class="tab"><a href="http://icondrawer.com" target="_blank"><strong>Icon Drawer</strong></a></span></span><br>
-					<br>
-					<strong class="title">With the help of...</strong><br>
-					<span class="line">Speeding up user interface <span class="tab"><strong><a href="http://jquery.com" target="_blank">jQuery</strong></a></span></span><br>
-					<span class="line">Scores reference<span class="tab"><a href="http://goo.gl/sJAff" target="_blank"><strong>http://goo.gl/sJAff</strong></a></span></span><br>
-				</p>
-				<br><br>
-			</div>
+					<h3>Privacy</h3>
+
+					<h3>About</h3>
+					<p>
+						<h4>Credits</h4>
+						<span class="line">Progamming, design and documentation <span class="tab"><strong>Juande Martos</strong></span></span><br>
+						<span class="line">Performance testing and extreme ideas <span class="tab"><strong>Juanjo Riado</strong></span></span><br>
+						<span class="line">Productive reviews <span class="tab">Jorge Martín, Robinson Farrar</span></span><br>
+						<span class="line">Flag Icons <span class="tab"><a href="http://icondrawer.com" target="_blank"><strong>Icon Drawer</strong></a></span></span><br>
+						<br>
+						<h4>With the help of...</h4>
+						<span class="line">Speeding up user interface <span class="tab"><strong><a href="http://jquery.com" target="_blank">jQuery</strong></a></span></span><br>
+						<span class="line">Scores reference<span class="tab"><a href="http://goo.gl/sJAff" target="_blank"><strong>http://goo.gl/sJAff</strong></a></span></span><br>
+					</p>
+					<br><br>
+				</div>
+			</article>
 		</section>
 
 		<footer>
@@ -265,7 +280,7 @@
 		</footer>
 	</main>
 
-	<div id="overlax"></div>
+	<!--div id="overlax"></div>
 	<div id="overlay">
 		<div id="languages">
 			<div class="item en" data-tto="0">English</div>
@@ -277,16 +292,21 @@
 			<div class="item jp" data-tto="6">日本語</div>
 			<div class="item ru" data-tto="7">Русский</div>
 		</div>
-	</div>
+	</div></main-->
 
-	<script type="text/javascript" src="j/bX-core.js"></script>
-	<script type="text/javascript" src="j/bX-hci.js"></script>
-	<script type="text/javascript" src="j/bX-ui.js"></script>
+	<footer>
+		Full Web Tetris 3
+		<div class="right">
+			<a href="//www.bumxu.com" class="bux">bumxu</a>
+			<a href="" class="git"></a>
+		</div>
+	</footer>
 
-	<script type="text/javascript">
-		fwt = {}
-		fwt.hci  = new HCI(fwt);
-		fwt.ui  = new UI(fwt);
+	<script src="j/cf_game.js"></script>
+	<script src="j/cf_main.js"></script>
+
+	<script>
+		
 	</script>
 
 </body>

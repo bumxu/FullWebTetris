@@ -1,0 +1,113 @@
+section#help {
+	@include user-select(none);
+
+	.max {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 0 3%;
+	}
+
+	// Cut 540
+
+	header {
+		width: 100%;
+		background: rgba(255, 255, 255, 0.2);
+		cursor: default;
+
+		h2 {
+			color: rgba(0, 0, 0, 0.5);
+			display: inline-block;
+			font-size: 28px;
+			font-weight: 400;
+			height: 56px;
+			margin: 0;
+			line-height: 56px;
+			text-transform: uppercase;
+		}
+
+		button.back {
+			height: 30px;
+			margin: 13px 0;
+			padding: 0 13px 0 30px;
+			font-weight: 600;
+			color: rgba(0, 0, 0, 0.5);
+			border-radius: 2px;
+			background: rgba(255, 255, 255, 0.2) url(g/larrow.svg) no-repeat 11px 9px;
+			background-size: 16%;
+			float: right;
+			border: 0;
+			cursor: pointer;
+			font-size: 15px;
+			box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+			transition: background-color 0.4s linear 0s;
+
+			&:hover {
+				background-color: rgba(255, 255, 255, 0.5);
+				transition: background-color 0.2s ease-out 0s;
+			}
+		}
+	}
+
+	article {
+		position: absolute;
+		top: 56px;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow: auto;
+
+		* { font-family: 'OpenSans' }
+	}
+
+	h3 {
+		color: rgba(255, 255, 255, 0.75);
+		font-weight: 400;
+		font-size: 22px;
+		letter-spacing: 2px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+		margin: 20px 2px 0;
+		padding: 4px 6px;
+	}
+	
+	h4 {
+		font-size: 16px;
+		padding: 0;
+		color: rgba(255, 255, 255, 0.65);
+		font-weight: 400;
+		margin: 18px 17px 5px;
+	}
+
+	li {
+		color: rgba(255, 255, 255, 0.5);
+		font-size: 14px;
+		margin: 0 28px 0;
+		padding: 0;
+		list-style: none;
+		text-indent: -7px;
+	}
+
+	p.license {
+		color: rgba(255, 255, 255, 0.5);
+		font-size: 15px;
+		margin: 14px 19px 0;
+		padding: 0;
+	}
+
+	.line {
+		display: inline-block;
+		width: 94%;
+	}
+
+	.tab {
+		left: 360px;
+		position: absolute;
+	}
+
+	a {
+		color: rgba(255, 255, 255, 0.6);
+		text-decoration: none;
+
+		&:hover { text-decoration: underline }
+	}
+	
+}

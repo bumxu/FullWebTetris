@@ -3,8 +3,8 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 <metadata></metadata>
 <defs>
-<font id="latoregular" horiz-adv-x="1187" >
-<font-face units-per-em="2048" ascent="1649" descent="-399" />
+<font id="svg-id" horiz-adv-x="1187" >
+<font-face units-per-em="2048" ascent="1850" descent="-260" />
 <missing-glyph horiz-adv-x="395" />
 <glyph unicode="&#xfb01;" horiz-adv-x="1167" d="M27 942v75h163v57q0 95 30 174.5t89.5 137t148 89t206.5 31.5q39 0 79 -5t70 -15l-6 -95q-2 -13 -12.5 -17t-29.5 -4q-11 0 -23.5 0.5t-27.5 0.5q-181 0 -263.5 -75t-82.5 -227v-52h626v-1017h-182v885h-438v-885h-184v882l-114 13q-22 5 -35.5 16t-13.5 31z" />
 <glyph unicode="&#xfb02;" horiz-adv-x="1216" d="M27 942v75h163v55q0 86 27 163.5t80 134.5t133 91t186 34q85 0 163.5 -6.5t152.5 -6.5h102v-1482h-182v1354q-55 2 -111 5t-97 3q-133 0 -204.5 -76.5t-71.5 -213.5v-55h270v-132h-264v-885h-184v882l-114 13q-22 5 -35.5 16t-13.5 31z" />

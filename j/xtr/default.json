@@ -1,0 +1,102 @@
+﻿{
+	"load":			"Cargando...",
+
+	"i18n":			"Idioma",
+	"i18n-ph":		"Cambia el idioma del juego.",
+
+	"menu-resume":			"Reanudar juego",
+	"menu-resume-ph":		"Continúa donde lo dejaste.",
+	"menu-saved":			"Partidas empezadas",
+	"menu-saved-ph":		"Continúa donde lo dejaste, incluso antes.",
+	"menu-new":				"Nuevo juego",
+	"menu-new-ph":			"Comienza un juego nuevo.",
+	"menu-custom":			"Personalizar juego",
+	"menu-custom-ph":		"Crea el juego a tu medida.",
+	"menu-marks":			"Tus logros",
+	"menu-marks-ph":		"Mira que tal se te da el juego.",
+	"menu-help":			"Ayuda",
+	"menu-help-ph":		"Aprende un poco más sobre el juego.",
+
+	"clevel":		"Nivel",
+	"points":		"Puntuación",
+	"next1p":		"Próxima pieza",
+
+	"opt1":	"Sí",
+	"opt0":	"No",
+
+	"ord-continue":		"Continuar",
+	"ord-pause":			"Pausar",
+	"ord-pause-ph":		"Guarda el juego y lo detiene temporalmente.",
+	"ord-reset":			"Reiniciar",
+	"ord-reset-ph":		"Reinicia el juego actual sin guardarlo.",
+	"ord-reset-conf":		"¿Estás seguro?",
+	"ord-reset-opt":		"Guardar la partida para retomarla más tarde.",
+	"ord-custom":			"Personalizar",
+	"ord-custom-ph":		"Pausa el juego y te lleva al menú de personalización.",
+	"ord-back":				"Volver",
+	"ord-back-long":		"Volver al menú",
+
+
+	"humor00": "Bien",
+	"humor01": "Puedes hacerlo mejor",
+	"humor02": "Lento",
+	"humor03": "Uno más",
+	"humor04": "Punto",
+
+	"humor10": "No está mal",
+	"humor11": "Mejor",
+	"humor12": "Genial",
+	"humor13": "Sigue así",
+	"humor14": "No demasiado mal",
+
+	"humor20": "Magnífico",
+	"humor21": "Muy rápido",
+	"humor22": "Rápido",
+	"humor23": "Inteligente",
+	"humor24": "Elegante",
+
+	"humor30": "Instantaneo",
+	"humor31": "Lo más",
+	"humor32": "Bien hecho",
+	"humor33": "Estelar",
+	"humor34": "Impresionante",
+
+
+	"line1": "Línea",
+	"line2": "¡Doble!",
+	"line3": "¡¡Triple!!",
+	"line4": "¡¡¡Eso es un tetris!!!",
+
+
+
+
+
+	"newgame-notice": "* It will start a new game",
+
+	"custom-size": "Board size",
+	"custom-size-d": "You can resize the game board if the default size is too small or big for you, beware.",
+	"custom-size-width": "Width:",
+	"custom-size-height": "Height:",
+	"custom-size-notice": "* A value between 10 and 100",
+
+	"custom-shade": "Shades",
+	"custom-shade-d": "Shadows tell you where to drop a piece, activate them if the game is too much for you.",
+	
+	"custom-theme": "Theme",
+	"custom-theme-d": "Enabling this option you can continue watching the tetris in full color.",
+	"custom-theme-classic": "Classic (In full color pieces)",
+	"custom-theme-iced": "Modern (Beautiful minimalist style)",
+
+	"custom-rotation": "Direction of rotation",
+	"custom-rotation-d": "Select the default rotation to rotate a piece with the &uarr; key.",
+	"custom-rotation-clockwise": "Clockwise",
+	"custom-rotation-cclockwise": "Counterclockwise",
+
+	"custom-set": "Pieces set",
+	"custom-set-d": "Number of pieces and forms in the game.",
+	"custom-set-classic": "Tetris (7 classic pieces)",
+	"custom-set-full": "Full (Extended set of pieces)",
+	"custom-set-challenge": "Challenge (Strange pieces)",
+	"custom-set-lethal": "Lethal (Random impossible pieces)"
+
+}
