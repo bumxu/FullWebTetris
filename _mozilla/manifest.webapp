@@ -1,9 +1,11 @@
 ﻿{
-  "version": "2.1.9.6",
-  "name": "Tetris",
+  "version": "2.3.3.0",
+  "name": "Full Web Tetris",
   "description": "An awesome tetris game for the moments when you need to kill the boredom.",
   "icons": {
     "16": "/_mozilla/icon_16.png",
+    "32": "/_mozilla/icon_32.png",
+    "60": "/_mozilla/icon_60.png",
     "128": "/_mozilla/icon_128.png"
   },
   "developer": {
@@ -21,17 +23,8 @@
 	"es_419": {
       "description": "Un colorido juego de tetris para los momentos en los que necesitas matar el aburrimiento."
     },
-	"ca": {
-      "description": "Un colorit joc de tetris per als moments en què necessites matar l'avorriment."
-    },
 	"fr": {
       "description": "Un grand jeu de Tetris pour les fois où vous devez tuer l'ennui."
-    },
-	"it": {
-      "description": "Un fantastico gioco tetris per i momenti in cui dovete uccidere la noia."
-    },
-	"de": {
-      "description": "Ein eindrucksvoll Tetris spiel für zeiten wo sie du benötigen töten die langeweile."
     }
   },
   "default_locale": "en"

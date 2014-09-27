@@ -1,8 +1,9 @@
 CACHE MANIFEST 
-#14/13
+#21/29
 CACHE: 
 
-g/arrow.png
+g/wall.jpg
+g/title.png
 g/loader-empty.png
 g/loader.png
 g/tile-customize.png
@@ -10,9 +11,6 @@ g/tile-help.png
 g/tile-newGame.png
 g/tile-rankings.png
 g/tile-savedGame.png
-g/title.png
-g/wall.jpg
-
 g/material/classic-o-blue.png
 g/material/classic-t-blue.png
 g/material/classic-o-cyan.png
@@ -30,14 +28,10 @@ g/material/classic-t-yellow.png
 g/material/iced-o.png
 g/material/iced-t.png
 g/material/mat-bomb.png
+g/arrow.png
 
-j/bX-controls.js
-j/bX-fwt.js
-j/bX-ui.js
-j/jQ-backstretch.js
-j/jQ-i18n.js
-j/jQ-json.js
-j/jQuery.js
+j/jQall.js
+j/bXall.php
 
 j/xtr/english.json
 j/xtr/spanish.json

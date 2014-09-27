@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="143.74516"
+   height="143.74516"
+   id="svg3825"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="big-pause.svg">
+  <defs
+     id="defs3827">
+    <filter
+       inkscape:collect="always"
+       id="filter3943"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.3715625"
+         id="feGaussianBlur3945" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3978"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.38548367"
+         id="feGaussianBlur3980" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3982"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.38548367"
+         id="feGaussianBlur3984" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3986"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.3716141"
+         id="feGaussianBlur3988" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6"
+     inkscape:cx="67.887556"
+     inkscape:cy="45.400134"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="727"
+     inkscape:window-height="470"
+     inkscape:window-x="516"
+     inkscape:window-y="93"
+     inkscape:window-maximized="0"
+     showborder="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata3830">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-410.54326,-326.64519)">
+    <g
+       id="g3951"
+       transform="translate(413.83513,329.93706)"
+       style="opacity:0.4;fill:#000000;fill-opacity:1;filter:url(#filter3986)">
+      <path
+         id="path3953"
+         d="M 10.736221,0 C 4.7834648,0 0,4.7834642 0,10.771653 L 0,126.42519 c 0,5.95275 4.7834648,10.73622 10.736221,10.73622 l 115.653549,0 c 5.98819,0 10.77165,-4.78347 10.77165,-10.73622 l 0,-115.653537 C 137.16142,4.7834642 132.37796,0 126.38977,0 L 10.736221,0 z m 26.822836,27.106297 16.582677,0 c 2.515749,0 4.570867,2.055118 4.570867,4.570866 l 0,73.807077 c 0,2.51575 -2.055118,4.53544 -4.570867,4.53544 l -16.582677,0 c -2.551182,0 -4.6063,-2.01969 -4.6063,-4.53544 l 0,-73.807077 c 0,-2.515748 2.055118,-4.570866 4.6063,-4.570866 z m 45.460631,0 16.618111,0 c 2.515751,0 4.570871,2.055118 4.570871,4.570866 l 0,73.807077 c 0,2.51575 -2.05512,4.53544 -4.570871,4.53544 l -16.618111,0 c -2.515748,0 -4.570866,-2.01969 -4.570866,-4.53544 l 0,-73.807077 c 0,-2.515748 2.055118,-4.570866 4.570866,-4.570866 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+         inkscape:connector-curvature="0" />
+    </g>
+    <rect
+       style="fill:#ffffff;fill-opacity:0.11764706;stroke:none;filter:url(#filter3982)"
+       id="rect3781"
+       width="25.771517"
+       height="82.936111"
+       x="492.4035"
+       y="357.27637"
+       ry="4.5909729" />
+    <rect
+       style="fill:#ffffff;fill-opacity:0.11764706;stroke:none;filter:url(#filter3978)"
+       id="rect3781-4"
+       width="25.771517"
+       height="82.936111"
+       x="446.91766"
+       y="357.27637"
+       ry="4.5909729" />
+  </g>
+</svg>

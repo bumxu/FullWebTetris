@@ -312,7 +312,7 @@
 
 		if (lines > 0) {
 			fsum = [40, 100, 300, 1200];
-			p = fsum[lines - 1] * (level + 1);
+			p = fsum[lines - 1];
 			mark(p, "line", lines);
 		}
 	}
@@ -325,10 +325,8 @@
 			for (j = piece.form.length - 1; j > -1; j--) {
 				if (piece.form[j][i] != 0) {
 					if (map[piece.j + j + 1] !== undefined) {
-						if (map[piece.j + j + 1][piece.i + i].mat != 0)
+						if (typeof map[piece.j + j + 1][piece.i + i] == 'undefined' || map[piece.j + j + 1][piece.i + i].mat != 0)
 							return false;
-						else
-							break;
 					}
 				}
 			}
@@ -436,13 +434,14 @@
 	}
 
 	var canRight = function () {
-		if (current.i + current.form[0].length + 1 > width)
+		if (current.i + 1 + current.form[0].length > width) {
 			return false;
+		}
 
 		for (j = 0; j < current.form.length; j++) {
 			for (i = current.form[0].length - 1; i > -1; i--) {
 				if (current.form[j][i] != 0) {
-					if (map[current.j + j] !== undefined && map[current.j + j][current.i + i + 1].mat != 0)
+					if (current.j + j > -1 && map[current.j + j][current.i + i + 1].mat != 0)
 						return false;
 
 					break;
@@ -454,13 +453,14 @@
 	}
 
 	var canLeft = function () {
-		if (current.i - 1 < 0)
+		if (current.i - 1 < 0) {
 			return false;
+		}
 
 		for (j = 0; j < current.form.length; j++) {
 			for (i = 0; i < current.form[0].length; i++) {
 				if (current.form[j][i] != 0) {
-					if (map[current.j + j] !== undefined && map[current.j + j][current.i + i - 1].mat != 0)
+					if (current.j + j > -1 && map[current.j + j][current.i + i - 1].mat != 0)
 						return false;
 
 					break;
@@ -474,10 +474,12 @@
 	var canRotate = function (aux) {
 		for (j = 0; j < aux.length; j++) {
 			for (i = 0; i < aux[0].length; i++) {
-				if (aux[j][i] != 0) {
-					if (current.j + j >= 0 && current.j + j < width && map[current.j + j][current.i + i].mat != 0)
+
+				if (aux[j][i] != 0 && (current.j + j > 0)) {
+					if (typeof map[current.j + j] == 'undefined' || typeof map[current.j + j][current.i + i] == 'undefined' || map[current.j + j][current.i + i].mat != 0)
 						return false;
 				}
+
 			}
 		}
 

@@ -2,8 +2,8 @@ var ui = function () {
 	
 	var menuItem;
 
-	console.log("\nFull Web Tetris 2.3.2");
-	console.log(" By Juande Martos\n Copyright © 2013 Bumxu\n Licensed under the GPLv3 license\n");
+	console.log("\nFull Web Tetris 2.3.5");
+	console.log(" By Juande Martos\n Copyright © 2014 Bumxu\n Licensed under the GPLv3 license\n");
 
 //	<Preloader> preloads graphics to the <Loader>
 	var preLoaderDone = 0;
