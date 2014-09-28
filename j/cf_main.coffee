@@ -41,7 +41,9 @@ changeActivity = (activity) ->
 newGame = () ->
    changeActivity 'game'
 
-   game = new Game({});
+   do fwt.game.endGame if typeof fwt.game isnt 'undefined'
+
+   fwt.game = new Game({});
 
 fwt.changeActivity = changeActivity
 fwt.newGame = newGame

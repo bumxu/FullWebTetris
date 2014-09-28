@@ -1,17 +1,3 @@
-class Map
-	map = undefined
-
-	constructor: (w, h) ->
-		#	if entropy == undefined
-		r   = (0 for _ in [1...w])
-		map = (r for _ in [1...h])
-
-	raw: -> map
-	index: (i, j) -> map(j,i)
-	material: (i,j) -> map(j,i).material
-	width: -> map[0].length
-	height: -> map.length
-
 Game = (o) ->
 	# Math
 	π  = Math.PI
@@ -53,7 +39,8 @@ Game = (o) ->
 
 	# Pieces var declaration
 	shapes = current = next = shade = ø
-
+	defImg = new Image()
+	defImg.src = "g/material/iced-o.png"
 #	// Options
 #	var shade, shadeEnabled;
 #	var lastLine = 0;
@@ -135,18 +122,19 @@ Game = (o) ->
 		# Consistent colors
 		o.ccolorsOn = true if typeof o.ccolorsOn is øs
 		# Shade
-		o.shadeOn   = true if typeof o.shadeOn   is øs
+		o.shadeOn = false if typeof o.shadeOn is øs
+		# Zero gravity
+		o.zerogOn = true if typeof o.zerogOn is øs
 
 		shapes = sets[o.set]
 
-		map = new Map(o.width, o.height)
-	#	map = new Map(o.width, o.height, entropy)
+		map = do makeMap
 
 		# Set game state to ACTIVE
 		state = GSACTIVE
 
 		# Generate FIRST piece and SHADE if enabled
-		current => do makeNext
+		current = do makeNext
 		do makeShade if o.shadeOn
 
 		do repaint
@@ -188,101 +176,92 @@ Game = (o) ->
 			fps++
 			delay++
 
-#	var aborted = function() {
-#		cancelAnimFrame(clk);
-#		clearInterval(fps_clk);
-#		$('.fpsmetter').html("0 FPS");
-#
-#		gameState = S_OVER;
-#		repaint();
-#	}
-#
-#	var gameOver = function() {
-#		aborted();
-#
-#		console.log("Juego acabado");
-#	}
-#
-#	var endGame = function() {
-#		aborted();
-#
-#		console.log("Juego abortado");
-#	}
-#	Game.prototype.endGame = endGame;
-#
-#
-#	Game.prototype.right = function () {
-	#		if (gameState == S_OVER)
-	#			return;
-	#
-	#		if (gameState == S_PAUSED)
-	#			pauseGame(false);
-	#
-	#		if (canRight()) {
-	#			current.i++;
-	#
-	#			if (shadeEnabled)
-	#				createShade();
-	#
-	#			repaint();
-	#		}
-	#	}
-	#
-#	Game.prototype.left = function () {
-	#		if (gameState == S_OVER)
-	#			return;
-	#
-	#		if (gameState == S_PAUSED)
-	#			pauseGame(false);
-	#
-	#		if (canLeft()) {
-	#			current.i--;
-	#
-	#			if (shadeEnabled)
-	#				createShade();
-	#
-	#			repaint();
-	#		}
-	#	}
-#	var canRight = function () {
-	#		if (current.i + current.form[0].length + 1 > width)
-	#			return false;
-	#
-	#		for (j = 0; j < current.form.length; j++) {
-	#			for (i = current.form[0].length - 1; i > -1; i--) {
-	#				if (current.form[j][i] != 0) {
-	#
-	#					if (current.j + j-1 > -1 && map[current.j + j][current.i + i + 1].mat != 0)
-	#						return false;
-	#
-	#					break;
-	#
-	#				}
-	#			}
-	#		}
-	#
-	#		return true;
-	#	}
-#	var canLeft = function () {
-	#		if (current.i - 1 < 0)
-	#			return false;
-	#
-	#		for (j = 0; j < current.form.length; j++) {
-	#			for (i = 0; i < current.form[0].length; i++) {
-	#				if (current.form[j][i] != 0) {
-	#
-	#					if (current.j + j-1 > -1 && map[current.j + j][current.i + i - 1].mat != 0)
-	#						return false;
-	#
-	#					break;
-	#
-	#				}
-	#			}
-	#		}
-	#
-	#		return true;
-	#	}
-	#
+	aborted = ->
+		cancelAnimFrame(clock)
+		#clearInterval(fps_clk);
+		#$('.fpsmetter').html("0 FPS");
+
+		state = GSOVER
+		do repaint
+
+		return true
+
+	gameOver = ->
+		console.log "Game over"
+		return do aborted
+
+	endGame = ->
+		console.log "Game interrupted" 
+		return do aborted
+
+	right = ->
+		if state is GSOVER 	then return false
+		if state is GSPAUSED then pauseGame(false)
+
+		if do canRight
+			current.i++
+
+			do makeShade if o.shadeOn
+			do repaint
+
+			return true
+
+		return false
+
+	left = ->
+		if state is GSOVER 	then return false
+		if state is GSPAUSED then pauseGame(false)
+
+		if do canLeft
+			current.i--
+
+			do makeShade if o.shadeOn
+			do repaint
+
+			return true
+
+		return false
+
+	canRight = ->
+		# Right wall collision
+		if current.i + current.w + 1 > o.width then return false
+
+		# Other collision
+		for j in [0...current.h]
+			for i in [current.w-1..0]
+				if current._(i,j) != 0
+
+					mi = current.i + i + 1
+					mj = current.j + j
+
+					if (current.j + j-1 > -1) and (map[mj][mi] isnt null and map[mj][mi].t is 1)
+						return false
+
+					break
+
+		# No collision
+		return true
+
+	canLeft = ->
+		# Left wall collision
+		if current.i - 1 < 0 then return false
+
+		# Other collision
+		for j in [0...current.h]
+			for i in [0...current.w]
+				if current._(i,j) != 0
+
+					mi = current.i + i - 1
+					mj = current.j + j
+
+					if (current.j + j-1 > -1) and (map[mj][mi] isnt null and map[mj][mi].t is 1)
+						return false
+
+					break
+
+		# No collision
+		return true
+
 #	var rotateC = function () {
 	#		if (gameState == S_OVER)
 	#			return;
@@ -398,18 +377,14 @@ Game = (o) ->
 	#	}
 
 	freeze = (piece) ->
-	#	for (j = piece.form.length - 1; j >= 0; j--) {
-	#		for (i = 0; i < piece.form[j].length; i++) {
-	#			if (piece.form[j][i] != 0) {
-#
-	#				if (piece.j + j > -1)
-	#					map[piece.j + j][piece.i + i].mat = piece.mat;
-	#					map[piece.j + j][piece.i + i].col = piece.col;
-	#				else
-	#					return false
-	#			}
-	#		}
-	#	}
+		for j in [piece.h-1..0]
+			for i in [0...piece.w]
+				if piece._(i,j) != 0
+
+					if piece.j + j > -1
+						map[piece.j + j][piece.i + i] = { t: piece.t, c: piece.c }
+					else
+						return false
 
 		topLine = Math.min(current.j, topLine)
 
@@ -458,49 +433,71 @@ Game = (o) ->
 
 	makeShade = ->
 		shade = clone(current)
-		do shade.j++ while canFall(shade)
+		while canFall(shade)
+			shade.j++
 		return
 
+	makeMap = (entropy) ->
+		if typeof entropy is øs
+			_r = -> ( null for _ in [0...o.width])
+			_m =    (do _r for _ in [0...o.height])
+		return _m
+
 	canFall = (piece) ->
-		if (piece.j + piece.shape.s.length) == o.height
-			return false
+		# Floor collision
+		if piece.j + piece.h == o.height then return false
 
-		for i in [0...piece.shape.s[0].length]
-			for j in [piece.shape.s.length-1..0] 
-				if piece.shape.s[j][i] != 0
+		# Other collision
+		for i in [0...piece.w]
+			for j in [piece.h-1..0] 
+				if piece._(i,j) != 0 and piece.j+j+1 > -1
+					mi = piece.i+i
+					mj = piece.j+j + 1
 
-					if piece.j+j+1 > -1 && map.material(piece.i+i, piece.j+j + 1) != 0
+					if map[mj][mi] isnt null and map[mj][mi].t is 1
 						return false
 
+		# No collision
 		return true
+
+	g = (j) -> if o.zerogOn then o.height-1 - j else j
 
 	repaint = ->
 		context.clearRect(0, 0, canvas.width, canvas.height);
 
-		size = $(canvas).innerHeight() / o.height;
+		size = canvas.height / o.height;
 
 		# Paint map
-		for j in [0...map.height()]
-			for i in [0...map[0].width()]
-				if map.index(i,j).material != 0
-					context.drawImage(chooseImage.mapped(i, j), size * i, size * j, size, size)
+		for j in [0...o.height]
+			for i in [0...o.width] when map[j][i] isnt null
+				x = size * i
+				y = size * if o.zerogOn then (o.height-1 - j) else j
+				
+				#chooseImage.mapped(i, j)
+				context.drawImage(defImg, x, y, size, size)
 
 		# Paint current
-		#if state != GSOVER
-		#	for j in [0...current.h]
-		#		for i in [0...current.w]
-		#			if current.b(i,j) == 1
-		#				context.drawImage(chooseImage.current(), (i * size) + (current.i * size), (j * size) + (current.j * size), size, size);
+		if state isnt GSOVER
+			for j in [0...current.h]
+				for i in [0...current.w] when current._(i,j) is 1 
+					x = (i * size) + (current.i * size)
+					y = size * (if o.zerogOn then (current.h-1 - j) else j) +
+					    size * (if o.zerogOn then (o.height-1 - current.j) else current.j)
 
-#		// Paint shade
-#		if (gameState != S_OVER && shadeEnabled && shade !== undefined && current.j != shade.j)
-#			for (j = 0; j < shade.form.length; j++)
-#				for (i = 0; i < shade.form[j].length; i++)
-#					if (shade.form[j][i] == 1)
-#						out.drawImage(chooseImage.shade(), (i * size) + (shade.i * size), (j * size) + (shade.j * size), size, size);
-#
-#		$('.fpsmetter').addClass('rp');
-#		setTimeout(function() { $('.fpsmetter').removeClass('rp'); }, 20);
+					context.drawImage(defImg, x, y, size, size)
+
+		# Paint shade
+		#if (gameState != S_OVER && shadeEnabled && shade !== undefined && current.j != shade.j)
+		#	for (j = 0; j < shade.form.length; j++)
+		#		for (i = 0; i < shade.form[j].length; i++)
+		#			if (shade.form[j][i] == 1)
+		#				out.drawImage(chooseImage.shade(), (i * size) + (shade.i * size), (j * size) + (shade.j * size), size, size);
+
+		# <ui>
+		#$('.fpsmetter').addClass('rp');
+		#setTimeout(function() { $('.fpsmetter').removeClass('rp'); }, 20);
+
+		return
 
 	`var chooseImage = {
 		current: function(){
@@ -547,9 +544,9 @@ Game = (o) ->
 
 	makeNext = (first, paintOnly) ->
 		rndShape = Math.round(Math.random() * (shapes.length - 1))
-		# Board.w/2 - Piece.w/2
+		# Axis i origin = Board.w/2 - Piece.w/2
 		iSource = Math.round(o.width / 2) - Math.round(shapes[rndShape].length / 2)
-		# Negative Piece.h
+		# Axis j origin = Negative Piece.h
 		jSource = shapes[rndShape].length * -1
 
 		piece = {
@@ -558,13 +555,16 @@ Game = (o) ->
 			w: shapes[rndShape][0].length,
 			h: shapes[rndShape].length,
 			t: 1,
-			shape: shapes[rndShape]
+			s: shapes[rndShape],
+			_: (a,b) -> this.s[b][a]
 		}
 
-		if o.ccolorsOn && (o.set is 'classic' || o.set is 'extended')
+		if o.ccolorsOn and (o.set is 'classic' or o.set is 'extended')
 			piece.c = colors[ rndShape ]
 		else
 			piece.c = colors[ Math.round(Math.random() * (colors.length - 1)) ]
+
+		return piece
 
 
 	#		//if (gameStatus < 2)
@@ -624,14 +624,14 @@ Game = (o) ->
 				state = GSPAUSED
 				repaint()
 			
-#		//if (gameState == S_PAUSED) {
-#		//	$("#big-paused").fadeIn(200);
-#		//} else if (gameState == S_ACTIVE) {
-#		//	$("#big-paused").fadeOut(200);
-#		//}
+		# <ui>
+		#if state is GSPAUSED
+		#	$("#big-paused").fadeIn(200)
+		#else if state is GSACTIVE
+		#	$("#big-paused").fadeOut(200)
+
 		return
 
-#
 #	/*var prepare = function (saved) {
 #		map = saved.map;
 #		current = saved.current;
@@ -968,6 +968,10 @@ Game = (o) ->
 	#@repaint = repaint
 #	//this.setEvents = setEvents;
 	@pauseGame = pauseGame
+	@endGame = endGame
+
+	@left = left
+	@right = right
 #	//this.prepare = prepare;
 #	//this.loadGameGraphics = loadGameGraphics;
 #	//this.repaintNextPiece = function() { setNextPiece(false, true); }
