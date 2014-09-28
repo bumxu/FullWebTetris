@@ -1,35 +1,59 @@
+class Map
+	map = undefined
+
+	constructor: (w, h) ->
+		#	if entropy == undefined
+		r   = (0 for _ in [1...w])
+		map = (r for _ in [1...h])
+
+	raw: -> map
+	index: (i, j) -> map(j,i)
+	material: (i,j) -> map(j,i).material
+	width: -> map[0].length
+	height: -> map.length
+
 Game = (o) ->
+	# Math
+	π  = Math.PI
+	ø  =  undefined
+	øs = 'undefined'
 
 	# Canvas
 	canvas  = $('canvas#board').get(0)
 	context = canvas.getContext('2d')
 
-	map = undefined
-#	var map//, compiled;
-#	var width, height, topLine;
-#	var clk, fps_clk, fps = 0;
+	map     = ø
+	topLine = 0
+
+	# Timing variables
+	clock = fps_clock = ø
+	fps = 0
 #
 	# Game
-	state = undefined
-	GS = { OVER: 0, PAUSED: 1, ACTIVE: 2 }
+	state    = ø
+	GSOVER   = 0
+	GSPAUSED = 1
+	GSACTIVE = 2
 #	var level, lines, score, dropBonus;
 #	//var rnd0, rnd1, rnd2, rnd3, rnd4;
 #
-	# Speed
-#	var delay = 0, normalDelay = 15, fallDelay = normalDelay;
-#
-#	// Pieces
-#	var set = "full";
-#	var formSets = {
-#		classic: [[[1, 1, 0], [0, 1, 1]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], [[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]]],
-#		full: [[[1, 1, 0], [0, 1, 1]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], [[1]], [[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]], [[1, 0], [1, 1]], [[0, 1], [1, 1]]],
-#		challenge: [[[1, 1, 0], [0, 1, 1]], [[0, 1, 0], [1, 1, 1], [0, 1, 0]], [[0, 1, 1], [0, 1, 1], [1, 1, 0]], [[0, 1, 1], [0, 1, 1], [1, 1, 1]], [[1, 1, 1], [1, 1, 0], [0, 1, 1]], [[1, 1, 0], [0, 1, 1], [1, 1, 0]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], [[1]], [[1, 1]], [[1, 1, 1]], [[1, 1, 1], [1, 0, 1]], [[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]], [[1, 0], [1, 1]], [[0, 1], [1, 1]]],
-#		lethal: [[[1, 1, 0], [0, 1, 1]], [[0, 1, 0], [1, 1, 1], [0, 1, 0]], [[0, 1, 1], [0, 1, 1], [1, 1, 0]], [[0, 1, 1], [0, 1, 1], [1, 1, 1]], [[1, 1, 1], [1, 1, 0], [0, 1, 1]], [[1, 1, 0], [0, 1, 1], [1, 1, 0]], [[0, 1, 1], [1, 1, 0]], [[1, 1], [1, 1]], [[1]], [[1, 1]], [[1, 1, 1]], [[1, 1, 1, 1, 1, 1, 1, 1]], [[1, 1, 1],[1, 0, 1]], [[1, 1, 1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]], [[1, 0], [1, 1]], [[0, 1], [1, 1]], [[0, 0, 1], [0, 1, 0], [1, 0, 0]], [[1, 0, 1], [0, 1, 0], [1, 0, 1]], [[0, 0, 1], [0, 1, 0], [1, 0, 1]], [[0, 1, 1], [1, 1, 0], [1, 0, 0]], [[0, 0, 1], [0, 1, 1], [1, 1, 0]], [[0, 1], [1, 0]], [[0, 1], [1, 1], [1, 1], [0, 1], [0, 1]], [[1, 0], [1, 1], [1, 1], [1, 0], [1, 0]], [[0, 1], [1, 1], [1, 1], [0, 1], [1, 1]], [[1, 1], [1, 0], [1, 1], [1, 0], [1, 1]], [[1, 1], [1, 0], [0, 1], [1, 0], [0, 1]], [[1, 1, 1], [1, 0, 1], [1, 1, 1]], [[1, 1, 1], [0, 0, 1], [1, 1, 1]], [[1, 1, 0], [1, 0, 1], [1, 0, 1]], [[1, 1, 0], [1, 1, 1], [1, 0, 1]], [[0, 1, 0], [1, 1, 1], [1, 0, 1]], [[0, 1, 1], [1, 0, 1], [1, 0, 1]], [[1, 1, 1], [0, 1, 0], [1, 1, 1]]]
-#	}
-#	var forms = formSets[set];
-#	var colors = ["red", "green", "cyan", "orange", "blue", "white", "yellow"];
-	current = next = shade = undefined
-#
+	# Speed variables
+	delay = 0
+	fallDelay = normalDelay = 15
+
+	# Sets and shapes
+	sets = {}
+	sets.classic   = [[[1,1,0],[0,1,1]],[[0,1,1],[1,1,0]],[[1,1],[1,1]],[[1,1,1,1]],[[0,1,0],[1,1,1]],[[1,0,0],[1,1,1]],[[0,0,1],[1,1,1]]]
+	sets.extended  = sets.classic.concat [[[1,0],[1,1]],[[0,1],[1,1]],[[1]],[[0,0],[1,1]]]
+	sets.challenge = sets.extended.concat [[[0,1,0],[1,1,1],[0,1,0]],[[0,1,1],[0,1,1],[1,1,0]],[[1,1,0],[1,1,0],[0,1,1]],[[0,1,1],[0,1,1],[1,1,1]],[[1,1,0],[1,1,0],[1,1,1]],[[1,1,1],[1,1,0]],[[1,1,0],[1,1,1]],[[1,0,1],[1,1,1]],[[1,1,1]],[[0,0,1],[1,1,1],[1,0,0]],[[1,0,0],[1,1,1],[0,0,1]],[[1,0,0],[1,1,0],[1,1,1]],[[0,0,1],[0,1,1],[1,1,1]],[[0,1,0],[1,1,1],[1,1,0]],[[0,1,0],[1,1,1],[0,1,1]]]
+	sets.lethal    = sets.challenge.concat [[[1,1,1],[1,1,0],[0,1,1]],[[1,1,1],[0,1,1],[1,1,0]],[[1,1,0],[0,1,1],[1,1,0]],[[1,1,0],[1,1,1],[0,1,1]],[[1,1,1,1,1,1,1,1]],[[0,0,1],[0,1,0],[1,0,0]],[[1,0,1],[0,1,0],[1,0,1]],[[0,0,1],[0,1,0],[1,0,1]],[[0,1,1],[1,1,0],[1,0,0]],[[0,1],[1,0]],[[0,1],[1,1],[1,1],[0,1],[0,1]],[[1,0],[1,1],[1,1],[1,0],[1,0]],[[0,1],[1,1],[1,1],[0,1],[1,1]],[[1,1],[1,0],[1,1],[1,0],[1,1]],[[1,1],[1,0],[0,1],[1,0],[0,1]],[[1,0],[1,1],[1,1],[1,0],[1,1]],[[1,1],[0,1],[1,0],[0,1],[1,0]],[[1,1,1],[1,0,1],[1,1,1]],[[1,1,1],[0,0,1],[1,1,1]],[[1,1,0],[1,0,1],[1,0,1]],[[1,1,0],[1,1,1],[1,0,1]],[[0,1,1],[1,0,1],[1,0,1]],[[0,1,1],[1,1,1],[1,0,1]],[[0,1,0],[1,1,1],[1,0,1]],[[1,1,1],[0,1,0],[1,1,1]]]
+
+	# Colors
+	colors = ["red","green","blue","cyan","purple","orange","yellow","brown","emerald","pink","white"]
+
+	# Pieces var declaration
+	shapes = current = next = shade = ø
+
 #	// Options
 #	var shade, shadeEnabled;
 #	var lastLine = 0;
@@ -38,36 +62,30 @@ Game = (o) ->
 #		$('canvas#canvas').attr('data-theme', colorTheme);
 #
 #	// Graphics
-#	var graphics = {iced: {}, classic: {o: [], t: []}};
-#	//var loadGameGraphics = function(){
-#		//ui.loader.needed(2 + colors.length * 2);
-#
-#		// Iced
-#		graphics.iced.o = new Image();
-#		graphics.iced.o.src = "g/material/iced-o.png";
-#		graphics.iced.o.onload = function(){
-#			//ui.loader.tick();
-#		}
-#		graphics.iced.t = new Image();
-#		graphics.iced.t.src = "g/material/iced-t.png";
-#		graphics.iced.t.onload = function(){
-#			//ui.loader.tick();
-#		}
-#
-#		for(n = 0; n < colors.length; n++){
-#			graphics.classic.o[n] = new Image();
-#			graphics.classic.o[n].src = "g/material/classic-o-" + colors[n] + ".png";
-#			graphics.classic.o[n].onload = function(){
-#				//ui.loader.tick();
-#			}
-#			graphics.classic.t[n] = new Image();
-#			graphics.classic.t[n].src = "g/material/classic-t-" + colors[n] + ".png";
-#			graphics.classic.t[n].onload = function(){
-#				//ui.loader.tick();
-#			}
-#		}
-#	//}
-#
+	graphics = {iced: {}, classic: {o: [], t: []}}
+	#var loadGameGraphics = function(){
+		#ui.loader.needed(2 + colors.length * 2);
+
+		# Iced
+	graphics.iced.o = new Image()
+	graphics.iced.o.src = "g/material/iced-o.png"
+	graphics.iced.o.onload = ->
+		#ui.loader.tick();
+	graphics.iced.t = new Image()
+	graphics.iced.t.src = "g/material/iced-t.png"
+	graphics.iced.t.onload = ->
+		#ui.loader.tick();
+
+	for n, color of colors
+		graphics.classic.o[n] = new Image()
+		graphics.classic.o[n].src = "g/material/classic-o-" + color + ".png"
+		graphics.classic.o[n].onload = ->
+			#ui.loader.tick();
+		graphics.classic.t[n] = new Image()
+		graphics.classic.t[n].src = "g/material/classic-t-" + color + ".png"
+		graphics.classic.t[n].onload = ->
+				#ui.loader.tick();
+
 	# Request Animation Frame pollyfill
 	window.requestAnimFrame = (->
 		window.requestAnimationFrame ||
@@ -106,68 +124,70 @@ Game = (o) ->
 #	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 #
 	init = ->
+		#do defaults
 		# Dimensions of the board
-		o.width  = o.width  || 24;
-		o.height = o.height || 17;
+		o.width  = 24 if typeof o.width  is øs
+		o.height = 17 if typeof o.height is øs
+		# Set of pieces
+		o.set = 'extended' if typeof o.set  is øs
+		# Theme
+		o.theme = 'iced' if typeof o.theme  is øs
+		# Consistent colors
+		o.ccolorsOn = true if typeof o.ccolorsOn is øs
+		# Shade
+		o.shadeOn   = true if typeof o.shadeOn   is øs
 
-		o.shadeOn = (o.shadeOn == true) || true;
+		shapes = sets[o.set]
 
-		map = do createMap
-	#	map = createMap(entropy)
+		map = new Map(o.width, o.height)
+	#	map = new Map(o.width, o.height, entropy)
 
-		state = GS.ACTIVE;
+		# Set game state to ACTIVE
+		state = GSACTIVE
 
 		# Generate FIRST piece and SHADE if enabled
-		current = do makeNext;
+		current => do makeNext
 		do makeShade if o.shadeOn
 
-#		repaint();
+		do repaint
 
-		next = do chooseNext
+		next = do makeNext
 
-#		clk = requestAnimFrame(pulse);
+		clock = requestAnimFrame(pulse)
 #		fps_clk = setInterval(function() { $('.fpsmetter').html(fps + " FPS"); fps = 0; }, 1000);
-#
+
 		return
-#
-#
-#	var pulse = function() {
-#
-#		if (gameState == S_ACTIVE) {
-#
-#			if (delay > fallDelay) {
-#				delay = 0;
-#
-#				if ( canFall(current) ) {
-#					current.j++;
-#				} else {
-#					//mark(1 + dropBonus, 'pulse');
-#
-#					if ( !freeze(current) ) {  // false -> game over
-#						gameOver();
-#						return;
-#					}
-#
-#					//dropBonus = 0;
-#
-#					current = next;
-#					next = chooseNext();
-#
-#					if (shadeEnabled)
-#						createShade();
-#				}
-#
-#				repaint();
-#			}
-#
-#			fps++;
-#			delay++;
-#
-#		}
-#
-#		clk = requestAnimFrame(pulse);
-#	}
-#
+
+	pulse = ->
+		clock = requestAnimFrame(pulse)
+
+		if state is GSACTIVE
+
+			if delay > fallDelay
+				delay = 0
+
+				if canFall(current)
+					current.j++
+				else
+					#mark(1 + dropBonus, 'pulse');
+
+					# If freeze returns false the game is over
+					if freeze(current) == false
+						do gameOver
+						return
+
+					#dropBonus = 0;
+
+					current = next
+					next = do makeNext
+
+					do makeShade if o.shadeOn
+
+				repaint();
+
+			fps++
+			delay++
+
 #	var aborted = function() {
 #		cancelAnimFrame(clk);
 #		clearInterval(fps_clk);
@@ -192,217 +212,211 @@ Game = (o) ->
 #
 #
 #	Game.prototype.right = function () {
-#		if (gameState == S_OVER)
-#			return;
-#
-#		if (gameState == S_PAUSED)
-#			pauseGame(false);
-#
-#		if (canRight()) {
-#			current.i++;
-#
-#			if (shadeEnabled)
-#				createShade();
-#
-#			repaint();
-#		}
-#	}
-#
+	#		if (gameState == S_OVER)
+	#			return;
+	#
+	#		if (gameState == S_PAUSED)
+	#			pauseGame(false);
+	#
+	#		if (canRight()) {
+	#			current.i++;
+	#
+	#			if (shadeEnabled)
+	#				createShade();
+	#
+	#			repaint();
+	#		}
+	#	}
+	#
 #	Game.prototype.left = function () {
-#		if (gameState == S_OVER)
-#			return;
-#
-#		if (gameState == S_PAUSED)
-#			pauseGame(false);
-#
-#		if (canLeft()) {
-#			current.i--;
-#
-#			if (shadeEnabled)
-#				createShade();
-#
-#			repaint();
-#		}
-#	}
-#
+	#		if (gameState == S_OVER)
+	#			return;
+	#
+	#		if (gameState == S_PAUSED)
+	#			pauseGame(false);
+	#
+	#		if (canLeft()) {
+	#			current.i--;
+	#
+	#			if (shadeEnabled)
+	#				createShade();
+	#
+	#			repaint();
+	#		}
+	#	}
 #	var canRight = function () {
-#		if (current.i + current.form[0].length + 1 > width)
-#			return false;
-#
-#		for (j = 0; j < current.form.length; j++) {
-#			for (i = current.form[0].length - 1; i > -1; i--) {
-#				if (current.form[j][i] != 0) {
-#
-#					if (current.j + j-1 > -1 && map[current.j + j][current.i + i + 1].mat != 0)
-#						return false;
-#
-#					break;
-#
-#				}
-#			}
-#		}
-#
-#		return true;
-#	}
-#
+	#		if (current.i + current.form[0].length + 1 > width)
+	#			return false;
+	#
+	#		for (j = 0; j < current.form.length; j++) {
+	#			for (i = current.form[0].length - 1; i > -1; i--) {
+	#				if (current.form[j][i] != 0) {
+	#
+	#					if (current.j + j-1 > -1 && map[current.j + j][current.i + i + 1].mat != 0)
+	#						return false;
+	#
+	#					break;
+	#
+	#				}
+	#			}
+	#		}
+	#
+	#		return true;
+	#	}
 #	var canLeft = function () {
-#		if (current.i - 1 < 0)
-#			return false;
-#
-#		for (j = 0; j < current.form.length; j++) {
-#			for (i = 0; i < current.form[0].length; i++) {
-#				if (current.form[j][i] != 0) {
-#
-#					if (current.j + j-1 > -1 && map[current.j + j][current.i + i - 1].mat != 0)
-#						return false;
-#
-#					break;
-#
-#				}
-#			}
-#		}
-#
-#		return true;
-#	}
-#
+	#		if (current.i - 1 < 0)
+	#			return false;
+	#
+	#		for (j = 0; j < current.form.length; j++) {
+	#			for (i = 0; i < current.form[0].length; i++) {
+	#				if (current.form[j][i] != 0) {
+	#
+	#					if (current.j + j-1 > -1 && map[current.j + j][current.i + i - 1].mat != 0)
+	#						return false;
+	#
+	#					break;
+	#
+	#				}
+	#			}
+	#		}
+	#
+	#		return true;
+	#	}
+	#
 #	var rotateC = function () {
-#		if (gameState == S_OVER)
-#			return;
-#
-#		if (gameState == S_PAUSED)
-#			pauseGame(false);
-#
-#		aux = new Array(current.form[0].length);
-#
-#		for (j = 0; j < aux.length; j++)
-#			aux[j] = new Array(current.form.length);
-#
-#		k = 0;
-#		for (j = current.form.length - 1; j > -1; j--) {
-#			for (i = 0; i < current.form[j].length; i++) {
-#				aux[i][k] = current.form[j][i];
-#			}
-#			k++;
-#		}
-#
-#		if (canRotate(aux)) {
-#			current.form = aux;
-#
-#			if (shadeEnabled)
-#				createShade();
-#
-#			repaint();
-#		}
-#	}
-#	Game.prototype.rotateC = rotateC;
-#
+	#		if (gameState == S_OVER)
+	#			return;
+	#
+	#		if (gameState == S_PAUSED)
+	#			pauseGame(false);
+	#
+	#		aux = new Array(current.form[0].length);
+	#
+	#		for (j = 0; j < aux.length; j++)
+	#			aux[j] = new Array(current.form.length);
+	#
+	#		k = 0;
+	#		for (j = current.form.length - 1; j > -1; j--) {
+	#			for (i = 0; i < current.form[j].length; i++) {
+	#				aux[i][k] = current.form[j][i];
+	#			}
+	#			k++;
+	#		}
+	#
+	#		if (canRotate(aux)) {
+	#			current.form = aux;
+	#
+	#			if (shadeEnabled)
+	#				createShade();
+	#
+	#			repaint();
+	#		}
+	#	}
+	#	Game.prototype.rotateC = rotateC;
+	#
 #	var rotateCC = function () {
-#		if (gameState == S_OVER)
-#			return;
-#
-#		if (gameState == S_PAUSED)
-#			pauseGame(false);
-#
-#		aux = new Array(current.form[0].length);
-#
-#		for (j = 0; j < aux.length; j++)
-#			aux[j] = new Array(current.form.length);
-#
-#		k = current.form[0].length - 1;
-#		for (j = 0; j < aux.length; j++) {
-#			for (i = 0; i < aux[0].length; i++) {
-#				aux[j][i] = current.form[i][k];
-#			}
-#			k--;
-#		}
-#
-#		if (canRotate(aux)) {
-#			current.form = aux;
-#
-#			if (shadeEnabled)
-#				createShade();
-#			
-#			repaint();
-#		}
-#	}
-#	Game.prototype.rotateCC = rotateCC;
-#
+	#		if (gameState == S_OVER)
+	#			return;
+	#
+	#		if (gameState == S_PAUSED)
+	#			pauseGame(false);
+	#
+	#		aux = new Array(current.form[0].length);
+	#
+	#		for (j = 0; j < aux.length; j++)
+	#			aux[j] = new Array(current.form.length);
+	#
+	#		k = current.form[0].length - 1;
+	#		for (j = 0; j < aux.length; j++) {
+	#			for (i = 0; i < aux[0].length; i++) {
+	#				aux[j][i] = current.form[i][k];
+	#			}
+	#			k--;
+	#		}
+	#
+	#		if (canRotate(aux)) {
+	#			current.form = aux;
+	#
+	#			if (shadeEnabled)
+	#				createShade();
+	#			
+	#			repaint();
+	#		}
+	#	}
+	#	Game.prototype.rotateCC = rotateCC;
+	#
 #	Game.prototype.rotate = function () {
-#		//if (options.rotation == "c")
-#			rotateC();
-#		//else
-#			//rotateCC();
-#	}
-#
+	#		//if (options.rotation == "c")
+	#			rotateC();
+	#		//else
+	#			//rotateCC();
+	#	}
+	#
 #	var canRotate = function (aux) {
-#		for (j = 0; j < aux.length; j++) {
-#			for (i = 0; i < aux[0].length; i++) {
-#
-#				if (aux[j][i] != 0 && (current.j + j > 0)) {
-#					if (typeof map[current.j + j] == 'undefined' || typeof map[current.j + j][current.i + i] == 'undefined' || map[current.j + j][current.i + i].mat != 0)
-#						return false;
-#				}
-#
-#			}
-#		}
-#
-#		return true;
-#	}
-#
+	#		for (j = 0; j < aux.length; j++) {
+	#			for (i = 0; i < aux[0].length; i++) {
+	#
+	#				if (aux[j][i] != 0 && (current.j + j > 0)) {
+	#					if (typeof map[current.j + j] == 'undefined' || typeof map[current.j + j][current.i + i] == 'undefined' || map[current.j + j][current.i + i].mat != 0)
+	#						return false;
+	#				}
+	#
+	#			}
+	#		}
+	#
+	#		return true;
+	#	}
 #	Game.prototype.drop = function () {
-#		if (gameState == S_OVER)
-#			return;
+	#		if (gameState == S_OVER)
+	#			return;
+	#
+	#		if (gameState == S_PAUSED)
+	#			pauseGame(false);
+	#
+	#		j1 = current.j;
+	#
+	#		while (canFall(current))
+	#			current.j++;
+	#
+	#		//mark((current.j - j1) + Math.floor((current.j - j1) / 2) + 1 + dropBonus, 'drop');
+	#		if ( !freeze(current) ) {  // false -> game over
+	#			gameOver();
+	#			return;
+	#		}
+	#		//dropBonus = 0;
+	#
+	#		current = next;
+	#		next = chooseNext();
+	#
+	#		if (shadeEnabled)
+	#			createShade();
+	#		
+	#		repaint();
+	#
+	#		//> Reset pulse
+	#		delay = 0;
+	#	}
+
+	freeze = (piece) ->
+	#	for (j = piece.form.length - 1; j >= 0; j--) {
+	#		for (i = 0; i < piece.form[j].length; i++) {
+	#			if (piece.form[j][i] != 0) {
 #
-#		if (gameState == S_PAUSED)
-#			pauseGame(false);
-#
-#		j1 = current.j;
-#
-#		while (canFall(current))
-#			current.j++;
-#
-#		//mark((current.j - j1) + Math.floor((current.j - j1) / 2) + 1 + dropBonus, 'drop');
-#		if ( !freeze(current) ) {  // false -> game over
-#			gameOver();
-#			return;
-#		}
-#		//dropBonus = 0;
-#
-#		current = next;
-#		next = chooseNext();
-#
-#		if (shadeEnabled)
-#			createShade();
-#		
-#		repaint();
-#
-#		//> Reset pulse
-#		delay = 0;
-#	}
-#
-#	var freeze = function(piece) {
-#		for (j = piece.form.length - 1; j >= 0; j--) {
-#			for (i = 0; i < piece.form[j].length; i++) {
-#				if (piece.form[j][i] != 0) {
-#
-#					if (piece.j + j > -1) {
-#						map[piece.j + j][piece.i + i].mat = piece.mat;
-#						map[piece.j + j][piece.i + i].col = piece.col;
-#					} else {
-#						return false;
-#					}
-#
-#				}
-#			}
-#		}
-#
-#		topLine = Math.min(current.j, topLine);
-#
-#		checkLine();
-#
-#		return true;
-#	}
-#
+	#				if (piece.j + j > -1)
+	#					map[piece.j + j][piece.i + i].mat = piece.mat;
+	#					map[piece.j + j][piece.i + i].col = piece.col;
+	#				else
+	#					return false
+	#			}
+	#		}
+	#	}
+
+		topLine = Math.min(current.j, topLine)
+
+		#do checkLine
+
+		return true
+
 #	var checkLine = function () {
 #		var _lines = 0;
 #
@@ -448,38 +462,36 @@ Game = (o) ->
 		return
 
 	canFall = (piece) ->
-		if (piece.j + piece.form.length) == o.height
+		if (piece.j + piece.shape.s.length) == o.height
 			return false
 
-		for i in [0...piece.form[0].length]
-			for j in [piece.form.length-1..0] 
-				if piece.form[j][i] != 0
+		for i in [0...piece.shape.s[0].length]
+			for j in [piece.shape.s.length-1..0] 
+				if piece.shape.s[j][i] != 0
 
-					if piece.j + j + 1 > -1 && map[piece.j + j + 1][piece.i + i].mat != 0
+					if piece.j+j+1 > -1 && map.material(piece.i+i, piece.j+j + 1) != 0
 						return false
-					else
-						break
 
 		return true
-#
-#	var repaint = function() {
-#		out.clearRect(0, 0, canvas.width, canvas.height);
-#
-#		size = $(canvas).innerHeight() / height;
-#
-#		// Paint map
-#		for (j = 0; j < map.length; j++)
-#			for (i = 0; i < map[0].length; i++)
-#				if (map[j][i].mat != 0)
-#					out.drawImage(chooseImage.mapped(i, j), size * i, size * j, size, size);
-#
-#		// Paint current
-#		if (gameState != S_OVER)
-#			for (j = 0; j < current.form.length; j++)
-#				for (i = 0; i < current.form[j].length; i++)
-#					if (current.form[j][i] == 1)
-#							out.drawImage(chooseImage.current(), (i * size) + (current.i * size), (j * size) + (current.j * size), size, size);
-#
+
+	repaint = ->
+		context.clearRect(0, 0, canvas.width, canvas.height);
+
+		size = $(canvas).innerHeight() / o.height;
+
+		# Paint map
+		for j in [0...map.height()]
+			for i in [0...map[0].width()]
+				if map.index(i,j).material != 0
+					context.drawImage(chooseImage.mapped(i, j), size * i, size * j, size, size)
+
+		# Paint current
+		#if state != GSOVER
+		#	for j in [0...current.h]
+		#		for i in [0...current.w]
+		#			if current.b(i,j) == 1
+		#				context.drawImage(chooseImage.current(), (i * size) + (current.i * size), (j * size) + (current.j * size), size, size);
+
 #		// Paint shade
 #		if (gameState != S_OVER && shadeEnabled && shade !== undefined && current.j != shade.j)
 #			for (j = 0; j < shade.form.length; j++)
@@ -489,121 +501,127 @@ Game = (o) ->
 #
 #		$('.fpsmetter').addClass('rp');
 #		setTimeout(function() { $('.fpsmetter').removeClass('rp'); }, 20);
-#	}
-#	Game.prototype.repaint = repaint;
-#
-#	var chooseImage = {
-#		current: function(){
-#			if (colorTheme == "sclassic"){
-#				if (gameState == 2)
-#					return graphics.classic.o[current.col];
-#				else
-#					return graphics.classic.t[current.col];
-#			} else {
-#				if (gameState == 2)
-#					return graphics.iced.o;
-#				else
-#					return graphics.iced.t;
-#			}
-#		},
-#		shade: function(){
-#			if (colorTheme == "classic"){
-#				return graphics.classic.t[current.col]
-#			} else {
-#				return graphics.iced.t;
-#			}
-#		},
-#		next: function(){
-#			if (colorTheme == "classic"){
-#				return graphics.classic.o[next.col];
-#			} else {
-#				return graphics.iced.o;
-#			}	
-#		},
-#		mapped: function(i, j){
-#			if (colorTheme == "classic"){
-#				if (gameState == 2)
-#					return graphics.classic.o[map[j][i].col];
-#				else
-#					return graphics.classic.t[map[j][i].col];
-#			} else {
-#				if (gameState == 2)
-#					return graphics.iced.o;
-#				else
-#					return graphics.iced.t;
-#			}	
-#		}
-#	}
-#
-	makeNext = (first, paintOnly) ->
-#		rndForm = Math.round(Math.random() * (forms.length - 1));
-#		rndColor = Math.round(Math.random() * (colors.length - 1));;
-#		iSource = Math.round(width / 2) - Math.round(forms[rndForm][0].length / 2);
-#		jSource = forms[rndForm].length * -1;
-#
-#		_next = { i: iSource, j: jSource, mat: 1, col: rndColor, form: forms[rndForm] }
-#
-#		return _next;
-#		//if (gameStatus < 2)
-#		//	return;
-#
-#		/*if(!paintOnly) {
-#			rndForm = Math.round(Math.random() * (forms.length - 1));
-#			rndColor = Math.round(Math.random() * (colors.length - 1));;
-#			iSource = Math.round(width / 2) - Math.round(forms[rndForm][0].length / 2);
-#			jSource = forms[rndForm].length * -1;
-#
-#			next = { i: iSource, j: jSource, mat: 1, col: rndColor, form: forms[rndForm] }
-#		}*/
-#
-#		// --- //
-#
-#		/*if (first !== true) {
-#			$('section#game #next .oldNext').remove();
-#			$('section#game #next .newNext').addClass('oldNext').removeClass('newNext').animate({ 'left': 120, 'opacity': 0 }, 260, function () {
-#				$(this).remove();
-#			});
-#
-#			newCanvasNext = $('<canvas width="120" height="120">').addClass('newNext').appendTo('#next')[0];
-#			newOutNext = newCanvasNext.getContext('2d');
-#
-#			centerX = (120 - next.form[0].length * 25) / 2;
-#			centerY = (120 - next.form.length * 25) / 2;
-#
-#			for (j = 0; j < next.form.length; j++)
-#				for (i = 0; i < next.form[j].length; i++)
-#					if (next.form[j][i] == 1)
-#						newOutNext.drawImage(chooseImage.next(), 25 * i + centerX, 25 * j + centerY, 25, 25);
-#
-#			$(newCanvasNext).animate({ 'left': 0, 'opacity': 1 }, 260);
-#		}*/
-#	}
 
-	createMap = (entropy) -> 
-	 #	if entropy == undefined
-		r = (0 for _ in [1...o.width])
-		m = (r for _ in [1...o.height])
+	`var chooseImage = {
+		current: function(){
+			if (colorTheme == "sclassic"){
+				if (gameState == 2)
+					return graphics.classic.o[current.col];
+				else
+					return graphics.classic.t[current.col];
+			} else {
+				if (gameState == 2)
+					return graphics.iced.o;
+				else
+					return graphics.iced.t;
+			}
+		},
+		shade: function(){
+			if (colorTheme == "classic"){
+				return graphics.classic.t[current.col]
+			} else {
+				return graphics.iced.t;
+			}
+		},
+		next: function(){
+			if (colorTheme == "classic"){
+				return graphics.classic.o[next.col];
+			} else {
+				return graphics.iced.o;
+			}	
+		},
+		mapped: function(i, j){
+			if (colorTheme == "classic"){
+				if (gameState == 2)
+					return graphics.classic.o[map[j][i].col];
+				else
+					return graphics.classic.t[map[j][i].col];
+			} else {
+				if (gameState == 2)
+					return graphics.iced.o;
+				else
+					return graphics.iced.t;
+			}	
+		}
+	}`
+
+	makeNext = (first, paintOnly) ->
+		rndShape = Math.round(Math.random() * (shapes.length - 1))
+		# Board.w/2 - Piece.w/2
+		iSource = Math.round(o.width / 2) - Math.round(shapes[rndShape].length / 2)
+		# Negative Piece.h
+		jSource = shapes[rndShape].length * -1
+
+		piece = {
+			i: iSource,
+			j: jSource,
+			w: shapes[rndShape][0].length,
+			h: shapes[rndShape].length,
+			t: 1,
+			shape: shapes[rndShape]
+		}
+
+		if o.ccolorsOn && (o.set is 'classic' || o.set is 'extended')
+			piece.c = colors[ rndShape ]
+		else
+			piece.c = colors[ Math.round(Math.random() * (colors.length - 1)) ]
+
+
+	#		//if (gameStatus < 2)
+	#		//	return;
+	#
+	#		/*if(!paintOnly) {
+	#			rndForm = Math.round(Math.random() * (shapes.length - 1));
+	#			rndColor = Math.round(Math.random() * (colors.length - 1));;
+	#			iSource = Math.round(width / 2) - Math.round(shapes[rndForm][0].length / 2);
+	#			jSource = shapes[rndForm].length * -1;
+	#
+	#			next = { i: iSource, j: jSource, mat: 1, col: rndColor, form: shapes[rndForm] }
+	#		}*/
+	#
+	#		// --- //
+	#
+	#		/*if (first !== true) {
+	#			$('section#game #next .oldNext').remove();
+	#			$('section#game #next .newNext').addClass('oldNext').removeClass('newNext').animate({ 'left': 120, 'opacity': 0 }, 260, function () {
+	#				$(this).remove();
+	#			});
+	#
+	#			newCanvasNext = $('<canvas width="120" height="120">').addClass('newNext').appendTo('#next')[0];
+	#			newOutNext = newCanvasNext.getContext('2d');
+	#
+	#			centerX = (120 - next.form[0].length * 25) / 2;
+	#			centerY = (120 - next.form.length * 25) / 2;
+	#
+	#			for (j = 0; j < next.form.length; j++)
+	#				for (i = 0; i < next.form[j].length; i++)
+	#					if (next.form[j][i] == 1)
+	#						newOutNext.drawImage(chooseImage.next(), 25 * i + centerX, 25 * j + centerY, 25, 25);
+	#
+	#			$(newCanvasNext).animate({ 'left': 0, 'opacity': 1 }, 260);
+	#		}*/
+	#	}
 
 	pauseGame = (force) ->
 		if force == false
 
-			if state == GS.PAUSED
-				state = GS.ACTIVE
+			if state == GSPAUSED
+				state = GSACTIVE
 				repaint()
 
 		else if force == true
 
-			if state == GS.ACTIVE
-				state = GS.PAUSED
+			if state == GSACTIVE
+				state = GSPAUSED
 				repaint()
 
 		else
 
-			if state == GS.PAUSED
-				state = GS.ACTIVE
+			if state == GSPAUSED
+				state = GSACTIVE
 				repaint()
-			else if state == GS.ACTIVE
-				state = GS.PAUSED
+			else if state == GSACTIVE
+				state = GSPAUSED
 				repaint()
 			
 #		//if (gameState == S_PAUSED) {
@@ -947,8 +965,9 @@ Game = (o) ->
 #
 #	// Public methods
 #	//this.newGame = newGame;
+	#@repaint = repaint
 #	//this.setEvents = setEvents;
-	@pauseGame = pauseGame;
+	@pauseGame = pauseGame
 #	//this.prepare = prepare;
 #	//this.loadGameGraphics = loadGameGraphics;
 #	//this.repaintNextPiece = function() { setNextPiece(false, true); }
