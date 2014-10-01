@@ -14,7 +14,7 @@ Game = (o) ->
 	# Timing variables
 	clock = fps_clock = ø
 	fps = 0
-#
+
 	# Game
 	state    = ø
 	GSOVER   = 0
@@ -39,59 +39,9 @@ Game = (o) ->
 
 	# Pieces var declaration
 	shapes = current = next = shade = ø
-	defImg = new Image()
-	defImg.src = "g/material/iced-o.png"
-#	// Options
-#	var shade, shadeEnabled;
-#	var lastLine = 0;
-#	var rotation = "cc";
-#	var colorTheme = "iced";
-#		$('canvas#canvas').attr('data-theme', colorTheme);
-#
-#	// Graphics
-	graphics = {iced: {}, classic: {o: [], t: []}}
-	#var loadGameGraphics = function(){
-		#ui.loader.needed(2 + colors.length * 2);
 
-		# Iced
-	graphics.iced.o = new Image()
-	graphics.iced.o.src = "g/material/iced-o.png"
-	graphics.iced.o.onload = ->
-		#ui.loader.tick();
-	graphics.iced.t = new Image()
-	graphics.iced.t.src = "g/material/iced-t.png"
-	graphics.iced.t.onload = ->
-		#ui.loader.tick();
 
-	for n, color of colors
-		graphics.classic.o[n] = new Image()
-		graphics.classic.o[n].src = "g/material/classic-o-" + color + ".png"
-		graphics.classic.o[n].onload = ->
-			#ui.loader.tick();
-		graphics.classic.t[n] = new Image()
-		graphics.classic.t[n].src = "g/material/classic-t-" + color + ".png"
-		graphics.classic.t[n].onload = ->
-				#ui.loader.tick();
 
-	# Request Animation Frame pollyfill
-	window.requestAnimFrame = (->
-		window.requestAnimationFrame ||
-		window.mozRequestAnimationFrame ||
-		window.msRequestAnimationFrame ||
-		window.oRequestAnimationFrame ||
-		window.webkitRequestAnimationFrame ||
-		(callback) -> window.setTimeout(callback, 1000 / 60)
-	)()
-
-	window.cancelAnimFrame = (->
-		window.cancelAnimationFrame ||
-		window.mozCancelAnimationFrame ||
-		window.msCancelAnimationFrame ||
-		window.oCancelAnimationFrame ||
-		window.webkitCancelAnimationFrame ||
-		window.clearTimeout
-	)()
-#
 #	//-> Get preferences from localStorage if any
 #	/*try{
 #		prefs = $.evalJSON(localStorage.fwtPreferences);
@@ -109,462 +59,27 @@ Game = (o) ->
 #	}*/
 #
 #	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#
-	init = ->
-		#do defaults
-		# Dimensions of the board
-		o.width  = 24 if typeof o.width  is øs
-		o.height = 17 if typeof o.height is øs
-		# Set of pieces
-		o.set = 'extended' if typeof o.set  is øs
-		# Theme
-		o.theme = 'iced' if typeof o.theme  is øs
-		# Consistent colors
-		o.ccolorsOn = true if typeof o.ccolorsOn is øs
-		# Shade
-		o.shadeOn = false if typeof o.shadeOn is øs
-		# Zero gravity
-		o.zerogOn = true if typeof o.zerogOn is øs
 
-		shapes = sets[o.set]
 
-		map = do makeMap
+	# EXPERIMENTAL
+	hellShape = ->
+		rx = Math.round(Math.random() * 511).toString(2) #remember: only for positive numbers
+		rx = ('000000000' + rx).slice(-9)
+		z  = 0
 
-		# Set game state to ACTIVE
-		state = GSACTIVE
+		_r = -> 
+			_row = []
+			for _ in [0...3] by 1
+				_row.push( Number( rx[z] ) )
+				z++
+			return _row
 
-		# Generate FIRST piece and SHADE if enabled
-		current = do makeNext
-		do makeShade if o.shadeOn
+		adfg = (do _r for _ in [0...3] by 1)
+		
+		return adfg
 
-		do repaint
 
-		next = do makeNext
 
-		clock = requestAnimFrame(pulse)
-#		fps_clk = setInterval(function() { $('.fpsmetter').html(fps + " FPS"); fps = 0; }, 1000);
-
-		return
-
-	pulse = ->
-		clock = requestAnimFrame(pulse)
-
-		if state is GSACTIVE
-
-			if delay > fallDelay
-				delay = 0
-
-				if canFall(current)
-					current.j++
-				else
-					#mark(1 + dropBonus, 'pulse');
-
-					# If freeze returns false the game is over
-					if freeze(current) == false
-						do gameOver
-						return
-
-					#dropBonus = 0;
-
-					current = next
-					next = do makeNext
-
-					do makeShade if o.shadeOn
-
-				repaint();
-
-			fps++
-			delay++
-
-	aborted = ->
-		cancelAnimFrame(clock)
-		#clearInterval(fps_clk);
-		#$('.fpsmetter').html("0 FPS");
-
-		state = GSOVER
-		do repaint
-
-		return true
-
-	gameOver = ->
-		console.log "Game over"
-		return do aborted
-
-	endGame = ->
-		console.log "Game interrupted" 
-		return do aborted
-
-	right = ->
-		if state is GSOVER 	then return false
-		if state is GSPAUSED then pauseGame(false)
-
-		if do canRight
-			current.i++
-
-			do makeShade if o.shadeOn
-			do repaint
-
-			return true
-
-		return false
-
-	left = ->
-		if state is GSOVER 	then return false
-		if state is GSPAUSED then pauseGame(false)
-
-		if do canLeft
-			current.i--
-
-			do makeShade if o.shadeOn
-			do repaint
-
-			return true
-
-		return false
-
-	canRight = ->
-		# Right wall collision
-		if current.i + current.w + 1 > o.width then return false
-
-		# Other collision
-		for j in [0...current.h]
-			for i in [current.w-1..0]
-				if current._(i,j) != 0
-
-					mi = current.i + i + 1
-					mj = current.j + j
-
-					if (current.j + j-1 > -1) and (map[mj][mi] isnt null and map[mj][mi].t is 1)
-						return false
-
-					break
-
-		# No collision
-		return true
-
-	canLeft = ->
-		# Left wall collision
-		if current.i - 1 < 0 then return false
-
-		# Other collision
-		for j in [0...current.h]
-			for i in [0...current.w]
-				if current._(i,j) != 0
-
-					mi = current.i + i - 1
-					mj = current.j + j
-
-					if (current.j + j-1 > -1) and (map[mj][mi] isnt null and map[mj][mi].t is 1)
-						return false
-
-					break
-
-		# No collision
-		return true
-
-#	var rotateC = function () {
-	#		if (gameState == S_OVER)
-	#			return;
-	#
-	#		if (gameState == S_PAUSED)
-	#			pauseGame(false);
-	#
-	#		aux = new Array(current.form[0].length);
-	#
-	#		for (j = 0; j < aux.length; j++)
-	#			aux[j] = new Array(current.form.length);
-	#
-	#		k = 0;
-	#		for (j = current.form.length - 1; j > -1; j--) {
-	#			for (i = 0; i < current.form[j].length; i++) {
-	#				aux[i][k] = current.form[j][i];
-	#			}
-	#			k++;
-	#		}
-	#
-	#		if (canRotate(aux)) {
-	#			current.form = aux;
-	#
-	#			if (shadeEnabled)
-	#				createShade();
-	#
-	#			repaint();
-	#		}
-	#	}
-	#	Game.prototype.rotateC = rotateC;
-	#
-#	var rotateCC = function () {
-	#		if (gameState == S_OVER)
-	#			return;
-	#
-	#		if (gameState == S_PAUSED)
-	#			pauseGame(false);
-	#
-	#		aux = new Array(current.form[0].length);
-	#
-	#		for (j = 0; j < aux.length; j++)
-	#			aux[j] = new Array(current.form.length);
-	#
-	#		k = current.form[0].length - 1;
-	#		for (j = 0; j < aux.length; j++) {
-	#			for (i = 0; i < aux[0].length; i++) {
-	#				aux[j][i] = current.form[i][k];
-	#			}
-	#			k--;
-	#		}
-	#
-	#		if (canRotate(aux)) {
-	#			current.form = aux;
-	#
-	#			if (shadeEnabled)
-	#				createShade();
-	#			
-	#			repaint();
-	#		}
-	#	}
-	#	Game.prototype.rotateCC = rotateCC;
-	#
-#	Game.prototype.rotate = function () {
-	#		//if (options.rotation == "c")
-	#			rotateC();
-	#		//else
-	#			//rotateCC();
-	#	}
-	#
-#	var canRotate = function (aux) {
-	#		for (j = 0; j < aux.length; j++) {
-	#			for (i = 0; i < aux[0].length; i++) {
-	#
-	#				if (aux[j][i] != 0 && (current.j + j > 0)) {
-	#					if (typeof map[current.j + j] == 'undefined' || typeof map[current.j + j][current.i + i] == 'undefined' || map[current.j + j][current.i + i].mat != 0)
-	#						return false;
-	#				}
-	#
-	#			}
-	#		}
-	#
-	#		return true;
-	#	}
-#	Game.prototype.drop = function () {
-	#		if (gameState == S_OVER)
-	#			return;
-	#
-	#		if (gameState == S_PAUSED)
-	#			pauseGame(false);
-	#
-	#		j1 = current.j;
-	#
-	#		while (canFall(current))
-	#			current.j++;
-	#
-	#		//mark((current.j - j1) + Math.floor((current.j - j1) / 2) + 1 + dropBonus, 'drop');
-	#		if ( !freeze(current) ) {  // false -> game over
-	#			gameOver();
-	#			return;
-	#		}
-	#		//dropBonus = 0;
-	#
-	#		current = next;
-	#		next = chooseNext();
-	#
-	#		if (shadeEnabled)
-	#			createShade();
-	#		
-	#		repaint();
-	#
-	#		//> Reset pulse
-	#		delay = 0;
-	#	}
-
-	freeze = (piece) ->
-		for j in [piece.h-1..0]
-			for i in [0...piece.w]
-				if piece._(i,j) != 0
-
-					if piece.j + j > -1
-						map[piece.j + j][piece.i + i] = { t: piece.t, c: piece.c }
-					else
-						return false
-
-		topLine = Math.min(current.j, topLine)
-
-		#do checkLine
-
-		return true
-
-#	var checkLine = function () {
-#		var _lines = 0;
-#
-#		for (j = current.form.length - 1; j >= 0; j--) {
-#
-#			var n = 0;
-#			for (var i = 0; i < width; i++) {
-#				if (map[current.j + j][i].mat == 0)
-#					break;
-#				else
-#					n++;
-#			}
-#
-#			if (n == width) {
-#				for (var j_involved = current.j + j; j_involved > lastLine; j_involved--) {
-#					for (var i = 0; i < width; i++){
-#						map[j_involved][i].mat = map[j_involved - 1][i].mat;  // IT CAN FAIL!
-#						map[j_involved][i].col = map[j_involved - 1][i].col;
-#					}
-#				}
-#				for (var i = 0; i < width; i++){
-#					map[lastLine][i].mat = 0;
-#					map[lastLine][i].col = 0;
-#				}
-#				lastLine++;
-#				j++;
-#
-#				_lines++;
-#			}
-#
-#		}
-#
-#		if (_lines > 0) {
-#			fsum = [10, 25, 75, 300];
-#			//p = fsum[_lines - 1] * (level + 1);
-#			//mark(p, "line", _lines);
-#		}
-#	}
-
-	makeShade = ->
-		shade = clone(current)
-		while canFall(shade)
-			shade.j++
-		return
-
-	makeMap = (entropy) ->
-		if typeof entropy is øs
-			_r = -> ( null for _ in [0...o.width])
-			_m =    (do _r for _ in [0...o.height])
-		return _m
-
-	canFall = (piece) ->
-		# Floor collision
-		if piece.j + piece.h == o.height then return false
-
-		# Other collision
-		for i in [0...piece.w]
-			for j in [piece.h-1..0] 
-				if piece._(i,j) != 0 and piece.j+j+1 > -1
-					mi = piece.i+i
-					mj = piece.j+j + 1
-
-					if map[mj][mi] isnt null and map[mj][mi].t is 1
-						return false
-
-		# No collision
-		return true
-
-	g = (j) -> if o.zerogOn then o.height-1 - j else j
-
-	repaint = ->
-		context.clearRect(0, 0, canvas.width, canvas.height);
-
-		size = canvas.height / o.height;
-
-		# Paint map
-		for j in [0...o.height]
-			for i in [0...o.width] when map[j][i] isnt null
-				x = size * i
-				y = size * if o.zerogOn then (o.height-1 - j) else j
-				
-				#chooseImage.mapped(i, j)
-				context.drawImage(defImg, x, y, size, size)
-
-		# Paint current
-		if state isnt GSOVER
-			for j in [0...current.h]
-				for i in [0...current.w] when current._(i,j) is 1 
-					x = (i * size) + (current.i * size)
-					y = size * (if o.zerogOn then (current.h-1 - j) else j) +
-					    size * (if o.zerogOn then (o.height-1 - current.j) else current.j)
-
-					context.drawImage(defImg, x, y, size, size)
-
-		# Paint shade
-		#if (gameState != S_OVER && shadeEnabled && shade !== undefined && current.j != shade.j)
-		#	for (j = 0; j < shade.form.length; j++)
-		#		for (i = 0; i < shade.form[j].length; i++)
-		#			if (shade.form[j][i] == 1)
-		#				out.drawImage(chooseImage.shade(), (i * size) + (shade.i * size), (j * size) + (shade.j * size), size, size);
-
-		# <ui>
-		#$('.fpsmetter').addClass('rp');
-		#setTimeout(function() { $('.fpsmetter').removeClass('rp'); }, 20);
-
-		return
-
-	`var chooseImage = {
-		current: function(){
-			if (colorTheme == "sclassic"){
-				if (gameState == 2)
-					return graphics.classic.o[current.col];
-				else
-					return graphics.classic.t[current.col];
-			} else {
-				if (gameState == 2)
-					return graphics.iced.o;
-				else
-					return graphics.iced.t;
-			}
-		},
-		shade: function(){
-			if (colorTheme == "classic"){
-				return graphics.classic.t[current.col]
-			} else {
-				return graphics.iced.t;
-			}
-		},
-		next: function(){
-			if (colorTheme == "classic"){
-				return graphics.classic.o[next.col];
-			} else {
-				return graphics.iced.o;
-			}	
-		},
-		mapped: function(i, j){
-			if (colorTheme == "classic"){
-				if (gameState == 2)
-					return graphics.classic.o[map[j][i].col];
-				else
-					return graphics.classic.t[map[j][i].col];
-			} else {
-				if (gameState == 2)
-					return graphics.iced.o;
-				else
-					return graphics.iced.t;
-			}	
-		}
-	}`
-
-	makeNext = (first, paintOnly) ->
-		rndShape = Math.round(Math.random() * (shapes.length - 1))
-		# Axis i origin = Board.w/2 - Piece.w/2
-		iSource = Math.round(o.width / 2) - Math.round(shapes[rndShape].length / 2)
-		# Axis j origin = Negative Piece.h
-		jSource = shapes[rndShape].length * -1
-
-		piece = {
-			i: iSource,
-			j: jSource,
-			w: shapes[rndShape][0].length,
-			h: shapes[rndShape].length,
-			t: 1,
-			s: shapes[rndShape],
-			_: (a,b) -> this.s[b][a]
-		}
-
-		if o.ccolorsOn and (o.set is 'classic' or o.set is 'extended')
-			piece.c = colors[ rndShape ]
-		else
-			piece.c = colors[ Math.round(Math.random() * (colors.length - 1)) ]
-
-		return piece
 
 
 	#		//if (gameStatus < 2)
@@ -602,35 +117,7 @@ Game = (o) ->
 	#		}*/
 	#	}
 
-	pauseGame = (force) ->
-		if force == false
 
-			if state == GSPAUSED
-				state = GSACTIVE
-				repaint()
-
-		else if force == true
-
-			if state == GSACTIVE
-				state = GSPAUSED
-				repaint()
-
-		else
-
-			if state == GSPAUSED
-				state = GSACTIVE
-				repaint()
-			else if state == GSACTIVE
-				state = GSPAUSED
-				repaint()
-			
-		# <ui>
-		#if state is GSPAUSED
-		#	$("#big-paused").fadeIn(200)
-		#else if state is GSACTIVE
-		#	$("#big-paused").fadeOut(200)
-
-		return
 
 #	/*var prepare = function (saved) {
 #		map = saved.map;
@@ -707,7 +194,7 @@ Game = (o) ->
 #	var calcLevel = function() {
 #		level = Math.floor(score / 3000);
 #		normalDelay = 40 - level;
-#		limitDelay = normalDelay;
+#		fallDelay = normalDelay;
 #		$('section#game #next #level').html('<span class="xtr" data-xtr="level-lab">' + $.i18n._('level-lab') + '</span> ' + level);
 #	}
 #
@@ -763,29 +250,7 @@ Game = (o) ->
 #		});
 #	}
 #
-	clone = (obj) ->
-		if null == obj || "object" != typeof obj
-			return obj 
 
-		if obj instanceof Date
-			copy = new Date()
-			copy.setTime(obj.getTime())
-			return copy
-
-		if obj instanceof Array
-			copy = []
-			len = obj.length
-			for i in [0...len]
-				copy[i] = clone(obj[i])
-			return copy
-		
-		if obj instanceof Object
-			copy = {}
-			for attr of obj when obj.hasOwnProperty(attr)
-				copy[attr] = clone(obj[attr])
-			return copy
-
-		throw new Error("Unable to copy obj! Its type isn't supported.");
 	
 #	var adjust = function() {
 #		$("section").css('width', $('#layout').innerWidth() - 12);
@@ -840,47 +305,7 @@ Game = (o) ->
 #		savePrefs();
 #	}
 #
-#/*	var setEvents = function() {
-#		window.onresize = function() {
-#			adjust();
-#		}
-#		adjust();
-#
-#		document.onkeyup = function(e) {
-#			if (e.keyCode == 40 || e.keyCode == 98)
-#				limitDelay = normalDelay;
-#			if (e.keyCode == 88)
-#				rotateC();
-#			if (e.keyCode == 90)
-#				rotateCC();
-#			if (e.keyCode == 38 || e.keyCode == 104) //default
-#				rotate();
-#			if (e.keyCode == 32 || e.keyCode == 96)
-#				drop();
-#			if (e.keyCode == 78 || e.keyCode == 105)
-#				newGame();
-#		}
-#
-#		document.onkeydown = function(e) {
-#			if (e.keyCode == 39 || e.keyCode == 102)
-#				right();
-#			if (e.keyCode == 37 || e.keyCode == 100)
-#				left();
-#			if (e.keyCode == 80 || e.keyCode == 103)
-#				pause();
-#			if (e.keyCode == 40 || e.keyCode == 98) {
-#				if (gameStatus < 2)
-#					return;
-#				if (gameStatus == 2)
-#					pause();
-#				limitDelay = 1;
-#			}
-#		}
-#
-#		window.onbeforeunload = saveToLS;
-#
-#		setOSDMessages();
-#	}*/
+
 #
 #	var saveToLS = function(){
 #		save = {};		
@@ -967,11 +392,7 @@ Game = (o) ->
 #	//this.newGame = newGame;
 	#@repaint = repaint
 #	//this.setEvents = setEvents;
-	@pauseGame = pauseGame
-	@endGame = endGame
 
-	@left = left
-	@right = right
 #	//this.prepare = prepare;
 #	//this.loadGameGraphics = loadGameGraphics;
 #	//this.repaintNextPiece = function() { setNextPiece(false, true); }
