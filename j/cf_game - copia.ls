@@ -30,17 +30,17 @@ class Game
 
 	# Sets and shapes
 	sets = {}
-	sets.xdd = [[[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]]]
-	sets.classic   = [[[1,1,0],[0,1,1]],[[0,1,1],[1,1,0]],[[1,1],[1,1]],[[1,1,1,1]],[[0,1,0],[1,1,1]],[[1,0,0],[1,1,1]],[[0,0,1],[1,1,1]]]
-	sets.extended  = sets.classic ++ [[[1,0],[1,1]],[[0,1],[1,1]],[[1]],[[0,0],[1,1]]]
+	sets.testing   = [[[1 1 1 1] [1 1 1 1] [1 1 1 1] [1 1 1 1]]]
+	sets.classic   = [[[1,1,0],[0,1,1]],[[0,1,1],[1,1,0]],[[1,1],[1,1]],[[1,1,1,1]],[[0,1,0],[1,1,1],[0,0,0]],[[1,0,0],[1,1,1],[0,0,0]],[[0,0,1],[1,1,1],[0,0,0]]]
+	sets.extended  = sets.classic ++ [[[1,0],[1,1]],[[0,1],[1,1]],[[1]],[[1,1]]]
 	sets.challenge = sets.extended ++ [[[0,1,0],[1,1,1],[0,1,0]],[[0,1,1],[0,1,1],[1,1,0]],[[1,1,0],[1,1,0],[0,1,1]],[[0,1,1],[0,1,1],[1,1,1]],[[1,1,0],[1,1,0],[1,1,1]],[[1,1,1],[1,1,0]],[[1,1,0],[1,1,1]],[[1,0,1],[1,1,1]],[[1,1,1]],[[0,0,1],[1,1,1],[1,0,0]],[[1,0,0],[1,1,1],[0,0,1]],[[1,0,0],[1,1,0],[1,1,1]],[[0,0,1],[0,1,1],[1,1,1]],[[0,1,0],[1,1,1],[1,1,0]],[[0,1,0],[1,1,1],[0,1,1]]]
 	sets.lethal    = sets.challenge ++ [[[1,1,1],[1,1,0],[0,1,1]],[[1,1,1],[0,1,1],[1,1,0]],[[1,1,0],[0,1,1],[1,1,0]],[[1,1,0],[1,1,1],[0,1,1]],[[1,1,1,1,1,1,1,1]],[[0,0,1],[0,1,0],[1,0,0]],[[1,0,1],[0,1,0],[1,0,1]],[[0,0,1],[0,1,0],[1,0,1]],[[0,1,1],[1,1,0],[1,0,0]],[[0,1],[1,0]],[[0,1],[1,1],[1,1],[0,1],[0,1]],[[1,0],[1,1],[1,1],[1,0],[1,0]],[[0,1],[1,1],[1,1],[0,1],[1,1]],[[1,1],[1,0],[1,1],[1,0],[1,1]],[[1,1],[1,0],[0,1],[1,0],[0,1]],[[1,0],[1,1],[1,1],[1,0],[1,1]],[[1,1],[0,1],[1,0],[0,1],[1,0]],[[1,1,1],[1,0,1],[1,1,1]],[[1,1,1],[0,0,1],[1,1,1]],[[1,1,0],[1,0,1],[1,0,1]],[[1,1,0],[1,1,1],[1,0,1]],[[0,1,1],[1,0,1],[1,0,1]],[[0,1,1],[1,1,1],[1,0,1]],[[0,1,0],[1,1,1],[1,0,1]],[[1,1,1],[0,1,0],[1,1,1]]]
 
 	# Colors
-	colors = ["red","green","blue","cyan","purple","orange","yellow","brown","emerald","pink","white"]
+	colors = ['red' 'green' 'blue' 'cyan' 'purple' 'orange' 'yellow' 'brown' 'emerald' 'pink' 'white']
 
 	# Pieces var declaration
-	shapes = current = next = shade = ø
+	shapes = current = next = shade = void
 
 ############################ TEMPORAL ############################
 	defImg = new Image()
@@ -101,7 +101,7 @@ class Game
 
 		shapes := sets[o.set]
 
-		map := makeMap!
+		{map, topLine} := makeMap(o.mapPad)
 
 		# Set game state to ACTIVE
 		state := GSACTIVE
@@ -119,8 +119,9 @@ class Game
 
 	odefault = !->
 		# Dimensions of the board
-		o.width = 16 if udf o.width
+		o.width  = 16 if udf o.width
 		o.height = 24 if udf o.height
+		o.mapPad = 0  if udf o.mapPad
 
 		# Set of pieces
 		o.set = 'extended' if udf o.set
@@ -220,8 +221,8 @@ class Game
 		return false
 
 	canRight = ->
-		# Right wall collision
-		if current.i + current.w + 1 > o.width then return false
+		# Right wall collision // Not used with new shape matrix
+		#if current.i + current.w + 1 > o.width then return false
 
 		# Other collision
 		for j from 0 til current.h
@@ -230,7 +231,7 @@ class Game
 				mi = current.i + i + 1
 				mj = current.j + j
 
-				if (current.j + j-1 > -1) and (map[mj][mi] is not null and map[mj][mi].t is 1)
+				if mi >= o.width or (current.j + j-1 > -1) and (map[mj][mi] is not null and map[mj][mi].t is 1)
 					return false
 
 				break
@@ -239,8 +240,8 @@ class Game
 		return true
 
 	canLeft = ->
-		# Left wall collision
-		if current.i - 1 < 0 then return false
+		# Left wall collision // Not used with new shape matrix
+		#if current.i - 1 < 0 then return false
 
 		# Other collision
 		for j from 0 til current.h
@@ -249,7 +250,7 @@ class Game
 				mi = current.i + i - 1
 				mj = current.j + j
 
-				if (current.j + j-1 > -1) and (map[mj][mi] is not null and map[mj][mi].t is 1)
+				if mi <= -1 or (current.j + j-1 > -1) and (map[mj][mi] is not null and map[mj][mi].t is 1)
 					return false
 
 				break
@@ -285,6 +286,7 @@ class Game
 	#}
 	#Game.prototype.rotateC = rotateC;
 
+	# ONLY FOR TESTING PURPOSES
 	rotateCC = ->
 		if state is GSOVER 	then return false
 		if state is GSPAUSED then pauseGame(off)
@@ -313,14 +315,12 @@ class Game
 
 		return false
 
-#
-#	Game.prototype.rotate = function () {
-	#		//if (options.rotation == "c")
-	#			rotateC();
-	#		//else
-	#			//rotateCC();
-	#	}
-	#
+	rotate = ->
+		if o.rotate is 'c'
+			rotateC!
+		else
+			rotateCC!
+	
 #	var canRotate = function (aux) {
 	#		for (j = 0; j < aux.length; j++) {
 	#			for (i = 0; i < aux[0].length; i++) {
@@ -391,6 +391,8 @@ class Game
 
 		# Search for lines in every row of current piece, upward.
 		for row from (current.j + current.h-1) to current.j by -1
+			# Out of map
+			continue if row >= 24
 
 			# Number of tiles per line must be 
 			# equal to the width of the map.
@@ -411,7 +413,7 @@ class Game
 		for itv from 0 til lines.length
 			# Remove lines
 			for col til o.width
-				map[(lines[itv])][col] = null
+				try map[(lines[itv])][col] = null
 
 			# Prepare for animation
 			for row from lines[itv]-1 til lines[itv+1] by -1
@@ -491,16 +493,27 @@ class Game
 			shade.j++
 		return
 
-	makeMap = (entropy) ->
-		if typeof entropy is \undefined
-			row = -> for til o.width  then null
-			map =    for til o.height then row!
-			topLine := o.height-1
-		return map
+	makeMap = (pad) ->
+		if typeof pad is \undefined
+			pad = 0
+
+		_row0 = -> for til o.width then null
+
+		_rowX = ->
+			for til o.width
+				if Math.round(Math.random()) is 1
+					{t: 1, c: 'black'}
+				else
+					null
+
+		m0 = for til o.height - pad then _row0!
+		mX = for til pad then _rowX!
+
+		return {map: m0 ++ mX, topLine: o.height-1}
 
 	canFall = (piece) ->
 		# Floor collision
-		if piece.j + piece.h == o.height then return false
+		#if piece.j + piece.h == o.height then return false
 
 		# Other collision
 		for i from 0 til piece.w
@@ -509,7 +522,7 @@ class Game
 					mi = piece.i+i
 					mj = piece.j+j + 1
 
-					if map[mj][mi] is not null and map[mj][mi].t is 1
+					if mj >= o.height or (map[mj][mi] is not null and map[mj][mi].t) is 1
 						return false
 
 		# No collision
@@ -625,22 +638,22 @@ class Game
 		if force is false
 
 			if state is GSPAUSED
-				state = GSACTIVE
+				state := GSACTIVE
 				repaint!
 
 		else if force is true
 
 			if state is GSACTIVE
-				state = GSPAUSED
+				state := GSPAUSED
 				repaint!
 
 		else
 
 			if state is GSPAUSED
-				state = GSACTIVE
+				state := GSACTIVE
 				repaint!
 			else if state is GSACTIVE
-				state = GSPAUSED
+				state := GSPAUSED
 				repaint!
 			
 		# <ui>
@@ -684,7 +697,7 @@ class Game
 
 	left : left
 	right : right
-	rotate : rotateCC
+	rotate : rotate
 
 	fastSpeed : fastSpeed
 	normalSpeed : normalSpeed
