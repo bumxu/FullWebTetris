@@ -142,7 +142,13 @@ class Game
 		o.zerogOn = false if udf o.zerogOn
 
 	hellShape = ->
-		...
+		rx = Math.round(Math.random() * 511).toString(2)
+		rx = ('000000000' + rx).slice(-9)
+		z  = 0
+
+		row = -> for til 3 then Number( rx[z++] )
+
+		for til 3 then row!
 
 	pulse = ->
 		clock := requestAnimFrame(pulse)
@@ -611,7 +617,7 @@ class Game
 #
 	makeNext = (first, paintOnly) ->
 		rndShape = Math.round(Math.random() * (shapes.length - 1))
-		shape = shapes[rndShape] # do hellShape 
+		shape = /*shapes[rndShape] #*/ hellShape!
 		# Axis i origin = Board.w/2 - Piece.w/2
 		iSource = Math.round(o.width / 2) - Math.round(shape.length / 2)
 		# Axis j origin = Negative Piece.h
