@@ -13,11 +13,11 @@ section#main {
 		border-radius: 1px;
 		color: rgba(0,0,0,0);
 		z-index: 800;
-		@include transition(opacity 0.4s linear 0s);
+		//@include transition(opacity 0.4s linear 0s);
 	
 		&:hover {
 			opacity: 1;
-			@include transition(opacity 0.2s linear 0s);
+			//@include transition(opacity 0.2s linear 0s);
 		}
 	}
 
@@ -112,7 +112,7 @@ section#main {
 			word-spacing: 2px;
 
 			span {
-				@include transition(all 0.15s linear 0s);
+				//@include transition(all 0.15s linear 0s);
 				color: rgba(255, 255, 255, 0.4);
 				cursor: pointer;
 
@@ -154,7 +154,7 @@ section#main {
 				
 				.tile {
 					//@include transition(color 0.4s linear 0s);
-					@include transition(background-color 0.2s linear 0s, box-shadow 0.2s linear 0s);
+					//@include transition(background-color 0.2s linear 0s, box-shadow 0.2s linear 0s);
 					background-color: rgba(255, 255, 255, 0.12);
 					background-position: 50% 32%;
 					background-repeat: no-repeat;
