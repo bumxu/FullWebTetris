@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html manifest="available.off">
+<html>
 <head>
 	<title>Full Web Tetris</title>
 
@@ -11,8 +11,8 @@
 	<link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 
-	<script type="text/javascript" src="j/jQuery.js" ></script>
-	<script type="text/javascript" src="j/jQ-backstretch.js" ></script>
+	<script type="text/javascript" src="j/librerias/jQuery.js" ></script>
+	<script type="text/javascript" src="j/librerias/jQ-backstretch.js" ></script>
 
 	<script type="text/javascript">
 
@@ -64,6 +64,8 @@
 					<div onclick="ui.action(4)" id="t5" class="tile"><span class="xtr" data-xtr="helpabout-mnu"></span></div>
 				</div>
 			</div>
+
+			<a class="feedback" style="left: 50%; background: rgb(198,203,175); border: 1px solid #9B9E88; border-radius: 2px; color: #7D7F6E; font-size: 11px; text-decoration: none; padding: 3px 8px; margin-left: -226px; font-weight: 600; position: absolute; top: 3%; box-shadow: 0 0 8px rgba(0,0,0,0.25); cursor: pointer" href="http://fwt.uservoice.com/" target="_blank">Do you have ideas, suggestions, criticisms or errors? Help improve Full Web Tetris.</a>
 		</div>
 
 		<div class="activity" id="game">
@@ -80,16 +82,14 @@
 			<div class="button xtr" id="back" onclick="ui.action(6)" data-xtr="goback-btt"></div>
 			
 			<div id="adGame">
-				<script type="text/javascript"><!--
-					google_ad_client = "ca-pub-6611676208266769";
-					/* Full Web Tetris 2.2+ */
-					google_ad_slot = "6868645547";
-					google_ad_width = 120;
-					google_ad_height = 240;
-					//-->
-					</script>
-					<script type="text/javascript"
-					src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Full Web Tetris 2.2+ -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:120px;height:240px"
+				     data-ad-client="ca-pub-6611676208266769"
+				     data-ad-slot="6868645547"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
 				</script>
 			</div>
 
@@ -271,11 +271,11 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="j/jQ-json.js"></script>
-	<script type="text/javascript" src="j/jQ-i18n.js"></script>
+	<script type="text/javascript" src="j/librerias/jQ-json.js"></script>
+	<script type="text/javascript" src="j/librerias/jQ-i18n.js"></script>
 
-	<script type="text/javascript" src="j/bX-fwt.js"></script>
-	<script type="text/javascript" src="j/bX-ui.js"></script>
-	<script type="text/javascript" src="j/bX-controls.js"></script>
+	<script type="text/javascript" src="j/librerias/bX-fwt.js"></script>
+	<script type="text/javascript" src="j/librerias/bX-ui.js"></script>
+	<script type="text/javascript" src="j/librerias/bX-controls.js"></script>
 </body>
 </html>

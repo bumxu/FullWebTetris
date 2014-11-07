@@ -42,3 +42,4 @@ g.originals
 # Misc
 ######################
 *.sublime-*
+prepros.cfg
