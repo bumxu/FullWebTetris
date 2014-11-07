@@ -8,29 +8,40 @@
 	<meta name="author" content="Juande Martos">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
-	<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+	<link rel="icon" href="favicon.png" type="image/vnd.microsoft.icon">
+	<link rel="shortcut icon" href="favicon.png" type="image/vnd.microsoft.icon">
 
 	<link rel="stylesheet" type="text/css" href="production.css">
 
-	<script type="text/javascript" src="j/librerias/jQuery.js" ></script>
+	<script type="text/javascript" src="j/jquery.min.js" ></script>
 	<!--script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"--></script>
 </head>
 <body>
-	<div class="fondo"></div>
+	<div id="loader">
+		<!--div class="bumxu"></div>
+		<div class="bar"></div-->
+		<canvas>
+	</div>
 
-	<main id="layout">
-		<section id="loader" class="active">
+	<div class="fondo v"></div>
+
+	<main id="layout" class="v">
+		<!--section id="loader" class="active">
 			<div id="firsttag-chispa">LOADING</div>
-			<div id="loader-chispa"></div>
-			<div id="title-chispa"></div>
-		</section>
+			<div class="bumxu"></div>
+			<div class="bar"></div>
+		</section-->
 
-		<section id="main">
-			main activity!
+		<section id="main" class="active">
 			<div id="bi18n" class="xtr" data-xtr="language"></div>
 
-			<div id="frame1">
+			<div class="Q1">
+				<div class="title"></div>
+			</div>
+
+			<div class="Q3"></div>
+
+			<!--div id="frame1">
 				<div id="title"></div>
 				
 				<div id="frame2">
@@ -45,37 +56,68 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div-->
 		</section>
 
-		<section id="game">
-			<!--header id="corner">
-				<div class="c-logo"></div>
-				<canvas id="c-next"></canvas>
-			</header>
-			<header id="top">
-				<div class="t-logo"></div>
-				<canvas id="t-next"></canvas>
-			</header>
+		<section id="game" class="v">
+			<div>
+				<aside>
+					
+					<div class="ad-v">
+						<script async src="//pagead2.googlesyndication.om/pagead/js/adsbygoogle.js"></script>
+						<!-- Full Web Tetris 3 V -->
+						<ins class="adsbygoogle"
+						     style="display:inline-block;width:120px;height:240px"
+						     data-ad-client="ca-pub-6611676208266769"
+						     data-ad-slot="6868645547"></ins>
+						<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+					</div>
+					<div class="ad-h">
+						<script async src="//pagead2.googlesyndication.om/pagead/js/adsbygoogle.js"></script>
+						<!-- Full Web Tetris 3 H -->
+						<ins class="adsbygoogle"
+						     style="display:inline-block;width:320px;height:50px"
+						     data-ad-client="ca-pub-6611676208266769"
+						     data-ad-slot="1242480021"></ins>
+						<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+					</div>
+				</aside>
 
-			<div id="next">
-				<div id="l1"></div>
-				<div id="score"></div>
-				<div id="l2"></div>
-				<div id="level"></div>
-			</div-->
+				<!--header id="corner">
+					<div class="c-logo"></div>
+					<canvas id="c-next"></canvas>
+				</header>
+				<header id="top">
+					<div class="t-logo"></div>
+					<canvas id="t-next"></canvas>
+				</header>
 
-			<div class="fpsmetter">0 FPS</div>
+				<div id="next">
+					<div id="l1"></div>
+					<div id="score"></div>
+					<div id="l2"></div>
+					<div id="level"></div>
+				</div-->
 
-			<!--div class="button xtr" id="newg" onclick="ui.action(1)" data-xtr="newgame-btt"></div>
-			<div class="button xtr" id="paus" onclick="fwt.pause()" data-xtr="pausegame-btt"></div>
-			<div class="button xtr" id="sett" onclick="ui.action(2)" data-xtr="settings-btt"></div>
-			<div class="button xtr" id="back" onclick="ui.action(6)" data-xtr="goback-btt"></div-->
+				<div class="fpsmetter">0 FPS</div>
 
-			<canvas id="board" width="800" height="600"></canvas>
-			<div id="osd"></div>
-			<div id="big-paused"></div>
-			<!--div id="big-over"></div-->
+				<!--div class="button xtr" id="newg" onclick="ui.action(1)" data-xtr="newgame-btt"></div>
+				<div class="button xtr" id="paus" onclick="fwt.pause()" data-xtr="pausegame-btt"></div>
+				<div class="button xtr" id="sett" onclick="ui.action(2)" data-xtr="settings-btt"></div>
+				<div class="button xtr" id="back" onclick="ui.action(6)" data-xtr="goback-btt"></div-->
+
+				<div id="board">
+					<!--header></header-->
+					<canvas width="100" height="100"></canvas>
+				</div>
+				<div id="osd"></div>
+				<div id="big-paused"></div>
+				<!--div id="big-over"></div-->
+			</div>
 		</section>
 
 		<!--section id="game" style="text-align:center">
@@ -85,8 +127,13 @@
 		</section-->
 
 		<section id="settings">
-
-			<div class="menu-back buttonback xtr" data-xtr="goback-btt"></div>
+			<header>
+				<div class="max">
+					<h2>Customization</h2>
+					<button class="back xtr" data-xtr="help-bt-back">CONTINUE GAME</button>
+					<button class="back xtr" data-xtr="help-bt-back">MAIN MENU</button>
+				</div>
+			</header>
 
 			<div id="settingscroller">
 
@@ -302,8 +349,9 @@
 		</div>
 	</footer>
 
-	<script src="j/cf_game - copia.js"></script>
-	<script src="j/cf_main.js"></script>
+	<script src="j/game.min.js"></script>
+	<script src="j/storage.min.js"></script>
+	<script src="j/main.min.js"></script>
 
 	<script>
 		
