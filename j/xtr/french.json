@@ -70,6 +70,8 @@
 	"custom-set-classic": "Tetris (7 pièces classiques)",
 	"custom-set-full": "Complet (Ensemble étendu de pièces)",
 	"custom-set-challenge": "Challenge (pièces étranges)",
-	"custom-set-lethal": "Lethal (aléatoire pièces impossibles)"
+	"custom-set-lethal": "Lethal (aléatoire pièces impossibles)",
+
+	"feedback": "Avez-vous des idées, des suggestions, des critiques ou des erreurs? Aider à améliorer Full Web Tetris."
 
 }

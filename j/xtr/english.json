@@ -70,6 +70,8 @@
 	"custom-set-classic": "Tetris (7 classic pieces)",
 	"custom-set-full": "Full (Extended set of pieces)",
 	"custom-set-challenge": "Challenge (Strange pieces)",
-	"custom-set-lethal": "Lethal (Random impossible pieces)"
+	"custom-set-lethal": "Lethal (Random impossible pieces)",
+
+	"feedback": "Do you have ideas, suggestions, criticisms or errors? Help improve Full Web Tetris."
 
 }
