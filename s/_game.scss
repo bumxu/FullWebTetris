@@ -25,6 +25,9 @@ section#game {
 		border-radius: 1px;
 		background: rgba(0,0,0,0.25);
 
+		//force:
+		//height: 54px !important;
+
 		&.vertical {
 			top: 0;
 			bottom: 0;
@@ -34,7 +37,13 @@ section#game {
 		&.horizontal {
 			right: 0;
 			left: 0;
-			height: 12%;
+			height: 9%;//50px;
+			min-height: 52px;
+			background: red;
+
+			.ad-h {
+				//display: block;
+			}
 		}
 
 		.ad-v {
@@ -49,6 +58,12 @@ section#game {
 
 		.ad-h {
 			display: none;
+			width: 320px;
+			height: 50px;
+			background: rgba(255,255,255,0.7);
+			right: 2px;
+			top: 2px;
+			position: absolute;
 		}
 	}
 

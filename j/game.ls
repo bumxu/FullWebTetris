@@ -121,8 +121,8 @@ class Game
 
 	odefault = !->
 		# Dimensions of the board
-		o.width  = 16 if udf o.width
-		o.height = 24 if udf o.height
+		o.width  = storage.get('game-width') if udf o.width
+		o.height = storage.get('game-height') if udf o.height
 		o.mapPad = 0  if udf o.mapPad
 
 		# Set of pieces

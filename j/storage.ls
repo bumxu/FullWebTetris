@@ -1,6 +1,6 @@
 class Storage
    stox = {
-      'game-width':  16
+      'game-width':  45 #16
       'game-height': 24
    }
 

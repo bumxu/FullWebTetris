@@ -36,6 +36,7 @@ preload = ->
          requestAnimationFrame(loopo)
       else
          $('#loader').hide!
+         changeActivity('game')
 
    #setTimeout ->
    loopo!
@@ -127,7 +128,7 @@ adjust = ->
          h: boardHeight
       }
 
-   gutter = Math.min($('#game').width(), $('#game').height()) / 100 * 0.5
+   gutter = Math.max( Math.min($('#game').width(), $('#game').height()) / 100 * 0.5, 2)
 
    $('#game > div').css({'top': gutter,'left': gutter,'right': gutter,'bottom': gutter})
 
@@ -146,29 +147,33 @@ adjust = ->
    # Case HOrizonal
    availableHO = {
       w: screen.w
-      h: screen.h / 100 * (100 - 12) /* -> the (100 - [aside.height])% */ - gutter
+      h: screen.h - (Math.max(0.09 * screen.h, 52)) - gutter
    }
    optimalHO = optimal(availableHO.w, availableHO.h)
 
-   if optimalVE.w > optimalHO.w
+   /*if optimalVE.w > optimalHO.w
+      $('#game aside').attr('class', 'vertical')
+
       # Accommodate vertical layout
       asideWidth = $('#game aside').width()
       totalWidth = asideWidth + optimalVE.w + gutter
 
-      $('#game aside').attr('class', 'vertical')
       $('#game aside').css({height: optimalVE.h, width: '12%', left: (screen.w - totalWidth) / 2})
 
       $('#game #board').css({height: optimalVE.h, width: optimalVE.w, top: 0, left: ((screen.w - totalWidth) / 2) + asideWidth + gutter })
 
-   else
-      # Accommodate horizontal layout
-      asideHeight = $('#game aside').height()
-      totalHeight = asideHeight + optimalHO.h + gutter
+   else*/
+   $('#game aside').attr('class', 'horizontal')
 
-      $('#game aside').attr('class', 'horizontal')
-      $('#game aside').css({width: optimalHO.w, height: '12%', 'top': (screen.h - totalHeight) / 2})
+   # Accommodate horizontal layout
+   asideHeight = $('#game aside').height()  ##could include exception for very narrow sizes ||
+   totalHeight = asideHeight + optimalHO.h + gutter
 
-      $('#game #board').css({height: optimalHO.h, width: optimalHO.w, left: 0, top: ((screen.h - totalHeight) / 2) + asideHeight + gutter })
+   left = (screen.w - optimalHO.w) / 2
+
+   $('#game aside').css({width: optimalHO.w, top: ((screen.h - totalHeight) / 2), left: left})
+
+   $('#game #board').css({height: optimalHO.h, width: optimalHO.w, top: ((screen.h - totalHeight) / 2) + asideHeight + gutter, left: left})
 
    $('#game canvas').attr({width: $('#game #board').width(), height: $('#game #board').height()})
 
@@ -197,4 +202,5 @@ fwt.changeActivity = changeActivity
 fwt.newGame = newGame
 fwt.game = -> game
 
-preload!
+$ !->
+   preload!
