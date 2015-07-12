@@ -1,5 +1,7 @@
 fwt3g = do !->
 
+   # Colors
+   colors = atob('cmVkMWVtZXJhbGQxeWVsbG93MWN5YW4xcHVycGxlMWJsdWUxb3JhbmdlMWJyb3duMWdyZWVuMXBpbmsxd2hpdGU=') / \1
    can-fall = (piece) ->
       # Floor collision
       if piece.j + piece.h is game.height
