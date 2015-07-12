@@ -25,6 +25,51 @@ fwt3g = do !->
       # No collision
       return true
 
+   # Functional methods (no game related)
+   aux =
+      # Object clonation
+      clone: (obj) !->
+         if obj is null or typeof obj is not 'object'
+            return obj
+
+         if obj instanceof Date
+            copy = new Date
+            copy.setTime(obj.getTime!)
+            return copy
+
+         if obj instanceof Array
+            copy = []
+            for i from 0 til obj.length
+               copy[i] = aux.clone(obj[i])
+            return copy
+
+         if obj instanceof Object
+            copy = {}
+            for attr of obj when obj.hasOwnProperty(attr)
+               copy[attr] = aux.clone(obj[attr])
+            return copy
+
+         throw new Error("Unable to copy obj! Its type isn't supported.")
+
+      # Set timer
+      requestTimeout: (delay, fn) !->
+         start  = (new Date).getTime!
+         handle = {}
+            
+         wait = !->
+            current = (new Date).getTime!
+            delta   = current - start
+               
+            if delta >= delay then fn.call!
+            else handle.value = requestAnimationFrame(wait)
+         
+         handle.value = requestAnimationFrame(wait)
+         return handle
+
+      # Clear timer
+      clearRequestTimeout: (handle) !->
+         cancelAnimationFrame(handle.value)
+
    # Extend array to get 2D $(i,j) coordinate
    Array.prototype.$ = (i,j) ->
       return this[j][i]
