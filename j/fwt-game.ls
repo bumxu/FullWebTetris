@@ -2,6 +2,53 @@ fwt3g = do !->
 
    # Colors
    colors = atob('cmVkMWVtZXJhbGQxeWVsbG93MWN5YW4xcHVycGxlMWJsdWUxb3JhbmdlMWJyb3duMWdyZWVuMXBpbmsxd2hpdGU=') / \1
+
+   # Chooses and generates the next piece
+   # RETURN the piece object
+   make-next = ->
+      # Choose a shape for next piece
+      if game.set is 'hell'
+         shape = hell-shape!
+      else
+         # TODO: Implement "bags" according to #19
+         random = Math.round(Math.random! * (shapes.length - 1))
+         shape  = shapes[random]
+
+      # Piece structure
+      piece = {
+         # Initial <i> position -> board center
+         i: Math.round(game.width / 2) - Math.round(shape.length / 2)
+         # Initial <j> position -> minus shape height
+         j: shape.length * -1
+         # Shape dimensions
+         w: shape[0].length
+         h: shape.length
+         # Type of material, for now only: 0 -> empty, 1 -> normal
+         t: 1
+         # A pointer to the shape of this piece
+         s: shape
+         # Shorthand for get the $(a,b) tile of this piece's shape
+         $: (a,b) -> @s[b][a]
+      }
+
+      # Choose random/sequential color for the piece
+      if not game.random-colors and shapes.length <= colors
+         piece.c = colors[ random ]
+      else
+         piece.c = colors[ Math.round(Math.random! * (colors.length - 1)) ]
+
+   # Creates a randomly insane shape
+   # RETURN the shape matrix
+   hell-shape = ->
+      # Random seed
+      seed = Math.round(Math.random() * 510 + 1).toString(2)
+      seed = ('000000000' + seed).slice(-9)
+      seedIterator = 0
+      # Function row generator
+      row = -> for til 3 then Number( seed[seedIterator++] )
+      # Generate 3 rows
+      for til 3 then row!
+
    can-fall = (piece) ->
       # Floor collision
       if piece.j + piece.h is game.height
