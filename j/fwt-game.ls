@@ -2,6 +2,7 @@ fwt3g = do !->
 
    # Colors
    colors = atob('cmVkMWVtZXJhbGQxeWVsbG93MWN5YW4xcHVycGxlMWJsdWUxb3JhbmdlMWJyb3duMWdyZWVuMXBpbmsxd2hpdGU=') / \1
+   shapes = bag = void
 
    # Chooses and generates the next piece
    # RETURN the piece object
@@ -9,10 +10,22 @@ fwt3g = do !->
       # Choose a shape for next piece
       if game.set is 'hell'
          shape = hell-shape!
-      else
-         # TODO: Implement "bags" according to #19
-         random = Math.round(Math.random! * (shapes.length - 1))
-         shape  = shapes[random]
+      else         
+         # Fortune 1 OR 2 -> Use a "bag" of shapes
+         if game.fortune is 1 or game.fortune is 2
+            # Rebuild if empty and shuffle
+            if bag.length is 0
+               # Bag size: fortune 1 -> size 2, fortune 2 -> size 1
+               bag-size = 3 - game-fortune 
+               for i til shapes.length * bag-size then bag.push(i % shapes.length)
+               bag := bag.shuffle!
+
+            pick = bag.shift!
+         else
+            # (fortune = 0) -> Use a random shape
+            pick = Math.round(Math.random! * (shapes.length - 1))
+
+         shape  = shapes[pick]
 
       # Piece structure
       piece = {
@@ -122,6 +135,18 @@ fwt3g = do !->
    # Extend array to get 2D $(i,j) coordinate
    Array.prototype.$ = (i,j) ->
       return this[j][i]
+
+   Array.prototype.shuffle = ->
+      ((arr) ->
+         j = x = void
+         i = arr.length
+         while i
+            j = parseInt(Math.random! * i)
+            x = arr[--i]
+            arr[i] = arr[j]
+            arr[j] = x
+         arr
+      )(this)
 
    # Public handlers
    return {
