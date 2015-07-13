@@ -3,6 +3,7 @@ fwt3g = do !->
    # Colors
    colors = atob('cmVkMWVtZXJhbGQxeWVsbG93MWN5YW4xcHVycGxlMWJsdWUxb3JhbmdlMWJyb3duMWdyZWVuMXBpbmsxd2hpdGU=') / \1
    shapes = bag = void
+   highest-line = 0
 
    # Chooses and generates the next piece
    # RETURN the piece object
@@ -87,6 +88,29 @@ fwt3g = do !->
       # No collision
       return true
 
+   # It tries freeze the current piece
+   # RETURNS true or false, depends on if all tiles are or not within the board
+   try-freeze = ->
+      for j from (piece.h - 1) to 0 by -1
+         for i til piece.w when piece.$(i,j) is not 0
+            # Positions for current tile
+            ti = piece.i + i
+            tj = piece.j + j
+
+            # It's within the board
+            if tj > -1 then
+               # Fix tile to map
+               game.map.$(ti, tj, { t: piece.t, c: piece.c })
+            else
+               # Tile is out of bounds
+               return false
+
+      # Updates the highest line value (minimum is higher)
+      highest-line := current.j <? highest-line
+
+      # Success
+      return true
+
    # Functional methods (no game related)
    aux =
       # Object clonation
@@ -132,9 +156,13 @@ fwt3g = do !->
       clearRequestTimeout: (handle) !->
          cancelAnimationFrame(handle.value)
 
-   # Extend array to get 2D $(i,j) coordinate
-   Array.prototype.$ = (i,j) ->
-      return this[j][i]
+   # Extends array to get 2D $(i,j) coordinate or write <v> to $(i,j,v)
+   Array.prototype.$ = (i,j,v) ->
+      try
+         if not v? then return this[j][i] ## read
+         this[j][i] = v ## write
+      catch
+         return null
 
    Array.prototype.shuffle = ->
       ((arr) ->
