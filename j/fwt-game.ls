@@ -1,9 +1,27 @@
 fwt3g = do !->
+   # Constants
+   sets   = void  # Stores available piece shapes by name when ready
+   colors = void  # Stores available colors ordered list when ready
 
-   # Colors
-   colors = atob('cmVkMWVtZXJhbGQxeWVsbG93MWN5YW4xcHVycGxlMWJsdWUxb3JhbmdlMWJyb3duMWdyZWVuMXBpbmsxd2hpdGU=') / \1
+   states =  # Game states
+      loading: -1
+      over:     0
+      paused:   1
+      active:   2
+
    shapes = bag = void
    highest-line = 0
+
+   load = !->
+      # Sets
+      sets.testing   := aux.u-shape('MTExMS8xMTExLzExMTEvMTExMQ==')
+      sets.classic   := aux.u-shape('MTEwLzAxMSAwMTEvMTEwIDExLzExIDExMTEgMDEwLzExMSAxMDAvMTExIDAwMS8xMTE=')
+      sets.extended  := sets.classic ++ aux.u-shape('MTAvMTEgMDEvMTEgMSAxMQ==')
+      sets.challenge := sets.extended ++ aux.u-shape('MDEwLzExMS8wMTAgMDExLzAxMS8xMTAgMTEwLzExMC8wMTEgMDExLzAxMS8xMTEgMTEwLzExMC8xMTEgMTExLzExMCAxMTAvMTExIDEwMS8xMTEgMTExIDAwMS8xMTEvMTAwIDEwMC8xMTEvMDAxIDEwMC8xMTAvMTExIDAwMS8wMTEvMTExIDAxMC8xMTEvMTEwIDAxMC8xMTEvMDEx')
+      sets.lethal    := sets.challenge ++ aux.u-shape('MTExLzExMC8wMTEgMTExLzAxMS8xMTAgMTEwLzAxMS8xMTAgMTEwLzExMS8wMTEgMTExMTExMTEgMDAxLzAxMC8xMDAgMTAxLzAxMC8xMDEgMDAxLzAxMC8xMDEgMDExLzExMC8xMDAgMDEvMTAgMDEvMTEvMTEvMDEvMDEgMTAvMTEvMTEvMTAvMTAgMDEvMTEvMTEvMDEvMTEgMTEvMTAvMTEvMTAvMTEgMTEvMTAvMDEvMTAvMDEgMTAvMTEvMTEvMTAvMTEgMTEvMDEvMTAvMDEvMTAgMTExLzEwMS8xMTEgMTExLzAwMS8xMTEgMTEwLzEwMS8xMDEgMTEwLzExMS8xMDEgMDExLzEwMS8xMDEgMDExLzExMS8xMDEgMDEwLzExMS8xMDEgMTExLzAxMC8xMTE=')
+
+      # Colors
+      colors := atob('cmVkMWVtZXJhbGQxeWVsbG93MWN5YW4xcHVycGxlMWJsdWUxb3JhbmdlMWJyb3duMWdyZWVuMXBpbmsxd2hpdGU=') / \1
 
    # Chooses and generates the next piece
    # RETURN the piece object
@@ -113,6 +131,15 @@ fwt3g = do !->
 
    # Functional methods (no game related)
    aux =
+      u-shape: (str) !->
+         tmp = atob(str).split(' ')
+         for x, i in tmp
+            tmp[i] = tmp[i].split('/')
+            for y, j in tmp[i]
+               tmp[i][j] = tmp[i][j].split('')
+               for z, k in tmp[i][j] then tmp[i][j][k] = tmp[i][j][k] / 1
+         return tmp
+
       # Object clonation
       clone: (obj) !->
          if obj is null or typeof obj is not 'object'
@@ -179,3 +206,5 @@ fwt3g = do !->
    # Public handlers
    return {
    }
+
+   load!
