@@ -35,7 +35,7 @@ fwt3g = do !->
             # Rebuild if empty and shuffle
             if bag.length is 0
                # Bag size: fortune 1 -> size 2, fortune 2 -> size 1
-               bag-size = 3 - game-fortune 
+               bag-size = 3 - game.fortune 
                for i til shapes.length * bag-size then bag.push(i % shapes.length)
                bag := bag.shuffle!
 
