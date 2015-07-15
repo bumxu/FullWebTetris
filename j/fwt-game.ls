@@ -23,6 +23,40 @@ fwt3g = do !->
       # Colors
       colors := atob('cmVkMWVtZXJhbGQxeWVsbG93MWN5YW4xcHVycGxlMWJsdWUxb3JhbmdlMWJyb3duMWdyZWVuMXBpbmsxd2hpdGU=') / \1
 
+   # Generates a 2D matrix map for a new game, establishing <map> and the <hightest-line>.
+   # Also accepts a number of lines that will be filled with random tiles (<pad>).
+   make-map = (pad = 0) !->
+      # Generates empty rows
+      row-empty = -> for til game.width then null
+      # Generates random filled rows
+      row-stuff = ->
+         row = []        ## Contents of the row
+         all-one = true  ## If all terms until (<width> - 1) are solid
+
+         for i til game.width
+            # In the last term, if all (<width> - 1) terms are solid put last to empty
+            if i is (game.width - 1) and all-one
+               row.push null
+               break
+
+            # In the other terms set solid or empty randomly
+            if Math.round(Math.random!) is 1
+               row.push { t: 1, c: random-color! }
+            else
+               # Also, when a term is setted to empty set <all-one> to FALSE
+               all-one = false
+               row.push null
+
+         return row
+
+      # Attend demand
+      m0 = for til (game.height - pad) then row-empty!
+      mX = for til pad then row-stuff!
+
+      # Concat filled with empty and set
+      map := m0 ++ mX
+      highest-line := game.height - 1
+
    random-color = -> Math.round(Math.random! * (colors.length - 1))
 
    # Chooses and generates the next piece
