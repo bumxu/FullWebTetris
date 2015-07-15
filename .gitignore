@@ -34,12 +34,17 @@ ehthumbs.db
 Icon?
 Thumbs.db
 
-# Folders
+# Folders #
 ######################
 .sass-cache
 g.originals
 
-# Misc
+# Full Web Tetris #
+######################
+j/fwt-game.min.js
+j/fwt-core.min.js
+
+# Misc #
 ######################
 *.sublime-*
 prepros.cfg
