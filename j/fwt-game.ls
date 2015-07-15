@@ -119,13 +119,15 @@ fwt3g = do !->
       # Generate 3 rows
       for til 3 then row!
 
+   # Determines if the :piece: can fall one more time
+   # RETURNS true or false
    can-fall = (piece) ->
       # Floor collision
       if piece.j + piece.h is game.height
          return false
 
       # Map collision
-      for i from 0 til piece.w
+      for i til piece.w
          for j from (piece.h - 1) to 0 by -1 
             # New positions for current tile
             nti = piece.i + i
@@ -138,7 +140,7 @@ fwt3g = do !->
 
             # IF the new position of the tile is already 
             # taken -> piece cannot fall
-            if game.map.$(nti,ntj)? and game.map.$(nti,ntj).t is 1
+            if map.$(nti,ntj)? and map.$(nti,ntj).t is 1
                return false
 
       # No collision
