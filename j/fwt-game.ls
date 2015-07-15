@@ -1,7 +1,7 @@
 fwt3g = do !->
    # Constants
-   sets   = void  # Stores available piece shapes by name when ready
-   colors = void  # Stores available colors ordered list when ready
+   sets   = {}  # Stores available piece shapes by name when ready
+   colors = []  # Stores available colors ordered list when ready
 
    states =  # Game states
       loading: -1
