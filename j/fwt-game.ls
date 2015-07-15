@@ -23,6 +23,8 @@ fwt3g = do !->
       # Colors
       colors := atob('cmVkMWVtZXJhbGQxeWVsbG93MWN5YW4xcHVycGxlMWJsdWUxb3JhbmdlMWJyb3duMWdyZWVuMXBpbmsxd2hpdGU=') / \1
 
+   random-color = -> Math.round(Math.random! * (colors.length - 1))
+
    # Chooses and generates the next piece
    # RETURN the piece object
    make-piece = ->
@@ -67,7 +69,9 @@ fwt3g = do !->
       if not game.random-colors and shapes.length <= colors
          piece.c = colors[ random ]
       else
-         piece.c = colors[ Math.round(Math.random! * (colors.length - 1)) ]
+         piece.c = colors[ random-color! ]
+
+      return piece
 
    # Creates a randomly insane shape
    # RETURN the shape matrix
