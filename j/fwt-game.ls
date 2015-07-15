@@ -57,10 +57,12 @@ fwt3g = do !->
       map := m0 ++ mX
       highest-line := game.height - 1
 
-   random-color = -> Math.round(Math.random! * (colors.length - 1))
+   # Pick a random color from <colors>
+   # RETURNS the random color id
+   random-color = -> colors[ Math.round(Math.random! * (colors.length - 1)) ]
 
    # Chooses and generates the next piece
-   # RETURN the piece object
+   # RETURNS the piece object
    make-piece = ->
       # Choose a shape for next piece
       if game.set is 'hell'
@@ -103,12 +105,12 @@ fwt3g = do !->
       if not game.random-colors and shapes.length <= colors
          piece.c = colors[ random ]
       else
-         piece.c = colors[ random-color! ]
+         piece.c = random-color!
 
       return piece
 
    # Creates a randomly insane shape
-   # RETURN the shape matrix
+   # RETURNS the shape matrix
    hell-shape = ->
       # Random seed
       seed = Math.round(Math.random() * 510 + 1).toString(2)
@@ -118,6 +120,15 @@ fwt3g = do !->
       row = -> for til 3 then Number( seed[seedIterator++] )
       # Generate 3 rows
       for til 3 then row!
+
+   # Creates the prediction for the final position of the current piece
+   make-prediction = !->
+      # Clone current
+      prediction := aux.clone(current)
+
+      # Go down while can fall, then here is the prediction
+      while can-fall(prediction)
+         prediction.j++
 
    # Determines if the :piece: can fall one more time
    # RETURNS true or false
