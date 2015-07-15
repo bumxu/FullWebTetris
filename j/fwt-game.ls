@@ -12,7 +12,7 @@ fwt3g = do !->
    shapes = bag = void
    highest-line = 0
 
-   load = !->
+   deploy = !->
       # Sets
       sets.testing   := aux.u-shape('MTExMS8xMTExLzExMTEvMTExMQ==')
       sets.classic   := aux.u-shape('MTEwLzAxMSAwMTEvMTEwIDExLzExIDExMTEgMDEwLzExMSAxMDAvMTExIDAwMS8xMTE=')
@@ -25,7 +25,7 @@ fwt3g = do !->
 
    # Chooses and generates the next piece
    # RETURN the piece object
-   make-next = ->
+   make-piece = ->
       # Choose a shape for next piece
       if game.set is 'hell'
          shape = hell-shape!
@@ -203,8 +203,8 @@ fwt3g = do !->
          arr
       )(this)
 
+   deploy!
+
    # Public handlers
    return {
    }
-
-   load!
