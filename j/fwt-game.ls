@@ -149,16 +149,16 @@ fwt3g = do !->
    # It tries freeze the current piece
    # RETURNS true or false, depends on if all tiles are or not within the board
    try-freeze = ->
-      for j from (piece.h - 1) to 0 by -1
-         for i til piece.w when piece.$(i,j) is not 0
+      for j from (current.h - 1) to 0 by -1
+         for i til current.w when current.$(i,j) is not 0
             # Positions for current tile
-            ti = piece.i + i
-            tj = piece.j + j
+            ti = current.i + i
+            tj = current.j + j
 
             # It's within the board
-            if tj > -1 then
+            if tj > -1
                # Fix tile to map
-               game.map.$(ti, tj, { t: piece.t, c: piece.c })
+               map.$(ti, tj, { t: current.t, c: current.c })
             else
                # Tile is out of bounds
                return false
