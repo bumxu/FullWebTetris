@@ -1,9 +1,9 @@
 var ui = function () {
-	
+
 	var menuItem;
 
-	console.log("\nFull Web Tetris 2.3.5");
-	console.log(" By Juande Martos\n Copyright © 2014 Bumxu\n Licensed under the GPLv3 license\n");
+	console.log("\nFull Web Tetris 2.3.7");
+	console.log(" By Juande Martos\n Copyright © 2018 Bumxu\n Licensed under the GPLv3 license\n");
 
 //	<Preloader> preloads graphics to the <Loader>
 	var preLoaderDone = 0;
@@ -95,9 +95,9 @@ var ui = function () {
 		$('#languages span').removeClass('selected');
 		$($('#languages span')[language]).addClass('selected');
 
-		$.getJSON('j/xtr/' + languageList[language] + '.json', function (data) {
+		//$.getJSON('j/xtr/' + languageList[language] + '.json', function (data) {
 			$(".tile span").fadeOut(200, function(){
-				$.i18n.setDictionary(data);
+				$.i18n.setDictionary(i18n_offline[languageList[language]]);
 
 				$('.xtr').map(function () {
 					$(this).html($.i18n._($(this).attr('data-xtr')));
@@ -105,7 +105,7 @@ var ui = function () {
 
 				$(".tile span").fadeIn(200);
 			});
-		});
+		//});
 	}
 //
 
@@ -159,7 +159,7 @@ var ui = function () {
 				menuItem = $('#tiles .tile').length - 1;
 			adjust();
 		}
-		
+
 		e.preventDefault();
 	}
 //
@@ -172,7 +172,7 @@ var ui = function () {
 		tick: function(){
 			this.loaded++;
 			$('#loader-chispa').css('opacity', (this.loaded / this.total));
-		
+
 			if(this.loaded == this.total){
 				$('#firsttag-chispa, #loader-chispa').fadeOut(500, function(){
 					if ($("#title-chispa:animated").length === 0){
@@ -209,7 +209,7 @@ var ui = function () {
 
 		for (i = 0; i < $('#tiles .tile').length; i++) {
 			$($('#tiles .tile')[i]).css({ 'margin-left': -100 + 230 * (i - menuItem) });
-			
+
 			if (i == menuItem)
 				$($('#tiles .tile')[i]).css({ 'color': 'rgba(0, 0, 0, 0.7)', 'box-shadow': '0 0 6px rgba(0, 0, 0, 0.3)', 'background-color': 'rgba(255, 255, 255, 0.3)' });
 			else
@@ -293,7 +293,7 @@ var ui = function () {
 		savedGameImage = null;
 
 		$('#tiles #t0').remove();
-		
+
 		menuItem = 0;
 		adjust();
 	}
@@ -304,7 +304,7 @@ var ui = function () {
 	this.setLanguage = setLanguage;
 	this.loader = loader;
 	this.stopGame = stopGame;
-	
+
 }
 
 var ui = new ui();

@@ -1,29 +1,24 @@
-#Full Web Tetris  ![](https://github.com/Bumxu/FullWebTetris/blob/master/_chrome/icon_16.png?raw=true)
+# Full Web Tetris ![](https://lh4.googleusercontent.com/sU2coMkWpkVsiWtDu4vkk5pYQS5DQRNfS2Owi7WgTX7qg9xjBdv198314ufHgZZDHFHFgdrM=s700-h280-e365) 
 An awesome tetris to kill boredom
-> **3rd version under development :-)**
+
+- - - 
+
+> **Note:**
+
+> This game was taken down by a legal complain from Tetris Holding LLC on Oct 6, 2018.  
+This project is now in EOL and the repository archived.  
+Please, use this code and offline version only for personal and educational purposes.
 
 - - - 
 
 > **About Full Web Tetris:**
 
 > By Juande Martos  
-Copyrigth &copy; 2013 [Bumxu](http://bumxu.com/)  
+Copyrigth &copy; 2018 [Bumxu](http://bumxu.com/)  
 Licensed under the [GPLv3 License](http://www.gnu.org/licenses/gpl-3.0.html)
 
 - - -
 
 > **Get Full Web Tetris:**  
 
-> [Directly on the web](http://fullwebtetris.bumxu.com/)  
-[Chrome Web Store](https://chrome.google.com/webstore/detail/ieicmdpibfnjbmjolkmohnelljmjomoj)  
-Installable (Cooming soon...)  
-Firefox Marketplace (Back soon...)  
-
-- - -
-
-> **Developers:**  
-
-> * Stylesheets make use of sass + compass:  
-Sass & compass are ruby gems (more info about [sass](http://sass-lang.com) and [compass](http://compass-style.org/)), you must edit .scss files and later generate the .css code.
-
-> * More info soon...
+> [Offline version](https://github.com/bumxu/FullWebTetris/releases/tag/2.3.7) 
