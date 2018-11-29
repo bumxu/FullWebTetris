@@ -8,8 +8,8 @@ An awesome tetris to kill boredom
 **Note:**
 
 > This game was taken down by a legal complain from Tetris Holding LLC on Oct 6, 2018.  
-This project is now in EOL and the repository archived.  
-Please, use this code and offline version only for personal and educational purposes.
+This project is now in end-of-life and the repository is archived.  
+Please, use this code and the offline version only for personal and educational purposes.
 
 - - - 
 
